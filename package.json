@@ -1,37 +1,49 @@
 {
-    "name": "rust-syntax",
-    "displayName": "rust-syntax",
-    "description": "A nuanced syntax for Rust highlighting",
-    "version": "0.0.1",
-    "engines": {
-        "vscode": "^1.44.0"
-    },
-    "categories": [
-        "Programming Languages"
-    ],
-    "contributes": {
-        "languages": [
-            {
-                "id": "rust",
-                "aliases": [
-                    "Rust",
-                    "rust"
-                ],
-                "extensions": [
-                    ".rs"
-                ],
-                "configuration": "./language-configuration.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "rust",
-                "scopeName": "source.rust",
-                "path": "./syntaxes/rust.tmLanguage.json"
-            }
-        ]
-    },
-    "devDependencies": {
-        "js-yaml": "^3.13.1"
-    }
+  "name": "rust-syntax",
+  "displayName": "Rust Syntax",
+  "version": "0.1.0",
+  "description": "A nuanced syntax for Rust highlighting",
+  "publisher": "dustypomerleau",
+  "homepage": "https://github.com/dustypomerleau/rust-syntax",
+  "author": {
+    "name": "dustypomerleau"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dustypomerleau/rust-syntax"
+  },
+  "bugs": {
+    "url": "https://github.com/dustypomerleau/rust-syntax/issues"
+  },
+  "license": "Please see LICENSE.txt",
+  "galleryBanner": {
+    "color": "#292d3e",
+    "theme": "dark"
+  },
+  "icon": "images/icon.png",
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "rust",
+    "language",
+    "syntax",
+    "grammar",
+    "highlighting"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "language": "rust",
+        "scopeName": "source.rust",
+        "path": "./syntaxes/rust.tmLanguage.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "js-yaml": "^3.13.1"
+  },
+  "engines": {
+    "vscode": "^1.44.0"
+  }
 }
