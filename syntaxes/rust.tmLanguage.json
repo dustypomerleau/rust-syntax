@@ -1,34 +1,42 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "Rust",
+  "fileTypes": [
+    "rs"
+  ],
+  "scopeName": "source.rust",
   "patterns": [
     {
-      "include": "#keywords"
+      "comment": "documentation comments",
+      "name": "comment.line.documentation.rust",
+      "match": "^\\s*///.*"
     },
     {
-      "include": "#strings"
+      "comment": "line comments",
+      "name": "comment.line.double-slash.rust",
+      "match": "^\\s*//.*"
+    },
+    {
+      "comment": "control flow keywords",
+      "name": "keyword.control.rust",
+      "match": "\\b(let|use|else|mut)\\b"
+    },
+    {
+      "comment": "double-quoted strings",
+      "name": "string.quoted.double.rust",
+      "begin": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.rust"
+        }
+      },
+      "end": "\"",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.rust"
+        }
+      }
     }
   ],
-  "repository": {
-    "keywords": {
-      "patterns": [
-        {
-          "name": "keyword.control.rust",
-          "match": "\\b(let)\\b"
-        }
-      ]
-    },
-    "strings": {
-      "name": "string.double.quoted.rust",
-      "begin": "\"",
-      "end": "\"",
-      "patterns": [
-        {
-          "name": "constant.character.escape.rust",
-          "match": "\\\\."
-        }
-      ]
-    }
-  },
-  "scopeName": "source.rust"
+  "repository": null
 }
