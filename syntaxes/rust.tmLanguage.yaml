@@ -1,0 +1,18 @@
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: Rust
+patterns:
+  - include: "#keywords"
+  - include: "#strings"
+repository:
+  keywords:
+    patterns:
+      - name: keyword.control.rust
+        match: \b(let)\b
+  strings:
+    name: string.double.quoted.rust
+    begin: '"'
+    end: '"'
+    patterns:
+      - name: constant.character.escape.rust
+        match: \\.
+scopeName: source.rust
