@@ -1,0 +1,25 @@
+{
+    "name": "rust-syntax",
+    "displayName": "rust-syntax",
+    "description": "A nuanced syntax for Rust highlighting",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.44.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "rust",
+            "aliases": ["Rust", "rust"],
+            "extensions": [".rs"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "rust",
+            "scopeName": "source.rust",
+            "path": "./syntaxes/rust.tmLanguage.json"
+        }]
+    }
+}
