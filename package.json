@@ -10,16 +10,28 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "rust",
-            "aliases": ["Rust", "rust"],
-            "extensions": [".rs"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "rust",
-            "scopeName": "source.rust",
-            "path": "./syntaxes/rust.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "rust",
+                "aliases": [
+                    "Rust",
+                    "rust"
+                ],
+                "extensions": [
+                    ".rs"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "rust",
+                "scopeName": "source.rust",
+                "path": "./syntaxes/rust.tmLanguage.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "js-yaml": "^3.13.1"
     }
 }
