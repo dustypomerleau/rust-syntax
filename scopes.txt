@@ -1,0 +1,12 @@
+This is a temporary file to help me track scopes to include.
+
+comments
+  comment.line.documentation.rust
+  comment.line.double-slash.rust
+
+strings
+  punctuation.definition.string.begin/end.rust
+  string.quoted.double.rust
+
+literals
+  char
