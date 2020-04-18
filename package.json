@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-yaml": "^2.0.4",
     "js-yaml": "^3.13.1"
   },
   "engines": {
