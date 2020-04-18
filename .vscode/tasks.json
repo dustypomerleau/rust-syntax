@@ -2,8 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Gulp watch: YAML -> JSON",
       "type": "gulp",
-      "task": "default",
+      "task": "watch-yaml",
       "problemMatcher": [],
       "group": {
         "kind": "build",

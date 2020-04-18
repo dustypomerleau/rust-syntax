@@ -1,7 +1,7 @@
 var gulp = require('gulp')
 var yaml = require('gulp-yaml')
 
-gulp.task('yaml', async function(cb) {
+gulp.task('yaml', function(cb) {
   gulp
     .src('./**/*.yaml')
     .pipe(yaml({ safe: false, space: 2 }))
@@ -10,10 +10,11 @@ gulp.task('yaml', async function(cb) {
         return f.base
       })
     )
+  cb()
 })
 
 gulp.task(
-  'default',
+  'watch-yaml',
   gulp.series('yaml', function(cb) {
     gulp.watch('./**/*.yaml', gulp.series('yaml'))
     cb()
