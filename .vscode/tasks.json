@@ -5,6 +5,9 @@
       "label": "Gulp watch: YAML -> JSON",
       "type": "gulp",
       "task": "watch-yaml",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
       "problemMatcher": [],
       "group": {
         "kind": "build",
