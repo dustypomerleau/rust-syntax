@@ -1,3 +1,6 @@
+# author reference files
+default-rust.tmLanguage.json
 elixir-example.json
 regex_notes.rb
+rust.rs
 yarra-valley.json
