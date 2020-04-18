@@ -2,15 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "convert YAML to JSON",
-      "type": "shell",
-      "command": "npx",
-      "args": [
-        "js-yaml",
-        "syntaxes/rust.tmLanguage.yaml",
-        ">",
-        "syntaxes/rust.tmLanguage.json"
-      ],
+      "type": "gulp",
+      "task": "default",
+      "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
