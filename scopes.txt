@@ -13,17 +13,31 @@ keywords
     +, -, %
   keyword.operator.namespace.rust
     ::
+  keyword.operator.borrow.rust
+    &
+    tricky, because && can serve 2 purposes
+    see: https://doc.rust-lang.org/reference/expressions/operator-expr.html
+  keyword.operator.rust
 
+just run the tokens: https://doc.rust-lang.org/reference/tokens.html
 
 strings
   d punctuation.definition.string.begin/end.rust
     "
   d string.quoted.double.rust
     "content"
-  punctuation.definition.char.begin/end.rust
+  d punctuation.definition.char.begin/end.rust
    '
-  string.quoted.single.char.rust
+  d string.quoted.single.char.rust
     'content' (includes unicode stuff like U+10FFFF)
+  d raw string
+    r#"hello"# NOTE: can have multiple # but the number must be balanced
+  d byte
+    b'H'
+  d byte string
+    b"hello"
+  d raw byte string
+    br#"hello"# NOTE: can have multiple # but the number must be balanced
 
 types - consider: built-in types as storage.type and user + generic 'types as entity.name.type
   entity.name.type.numeric.int.rust
