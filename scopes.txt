@@ -1,12 +1,69 @@
 This is a temporary file to help me track scopes to include.
 
 comments
-  comment.line.documentation.rust
-  comment.line.double-slash.rust
+  d comment.line.documentation.rust
+    ///
+  d comment.line.double-slash.rust
+    //
+
+keywords
+  keyword.control.rust
+    abstract|as|async|await|become|box|break|const|continue|crate|do|dyn|else|enum|extern|false|final|for|if|impl|in|let|loop|macro|match|mod|move|override|priv|pub|ref|return|self|Self|static|struct|super|trait|true|try|type|typeof|union|unsafe|unsized|use|virtual|where|while|yield
+  keyword.operator.math.rust
+    +, -, %
+  keyword.operator.namespace.rust
+    ::
+
 
 strings
-  punctuation.definition.string.begin/end.rust
-  string.quoted.double.rust
+  d punctuation.definition.string.begin/end.rust
+    "
+  d string.quoted.double.rust
+    "content"
+  punctuation.definition.char.begin/end.rust
+   '
+  string.quoted.single.char.rust
+    'content' (includes unicode stuff like U+10FFFF)
 
-literals
-  char
+types - consider: built-in types as storage.type and user + generic 'types as entity.name.type
+  entity.name.type.numeric.int.rust
+    i32
+  entity.name.type.numeric.float.rust
+    f64
+  entity.name.type.bool.rust
+    bool
+  entity.name.type.char.rust
+    char
+
+constants
+  constant.language.bool.rust
+    true
+  constant.numeric.literal.int.rust
+    22_000, 0xff...
+  constant.numeric.literal.float.rust
+    2.0
+
+variables
+  variable.parameter.rust
+    some_func(param, param) - layered on func definition or call
+
+metas
+  meta.variable.binding.rust
+   let x =
+  meta.function.definition.rust
+   fn main()
+  meta.function.call.rust
+    some_func(a, b)
+  meta.compound.tuple.rust
+    (1, 2, 3)
+  meta.access.dot.rust
+    x.1
+  meta.compound.array.rust
+    [1, 2, 3]
+  meta.access.index.rust
+   x[1]
+  meta.compound.vec.rust
+    vec![1, 2, 3]
+
+
+punctuation (not covered above)

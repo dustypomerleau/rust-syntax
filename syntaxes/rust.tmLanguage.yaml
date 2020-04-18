@@ -4,6 +4,7 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
+  # comments
   -
     comment: documentation comments
     name: comment.line.documentation.rust
@@ -12,10 +13,35 @@ patterns:
     comment: line comments
     name: comment.line.double-slash.rust
     match: ^\s*//.*
+  # keywords
+  # keyword.control
   -
     comment: control flow keywords
     name: keyword.control.rust
-    match: \b(let|use|else|mut)\b
+    match: \b(abstract|as|async|await|become|box|break|const|continue|do|dyn|else|enum|extern|false|final|for|if|impl|in|let|loop|macro|match|mod|move|override|priv|pub|ref|return|static|struct|trait|true|try|type|typeof|union|unsafe|unsized|use|virtual|where|while|yield)\b
+  -
+    comment: fn
+    name: keyword.control.fn.rust
+    match: \bfn\b
+  # keyword.other
+  -
+    comment: crate
+    name: keyword.other.crate.rust
+    match: \bcrate\b
+  -
+    comment: mut
+    name: keyword.other.mut.rust
+    match: \bmut\b
+  -
+    comment: super
+    name: keyword.other.super.rust
+    match: \bsuper\b
+  # keyword.operator
+  -
+    comment: namespace operator (::)
+    name: keyword.operator.namespace.rust
+    match: '::'
+  # strings
   -
     comment: double-quoted strings
     name: string.quoted.double.rust
@@ -28,8 +54,26 @@ patterns:
       0:
         name: punctuation.definition.string.end.rust
     # patterns:
-    #   - include: '#something'
-    #   - include: '#somethingelse'
+    #   - include: '#escaped_character'
+  -
+    comment: characters
+    name: string.quoted.single.char.rust
+    begin: "'"
+    beginCaptures:
+      0:
+        name: punctuation.definition.char.begin.rust
+    end: "'"
+    endCaptures:
+      0:
+        name: punctuation.definition.char.end.rust
+    # patterns:
+    #   - include: '#escaped_character'
+  # variables
+  -
+    comment: self
+    name: variable.language.self.rust
+    match: \b[Ss]elf\b
+
 repository:
   # - include: '#keywords'
   # - include: '#strings'
