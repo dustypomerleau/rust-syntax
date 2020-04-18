@@ -1,12 +1,5 @@
-import {
-  dest,
-  series,
-  src,
-  task,
-  watch
-} from 'gulp'
-
-import yaml from 'gulp-yaml'
+var gulp = require('gulp')
+var yaml = require('gulp-yaml')
 
 task('yaml', function(cb) {
   src('*.yaml')
