@@ -39,6 +39,42 @@ strings
   d raw byte string
     br#"hello"# NOTE: can have multiple # but the number must be balanced
 
+escapes including unicode:
+(\\)
+(.)
+|
+(x)
+([0-7a-F]{2})
+|
+([\da-F]{2})
+|
+(u)
+(\{)
+([0-9a-Z]{4,6})
+(\})
+
+escapes
+  ASCII escapes
+    \x41	7-bit character code (exactly 2 digits, up to 0x7F)
+    \n	Newline
+    \r	Carriage return
+    \t	Tab
+    \\	Backslash
+    \0	Null
+  Byte escapes
+    \x7F	8-bit character code (exactly 2 digits)
+    \n	Newline
+    \r	Carriage return
+    \t	Tab
+    \\	Backslash
+    \0	Null
+  Unicode escapes
+    \u{7FFF}	24-bit Unicode character code (up to 6 digits)
+  Quote escapes
+    \'	Single quote
+    \"	Double quote
+
+
 types - consider: built-in types as storage.type and user + generic 'types as entity.name.type
   entity.name.type.numeric.int.rust
     i32
