@@ -45,7 +45,7 @@ patterns:
   -
     comment: double-quoted strings, raw strings, and byte strings
     name: string.quoted.double.rust
-    begin: '\b(b?r?)(#?)(")'
+    begin: '(b?r(#))?(")'
     beginCaptures:
       1:
         name: string.quoted.byte.raw.rust
@@ -57,12 +57,12 @@ patterns:
     endCaptures:
       0:
         name: punctuation.definition.string.end.rust
-    # patterns:
-    #   - include: '#escaped_character'
+    patterns:
+      - include: '#escapes'
   -
     comment: characters and bytes
     name: string.quoted.single.char.rust
-    begin: "\\b(b?)(')"
+    begin: "(b)?(')"
     beginCaptures:
       1:
         name: string.quoted.byte.raw.rust
@@ -72,8 +72,8 @@ patterns:
     endCaptures:
       0:
         name: punctuation.definition.char.end.rust
-    # patterns:
-    #   - include: '#escaped_character'
+    patterns:
+      - include: '#escapes'
   # variables
   -
     comment: self
@@ -81,6 +81,23 @@ patterns:
     match: \b[Ss]elf\b
 
 repository:
+  escapes:
+    comment: 'escapes: ASCII, byte, Unicode, quote, regex'
+    name: constant.character.escape.rust
+    match: (\\)(?:(?:((x)[\da-fA-F]{2})|(u(\{)[\da-fA-F]{4,6}(\}))|.))
+    captures:
+      1:
+        name: constant.character.escape.backslash.rust
+      2:
+        name: constant.character.escape.bit.rust
+      3:
+        name: constant.character.escape.bit.x.rust
+      4:
+        name: constant.character.escape.unicode.rust
+      5:
+        name: constant.character.escape.unicode.punctuation.rust
+      6:
+        name: constant.character.escape.unicode.punctuation.rust
   # - include: '#keywords'
   # - include: '#strings'
 # repo section contains a dict of items you can include elsewhere

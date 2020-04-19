@@ -49,7 +49,7 @@
     {
       "comment": "double-quoted strings, raw strings, and byte strings",
       "name": "string.quoted.double.rust",
-      "begin": "\\b(b?r?)(#?)(\")",
+      "begin": "(b?r(#))?(\")",
       "beginCaptures": {
         "1": {
           "name": "string.quoted.byte.raw.rust"
@@ -66,12 +66,17 @@
         "0": {
           "name": "punctuation.definition.string.end.rust"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "#escapes"
+        }
+      ]
     },
     {
       "comment": "characters and bytes",
       "name": "string.quoted.single.char.rust",
-      "begin": "\\b(b?)(')",
+      "begin": "(b)?(')",
       "beginCaptures": {
         "1": {
           "name": "string.quoted.byte.raw.rust"
@@ -85,7 +90,12 @@
         "0": {
           "name": "punctuation.definition.char.end.rust"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "#escapes"
+        }
+      ]
     },
     {
       "comment": "self",
@@ -93,5 +103,31 @@
       "match": "\\b[Ss]elf\\b"
     }
   ],
-  "repository": null
+  "repository": {
+    "escapes": {
+      "comment": "escapes: ASCII, byte, Unicode, quote, regex",
+      "name": "constant.character.escape.rust",
+      "match": "(\\\\)(?:(?:((x)[\\da-fA-F]{2})|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+      "captures": {
+        "1": {
+          "name": "constant.character.escape.backslash.rust"
+        },
+        "2": {
+          "name": "constant.character.escape.bit.rust"
+        },
+        "3": {
+          "name": "constant.character.escape.bit.x.rust"
+        },
+        "4": {
+          "name": "constant.character.escape.unicode.rust"
+        },
+        "5": {
+          "name": "constant.character.escape.unicode.punctuation.rust"
+        },
+        "6": {
+          "name": "constant.character.escape.unicode.punctuation.rust"
+        }
+      }
+    }
+  }
 }
