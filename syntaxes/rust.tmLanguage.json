@@ -164,7 +164,7 @@
     "escapes": {
       "comment": "escapes: ASCII, byte, Unicode, quote, regex",
       "name": "constant.character.escape.rust",
-      "match": "(\\\\)(?:(?:((x)[0-7][0-7a-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+      "match": "(\\\\)(?:(?:(x[0-7][0-7a-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
       "captures": {
         "1": {
           "name": "constant.character.escape.backslash.rust"
@@ -173,15 +173,12 @@
           "name": "constant.character.escape.bit.rust"
         },
         "3": {
-          "name": "constant.character.escape.bit.x.rust"
-        },
-        "4": {
           "name": "constant.character.escape.unicode.rust"
         },
-        "5": {
+        "4": {
           "name": "constant.character.escape.unicode.punctuation.rust"
         },
-        "6": {
+        "5": {
           "name": "constant.character.escape.unicode.punctuation.rust"
         }
       }
