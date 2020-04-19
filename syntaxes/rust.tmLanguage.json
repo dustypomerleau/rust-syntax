@@ -70,6 +70,9 @@
       "patterns": [
         {
           "include": "#escapes"
+        },
+        {
+          "include": "#interpolations"
         }
       ]
     },
@@ -126,6 +129,22 @@
         },
         "6": {
           "name": "constant.character.escape.unicode.punctuation.rust"
+        }
+      }
+    },
+    "interpolations": {
+      "comment": "curly brace interpolations",
+      "name": "meta.interpolation.rust",
+      "begin": "{",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.interpolation.rust"
+        }
+      },
+      "end": "}",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.interpolation.rust"
         }
       }
     }

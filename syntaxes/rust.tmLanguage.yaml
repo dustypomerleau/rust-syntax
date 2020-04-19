@@ -59,6 +59,7 @@ patterns:
         name: punctuation.definition.string.end.rust
     patterns:
       - include: '#escapes'
+      - include: '#interpolations'
   -
     comment: characters and bytes
     name: string.quoted.single.char.rust
@@ -98,6 +99,18 @@ repository:
         name: constant.character.escape.unicode.punctuation.rust
       6:
         name: constant.character.escape.unicode.punctuation.rust
+  interpolations:
+    comment: curly brace interpolations
+    name: meta.interpolation.rust
+    begin: '{'
+    beginCaptures:
+      0:
+        name: punctuation.definition.interpolation.rust
+    end: '}'
+    endCaptures:
+      0:
+        name: punctuation.definition.interpolation.rust
+
   # - include: '#keywords'
   # - include: '#strings'
 # repo section contains a dict of items you can include elsewhere
