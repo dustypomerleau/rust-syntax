@@ -104,13 +104,34 @@
       "comment": "self",
       "name": "variable.language.self.rust",
       "match": "\\b[Ss]elf\\b"
+    },
+    {
+      "comment": "decimal numbers",
+      "name": "constant.numeric.decimal.rust",
+      "match": "\\b\\d[\\d\\._]*(E([+-])\\d+)?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+      "captures": {
+        "1": {
+          "name": "constant.numeric.decimal.exponent.rust"
+        },
+        "2": {
+          "name": "keyword.operator.math.exponent.rust"
+        },
+        "3": {
+          "name": "entity.name.type.numeric.rust"
+        }
+      }
+    },
+    {
+      "comment": "numeric types",
+      "name": "entity.name.type.numeric",
+      "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
     }
   ],
   "repository": {
     "escapes": {
       "comment": "escapes: ASCII, byte, Unicode, quote, regex",
       "name": "constant.character.escape.rust",
-      "match": "(\\\\)(?:(?:((x)[\\da-fA-F]{2})|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+      "match": "(\\\\)(?:(?:((x)[0-7][0-7a-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
       "captures": {
         "1": {
           "name": "constant.character.escape.backslash.rust"

@@ -80,12 +80,46 @@ patterns:
     comment: self
     name: variable.language.self.rust
     match: \b[Ss]elf\b
+  # constants
+  -
+    comment: decimal numbers
+    name: constant.numeric.decimal.rust
+    match: \b\d[\d\._]*(E([+-])\d+)?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+    captures:
+      1:
+        name: constant.numeric.decimal.exponent.rust
+      2:
+        name: keyword.operator.math.exponent.rust
+      3:
+        name: entity.name.type.numeric.rust
+  # -
+  #   comment: hexadecimal numbers
+  #   name: constant.numeric.hex.rust
+  #   match: \b0x\b
+  # - comment
+  # -
+  #   comment: 'numbers: decimal, hex, octal, binary, floating'
+  #   name: constant.numeric.rust
+  #   match: (0(?:b|o|x))?(?:[\d]+[\d\._a-fA-F]*)(E([+-])\d+)?
+  #   captures:
+  #     1:
+  #       name: constant.numeric.literal.rust
+  #     2:
+  #       name: constant.numeric.literal.exponent.rust
+  #     3:
+  #       name: keyword.operator.math.exponent.rust
+
+  # types
+  -
+    comment: numeric types
+    name: entity.name.type.numeric
+    match: (f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)
 
 repository:
   escapes:
     comment: 'escapes: ASCII, byte, Unicode, quote, regex'
     name: constant.character.escape.rust
-    match: (\\)(?:(?:((x)[\da-fA-F]{2})|(u(\{)[\da-fA-F]{4,6}(\}))|.))
+    match: (\\)(?:(?:((x)[0-7][0-7a-fA-F])|(u(\{)[\da-fA-F]{4,6}(\}))|.))
     captures:
       1:
         name: constant.character.escape.backslash.rust
@@ -110,24 +144,6 @@ repository:
     endCaptures:
       0:
         name: punctuation.definition.interpolation.rust
-
-  # - include: '#keywords'
-  # - include: '#strings'
-# repo section contains a dict of items you can include elsewhere
-# move items to the repo only after you've included them
-
-# so under patterns above you'd have
-#   -
-#     comment: documentation comments
-#     name: comment.line.documentation.rust
-#     match: ^\s*///.*
-# but the same section under repo would be
-#   docComments:
-#     comment: documentation comments
-#     name: comment.line.documentation.rust
-#     match: ^\s*///.*
-# and then you would
-#   include: '#docComments'
 
 # plain comments //
 # documentation comments ///
