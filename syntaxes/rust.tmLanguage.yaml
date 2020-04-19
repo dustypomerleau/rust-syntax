@@ -43,9 +43,25 @@ patterns:
     match: '::'
   # strings
   -
-    comment: double-quoted strings, raw strings, and byte strings
+    comment: double-quoted strings and byte strings
     name: string.quoted.double.rust
-    begin: '(b?r(#*))?(")'
+    begin: '(b?)(")'
+    beginCaptures:
+      1:
+        name: string.quoted.byte.raw.rust
+      2:
+        name: punctuation.definition.string.rust
+    end: '"'
+    endCaptures:
+      0:
+        name: punctuation.definition.string.rust
+    patterns:
+      - include: '#escapes'
+      - include: '#interpolations'
+  -
+    comment: double-quoted raw strings and raw byte strings
+    name: string.quoted.double.rust
+    begin: '(b?r)(#*)(")'
     beginCaptures:
       1:
         name: string.quoted.byte.raw.rust
@@ -59,9 +75,6 @@ patterns:
         name: punctuation.definition.string.rust
       2:
         name: punctuation.definition.string.raw.rust
-    patterns:
-      - include: '#escapes'
-      - include: '#interpolations'
   -
     comment: characters and bytes
     name: string.quoted.single.char.rust
