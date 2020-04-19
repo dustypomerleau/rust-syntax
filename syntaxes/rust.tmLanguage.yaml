@@ -81,6 +81,7 @@ patterns:
     name: variable.language.self.rust
     match: \b[Ss]elf\b
   # constants
+  # constant.numeric
   -
     comment: decimal numbers
     name: constant.numeric.decimal.rust
@@ -92,10 +93,27 @@ patterns:
         name: keyword.operator.math.exponent.rust
       3:
         name: entity.name.type.numeric.rust
-  # -
-  #   comment: hexadecimal numbers
-  #   name: constant.numeric.hex.rust
-  #   match: \b0x\b
+  -
+    comment: hexadecimal integers
+    name: constant.numeric.hex.rust
+    match: \b0x[\da-fA-F_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+    captures:
+      1:
+        name: entity.name.type.numeric.rust
+  -
+    comment: octal integers
+    name: constant.numeric.oct.rust
+    match: \b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+    captures:
+      1:
+        name: entity.name.type.numeric.rust
+  -
+    comment: binary integers
+    name: constant.numeric.bin.rust
+    match: \b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+    captures:
+      1:
+        name: entity.name.type.numeric.rust
   # - comment
   # -
   #   comment: 'numbers: decimal, hex, octal, binary, floating'

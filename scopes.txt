@@ -39,20 +39,6 @@ strings
   d raw byte string
     br#"hello"# NOTE: can have multiple # but the number must be balanced
 
-escapes including unicode:
-(\\)
-(.)
-|
-(x)
-([0-7a-F]{2})
-|
-([\da-F]{2})
-|
-(u)
-(\{)
-([0-9a-Z]{4,6})
-(\})
-
 escapes
   ASCII escapes
     \x41	7-bit character code (exactly 2 digits, up to 0x7F)
@@ -74,11 +60,22 @@ escapes
     \'	Single quote
     \"	Double quote
 
+(0x|0o|0b)?
+([\d\._]+)
+(((E)([+-]))(\d)+)?
+
+numbers
+  Decimal integer	98_222
+  Hex integer	0xff
+  Octal integer	0o77
+  Binary integer	0b1111_0000
+  Floating-point	123.0E+77
+  * All number literals allow _ as a visual separator: 1_234.0E+18f64
 
 types - consider: built-in types as storage.type and user + generic 'types as entity.name.type
-  entity.name.type.numeric.int.rust
+  entity.name.type.numeric.rust
     i32
-  entity.name.type.numeric.float.rust
+  entity.name.type.numeric.rust
     f64
   entity.name.type.bool.rust
     bool
