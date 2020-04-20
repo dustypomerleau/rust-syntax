@@ -188,6 +188,21 @@
       "comment": "numeric types",
       "name": "entity.name.type.numeric",
       "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
+    },
+    {
+      "comment": "parentheses",
+      "name": "punctuation.parentheses.rust",
+      "match": "[()]"
+    },
+    {
+      "comment": "square brackets",
+      "name": "punctuation.brackets.rust",
+      "match": "[\\[\\]]"
+    },
+    {
+      "comment": "curly braces",
+      "name": "punctuation.braces.rust",
+      "match": "[{}]"
     }
   ],
   "repository": {
