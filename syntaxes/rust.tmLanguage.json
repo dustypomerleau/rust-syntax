@@ -228,6 +228,33 @@
           "name": "punctuation.definition.interpolation.rust"
         }
       }
+    },
+    "lifetimes": {
+      "comment": "named lifetime parameters",
+      "match": "(['])([a-zA-Z_][0-9a-zA-Z_]*)\\b",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.lifetime.rust"
+        },
+        "2": {
+          "name": "entity.name.type.lifetime.rust"
+        }
+      }
+    },
+    "lifetime_references": {
+      "comment": "borrowing references to named lifetimes",
+      "match": "(\\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)\\b",
+      "captures": {
+        "1": {
+          "name": "keyword.operator.borrow.rust"
+        },
+        "2": {
+          "name": "punctuation.definition.lifetime.rust"
+        },
+        "3": {
+          "name": "entity.name.type.lifetime.rust"
+        }
+      }
     }
   }
 }
