@@ -100,13 +100,15 @@ patterns:
   -
     comment: decimal integers and floats
     name: constant.numeric.decimal.rust
-    match: \b\d[\d\._]*(E([+-])\d+)?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+    match: \b[\d_]+(\.?)[\d_]*(E([+-])[\d_]+)?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
     captures:
       1:
-        name: constant.numeric.decimal.exponent.rust
+        name: punctuation.separator.dot.math.rust
       2:
-        name: keyword.operator.math.exponent.rust
+        name: constant.numeric.decimal.exponent.rust
       3:
+        name: keyword.operator.math.exponent.rust
+      4:
         name: entity.name.type.numeric.rust
   -
     comment: hexadecimal integers
