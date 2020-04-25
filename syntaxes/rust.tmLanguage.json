@@ -44,32 +44,51 @@
     {
       "comment": "math operators",
       "name": "keyword.operator.math.rust",
-      "match": "[+\\-*/%]"
+      "match": "([+\\-/%]|(\\*(?!\\w)))(?!=)"
     },
     {
       "comment": "logical operators",
       "name": "keyword.operator.logical.rust",
-      "match": "(\\^|\\||\\|\\||&&|<<|>>)"
+      "match": "(\\^|\\||\\|\\||&&|<<|>>)(?!=)"
     },
     {
       "comment": "macro bang and not",
       "name": "keyword.operator.macro.not.rust",
-      "match": "!"
+      "match": "!(?!=)"
     },
     {
       "comment": "logical AND, borrow references",
       "name": "keyword.operator.borrow.and.rust",
-      "match": "&"
+      "match": "&(?![&=])"
     },
     {
-      "comment": "assignments",
+      "comment": "assignment operators",
       "name": "keyword.operator.assignment.rust",
-      "match": null
+      "match": "(-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
     },
     {
-      "comment": "namespace operator (::)",
+      "comment": "single equal",
+      "name": "keyword.operator.assignment.equal.rust",
+      "match": "(?<![<>])=(?!=)"
+    },
+    {
+      "comment": "comparison operators",
+      "name": "keyword.operator.comparison.rust",
+      "match": "(==|!=|<=?|>=?)"
+    },
+    {
+      "comment": "namespace operator",
       "name": "keyword.operator.namespace.rust",
       "match": "::"
+    },
+    {
+      "comment": "dereference asterisk",
+      "match": "(\\*)\\w+",
+      "captures": {
+        "1": {
+          "name": "keyword.operator.dereference.rust"
+        }
+      }
     },
     {
       "comment": "double-quoted strings and byte strings",
