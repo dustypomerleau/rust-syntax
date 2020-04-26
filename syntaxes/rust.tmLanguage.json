@@ -19,6 +19,9 @@
       "include": "#punctuation"
     },
     {
+      "include": "#strings"
+    },
+    {
       "comment": "documentation comments",
       "name": "comment.line.documentation.rust",
       "match": "^\\s*///.*"
@@ -32,82 +35,6 @@
       "comment": "inferred types, wildcard patterns",
       "name": "comment.char.underscore.rust",
       "match": "\\b_\\b"
-    },
-    {
-      "comment": "double-quoted strings and byte strings",
-      "name": "string.quoted.double.rust",
-      "begin": "(b?)(\")",
-      "beginCaptures": {
-        "1": {
-          "name": "string.quoted.byte.raw.rust"
-        },
-        "2": {
-          "name": "punctuation.definition.string.rust"
-        }
-      },
-      "end": "\"",
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.string.rust"
-        }
-      },
-      "patterns": [
-        {
-          "include": "#escapes"
-        },
-        {
-          "include": "#interpolations"
-        }
-      ]
-    },
-    {
-      "comment": "double-quoted raw strings and raw byte strings",
-      "name": "string.quoted.double.rust",
-      "begin": "(b?r)(#*)(\")",
-      "beginCaptures": {
-        "1": {
-          "name": "string.quoted.byte.raw.rust"
-        },
-        "2": {
-          "name": "punctuation.definition.string.raw.rust"
-        },
-        "3": {
-          "name": "punctuation.definition.string.rust"
-        }
-      },
-      "end": "(\")(#*)",
-      "endCaptures": {
-        "1": {
-          "name": "punctuation.definition.string.rust"
-        },
-        "2": {
-          "name": "punctuation.definition.string.raw.rust"
-        }
-      }
-    },
-    {
-      "comment": "characters and bytes",
-      "name": "string.quoted.single.char.rust",
-      "begin": "(b)?(')",
-      "beginCaptures": {
-        "1": {
-          "name": "string.quoted.byte.raw.rust"
-        },
-        "2": {
-          "name": "punctuation.definition.char.rust"
-        }
-      },
-      "end": "'",
-      "endCaptures": {
-        "0": {
-          "name": "punctuation.definition.char.rust"
-        }
-      },
-      "patterns": [
-        {
-          "include": "#escapes"
-        }
-      ]
     },
     {
       "comment": "self",
@@ -199,7 +126,13 @@
       },
       "patterns": [
         {
+          "include": "#keywords"
+        },
+        {
           "include": "#punctuation"
+        },
+        {
+          "include": "#strings"
         }
       ]
     }
@@ -257,7 +190,7 @@
         {
           "comment": "math operators",
           "name": "keyword.operator.math.rust",
-          "match": "(([+/%]|(\\*(?!\\w)))(?!=))|(-(?!>))"
+          "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
         },
         {
           "comment": "logical operators",
@@ -404,6 +337,86 @@
           "comment": "square brackets",
           "name": "punctuation.brackets.square.rust",
           "match": "[\\[\\]]"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "comment": "double-quoted strings and byte strings",
+          "name": "string.quoted.double.rust",
+          "begin": "(b?)(\")",
+          "beginCaptures": {
+            "1": {
+              "name": "string.quoted.byte.raw.rust"
+            },
+            "2": {
+              "name": "punctuation.definition.string.rust"
+            }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.rust"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#escapes"
+            },
+            {
+              "include": "#interpolations"
+            }
+          ]
+        },
+        {
+          "comment": "double-quoted raw strings and raw byte strings",
+          "name": "string.quoted.double.rust",
+          "begin": "(b?r)(#*)(\")",
+          "beginCaptures": {
+            "1": {
+              "name": "string.quoted.byte.raw.rust"
+            },
+            "2": {
+              "name": "punctuation.definition.string.raw.rust"
+            },
+            "3": {
+              "name": "punctuation.definition.string.rust"
+            }
+          },
+          "end": "(\")(#*)",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.definition.string.rust"
+            },
+            "2": {
+              "name": "punctuation.definition.string.raw.rust"
+            }
+          }
+        },
+        {
+          "comment": "characters and bytes",
+          "name": "string.quoted.single.char.rust",
+          "begin": "(b)?(')",
+          "beginCaptures": {
+            "1": {
+              "name": "string.quoted.byte.raw.rust"
+            },
+            "2": {
+              "name": "punctuation.definition.char.rust"
+            }
+          },
+          "end": "'",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.char.rust"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#escapes"
+            }
+          ]
         }
       ]
     }
