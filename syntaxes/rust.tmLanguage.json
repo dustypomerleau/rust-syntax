@@ -7,6 +7,18 @@
   "scopeName": "source.rust",
   "patterns": [
     {
+      "include": "#keywords"
+    },
+    {
+      "include": "#lifetimes"
+    },
+    {
+      "include": "#lifetime_references"
+    },
+    {
+      "include": "#punctuation"
+    },
+    {
       "comment": "documentation comments",
       "name": "comment.line.documentation.rust",
       "match": "^\\s*///.*"
@@ -17,78 +29,9 @@
       "match": "\\s*//.*"
     },
     {
-      "comment": "control flow keywords",
-      "name": "keyword.control.rust",
-      "match": "\\b(abstract|as|async|await|become|box|break|const|continue|do|dyn|else|enum|extern|final|for|if|impl|in|let|loop|macro|match|mod|move|override|priv|pub|ref|return|static|struct|trait|try|type|typeof|union|unsafe|unsized|use|virtual|where|while|yield)\\b"
-    },
-    {
-      "comment": "fn",
-      "name": "keyword.control.fn.rust",
-      "match": "\\bfn\\b"
-    },
-    {
-      "comment": "crate",
-      "name": "keyword.other.crate.rust",
-      "match": "\\bcrate\\b"
-    },
-    {
-      "comment": "mut",
-      "name": "keyword.other.mut.rust",
-      "match": "\\bmut\\b"
-    },
-    {
-      "comment": "super",
-      "name": "keyword.other.super.rust",
-      "match": "\\bsuper\\b"
-    },
-    {
-      "comment": "math operators",
-      "name": "keyword.operator.math.rust",
-      "match": "([+\\-/%]|(\\*(?!\\w)))(?!=)"
-    },
-    {
-      "comment": "logical operators",
-      "name": "keyword.operator.logical.rust",
-      "match": "(\\^|\\||\\|\\||&&|<<|>>)(?!=)"
-    },
-    {
-      "comment": "macro bang and not",
-      "name": "keyword.operator.macro.not.rust",
-      "match": "!(?!=)"
-    },
-    {
-      "comment": "logical AND, borrow references",
-      "name": "keyword.operator.borrow.and.rust",
-      "match": "&(?![&=])"
-    },
-    {
-      "comment": "assignment operators",
-      "name": "keyword.operator.assignment.rust",
-      "match": "(-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
-    },
-    {
-      "comment": "single equal",
-      "name": "keyword.operator.assignment.equal.rust",
-      "match": "(?<![<>])=(?!=)"
-    },
-    {
-      "comment": "comparison operators",
-      "name": "keyword.operator.comparison.rust",
-      "match": "(==|!=|<=?|>=?)"
-    },
-    {
-      "comment": "namespace operator",
-      "name": "keyword.operator.namespace.rust",
-      "match": "::"
-    },
-    {
-      "comment": "dereference asterisk",
-      "match": "(\\*)\\w+",
-      "captures": {
-        "1": {
-          "name": "keyword.operator.dereference.rust"
-        }
-      }
+      "comment": "inferred types, wildcard patterns",
+      "name": "comment.char.underscore.rust",
+      "match": "\\b_\\b"
     },
     {
       "comment": "double-quoted strings and byte strings",
@@ -234,19 +177,31 @@
       "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
     },
     {
-      "comment": "parentheses",
-      "name": "punctuation.parentheses.rust",
-      "match": "[()]"
-    },
-    {
-      "comment": "square brackets",
-      "name": "punctuation.brackets.rust",
-      "match": "[\\[\\]]"
-    },
-    {
-      "comment": "curly braces",
-      "name": "punctuation.braces.rust",
-      "match": "[{}]"
+      "comment": "attributes",
+      "name": "meta.attribute.rust",
+      "begin": "(#)(\\!?)(\\[)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.attribute.rust"
+        },
+        "2": {
+          "name": "keyword.operator.attribute.inner.rust"
+        },
+        "3": {
+          "name": "punctuation.brackets.attribute.rust"
+        }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.brackets.attribute.rust"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#punctuation"
+        }
+      ]
     }
   ],
   "repository": {
@@ -272,6 +227,114 @@
         }
       }
     },
+    "keywords": {
+      "patterns": [
+        {
+          "comment": "control flow keywords",
+          "name": "keyword.control.rust",
+          "match": "\\b(abstract|as|async|await|become|box|break|const|continue|do|dyn|else|enum|extern|final|for|if|impl|in|let|loop|macro|match|mod|move|override|priv|pub|ref|return|static|struct|trait|try|type|typeof|union|unsafe|unsized|use|virtual|where|while|yield)\\b"
+        },
+        {
+          "comment": "fn",
+          "name": "keyword.control.fn.rust",
+          "match": "\\bfn\\b"
+        },
+        {
+          "comment": "crate",
+          "name": "keyword.other.crate.rust",
+          "match": "\\bcrate\\b"
+        },
+        {
+          "comment": "mut",
+          "name": "keyword.other.mut.rust",
+          "match": "\\bmut\\b"
+        },
+        {
+          "comment": "super",
+          "name": "keyword.other.super.rust",
+          "match": "\\bsuper\\b"
+        },
+        {
+          "comment": "math operators",
+          "name": "keyword.operator.math.rust",
+          "match": "(([+/%]|(\\*(?!\\w)))(?!=))|(-(?!>))"
+        },
+        {
+          "comment": "logical operators",
+          "name": "keyword.operator.logical.rust",
+          "match": "(\\^|\\||\\|\\||&&|<<|>>)(?!=)"
+        },
+        {
+          "comment": "macro bang and not",
+          "name": "keyword.operator.macro.not.rust",
+          "match": "!(?!=)"
+        },
+        {
+          "comment": "logical AND, borrow references",
+          "name": "keyword.operator.borrow.and.rust",
+          "match": "&(?![&=])"
+        },
+        {
+          "comment": "assignment operators",
+          "name": "keyword.operator.assignment.rust",
+          "match": "(-=|\\*=|/=|%=|\\^=|&=|\\|=|<<=|>>=)"
+        },
+        {
+          "comment": "single equal",
+          "name": "keyword.operator.assignment.equal.rust",
+          "match": "(?<![<>])=(?!=|>)"
+        },
+        {
+          "comment": "comparison operators",
+          "name": "keyword.operator.comparison.rust",
+          "match": "(==|!=|<=?|(?<!=)>=?)"
+        },
+        {
+          "comment": "namespace operator",
+          "name": "keyword.operator.namespace.rust",
+          "match": "::"
+        },
+        {
+          "comment": "dereference asterisk",
+          "match": "(\\*)\\w+",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.dereference.rust"
+            }
+          }
+        },
+        {
+          "comment": "subpattern bindng",
+          "name": "keyword.operator.subpattern.rust",
+          "match": "@"
+        },
+        {
+          "comment": "dot access",
+          "name": "keyword.operator.access.dot.rust",
+          "match": "\\.(?!\\.)"
+        },
+        {
+          "comment": "ranges, range patterns",
+          "name": "keyword.operator.range.rust",
+          "match": "\\.{2}(=|\\.)?"
+        },
+        {
+          "comment": "colon",
+          "name": "keyword.operator.key-value.rust",
+          "match": ":(?!:)"
+        },
+        {
+          "comment": "dashrocket, skinny arrow",
+          "name": "keyword.operator.arrow.skinny.rust",
+          "match": "->"
+        },
+        {
+          "comment": "hashrocket, fat arrow",
+          "name": "keyword.operator.arrow.fat.rust",
+          "match": "=>"
+        }
+      ]
+    },
     "interpolations": {
       "comment": "curly brace interpolations",
       "name": "meta.interpolation.rust",
@@ -290,7 +353,7 @@
     },
     "lifetimes": {
       "comment": "named lifetime parameters",
-      "match": "(['])([a-zA-Z_][0-9a-zA-Z_]*)\\b",
+      "match": "(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
       "captures": {
         "1": {
           "name": "punctuation.definition.lifetime.rust"
@@ -302,7 +365,7 @@
     },
     "lifetime_references": {
       "comment": "borrowing references to named lifetimes",
-      "match": "(\\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)\\b",
+      "match": "(\\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
       "captures": {
         "1": {
           "name": "keyword.operator.borrow.rust"
@@ -314,6 +377,35 @@
           "name": "entity.name.type.lifetime.rust"
         }
       }
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "comment": "comma",
+          "name": "punctuation.comma.rust",
+          "match": ","
+        },
+        {
+          "comment": "curly braces",
+          "name": "punctuation.braces.rust",
+          "match": "[{}]"
+        },
+        {
+          "comment": "parentheses",
+          "name": "punctuation.parentheses.rust",
+          "match": "[()]"
+        },
+        {
+          "comment": "semicolon",
+          "name": "punctuation.semi.rust",
+          "match": ";"
+        },
+        {
+          "comment": "square brackets",
+          "name": "punctuation.brackets.square.rust",
+          "match": "[\\[\\]]"
+        }
+      ]
     }
   }
 }
