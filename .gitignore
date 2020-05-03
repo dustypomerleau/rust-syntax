@@ -1,4 +1,5 @@
 # author reference files
+atom-rust-syntax.json
 default-rust.tmLanguage.json
 elixir-example.json
 regex_notes.rb
