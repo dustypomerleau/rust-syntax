@@ -97,20 +97,28 @@ repository:
         comment: documentation comments
         name: comment.line.documentation.rust
         match: ^\s*///.*
+        patterns:
+          - include: '#comments'
       -
         comment: line comments
         name: comment.line.double-slash.rust
         match: \s*//.*
+        patterns:
+          - include: '#comments'
       -
         comment: block comments
         name: comment.block.rust
         begin: /\*(?!\*)
         end: \*/
+        patterns:
+          - include: '#comments'
       -
         comment: block documentation comments
         name: comment.block.documentation.rust
         begin: /\*\*
         end: \*/
+        patterns:
+          - include: '#comments'
   escapes:
     comment: 'escapes: ASCII, byte, Unicode, quote, regex'
     name: constant.character.escape.rust
