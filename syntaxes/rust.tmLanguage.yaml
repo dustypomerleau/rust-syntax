@@ -202,8 +202,14 @@ repository:
         comment: hashrocket, fat arrow
         name: keyword.operator.arrow.fat.rust
         match: =>
-# $	Dollar	Macros
-# ?	Question	Question mark operator, Questionably sized, Macro Kleene Matcher
+      -
+        comment: dollar macros
+        name: keyword.operator.macro.dollar.rust
+        match: \$
+      -
+        comment: question mark operator, questionably sized, macro kleene matcher
+        name: keyword.operator.question.rust
+        match: \?
   interpolations:
     comment: curly brace interpolations
     name: meta.interpolation.rust
@@ -308,15 +314,7 @@ repository:
         patterns:
           - include: '#escapes'
 
-
-# plain comments //
-# documentation comments ///
-# that #[stuff] should have its own scope, it's comment-like
-
-# keywords for control flow
-# keyword operators
-# special keywords like crate
-
+# ALL_CAPS_CONSTANTS
 # true declared constants
 # numeric constants, unicode values, hex, octal, binary
 # language constants - self or __module__-like things

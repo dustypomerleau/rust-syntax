@@ -262,6 +262,16 @@
           "comment": "hashrocket, fat arrow",
           "name": "keyword.operator.arrow.fat.rust",
           "match": "=>"
+        },
+        {
+          "comment": "dollar macros",
+          "name": "keyword.operator.macro.dollar.rust",
+          "match": "\\$"
+        },
+        {
+          "comment": "question mark operator, questionably sized, macro kleene matcher",
+          "name": "keyword.operator.question.rust",
+          "match": "\\?"
         }
       ]
     },
