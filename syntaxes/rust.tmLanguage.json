@@ -89,6 +89,19 @@
       "match": "\\btrue|false\\b"
     },
     {
+      "comment": "macros",
+      "name": "meta.macro.rust",
+      "match": "([a-zA-Z_][0-9a-zA-Z_]*)(!)",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.macro.rust"
+        },
+        "2": {
+          "name": "keyword.operator.macro.not.rust"
+        }
+      }
+    },
+    {
       "comment": "numeric types",
       "name": "entity.name.type.numeric",
       "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
