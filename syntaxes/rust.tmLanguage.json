@@ -7,6 +7,9 @@
   "scopeName": "source.rust",
   "patterns": [
     {
+      "include": "#comments"
+    },
+    {
       "include": "#keywords"
     },
     {
@@ -17,16 +20,6 @@
     },
     {
       "include": "#strings"
-    },
-    {
-      "comment": "documentation comments",
-      "name": "comment.line.documentation.rust",
-      "match": "^\\s*///.*"
-    },
-    {
-      "comment": "line comments",
-      "name": "comment.line.double-slash.rust",
-      "match": "\\s*//.*"
     },
     {
       "comment": "inferred types, wildcard patterns",
@@ -135,6 +128,32 @@
     }
   ],
   "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "comment": "documentation comments",
+          "name": "comment.line.documentation.rust",
+          "match": "^\\s*///.*"
+        },
+        {
+          "comment": "line comments",
+          "name": "comment.line.double-slash.rust",
+          "match": "\\s*//.*"
+        },
+        {
+          "comment": "block comments",
+          "name": "comment.block.rust",
+          "begin": "/\\*(?!\\*)",
+          "end": "\\*/"
+        },
+        {
+          "comment": "block documentation comments",
+          "name": "comment.block.documentation.rust",
+          "begin": "/\\*\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
     "escapes": {
       "comment": "escapes: ASCII, byte, Unicode, quote, regex",
       "name": "constant.character.escape.rust",

@@ -4,19 +4,11 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
+  - include: '#comments'
   - include: '#keywords'
   - include: '#lifetimes'
   - include: '#punctuation'
   - include: '#strings'
-  # comments
-  -
-    comment: documentation comments
-    name: comment.line.documentation.rust
-    match: ^\s*///.*
-  -
-    comment: line comments
-    name: comment.line.double-slash.rust
-    match: \s*//.*
   -
     comment: inferred types, wildcard patterns
     name: comment.char.underscore.rust
@@ -99,6 +91,26 @@ patterns:
       - include: '#punctuation'
       - include: '#strings'
 repository:
+  comments:
+    patterns:
+      -
+        comment: documentation comments
+        name: comment.line.documentation.rust
+        match: ^\s*///.*
+      -
+        comment: line comments
+        name: comment.line.double-slash.rust
+        match: \s*//.*
+      -
+        comment: block comments
+        name: comment.block.rust
+        begin: /\*(?!\*)
+        end: \*/
+      -
+        comment: block documentation comments
+        name: comment.block.documentation.rust
+        begin: /\*\*
+        end: \*/
   escapes:
     comment: 'escapes: ASCII, byte, Unicode, quote, regex'
     name: constant.character.escape.rust
@@ -142,7 +154,6 @@ repository:
         comment: math operators
         name: keyword.operator.math.rust
         match: '(([+%]|(\*(?!\w)))(?!=))|(-(?!>))|(/(?!/))'
-
       -
         comment: logical operators
         name: keyword.operator.logical.rust
