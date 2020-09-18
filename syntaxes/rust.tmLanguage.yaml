@@ -4,16 +4,10 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
-  - include: '#comments'
-  - include: '#keywords'
-  - include: '#lifetimes'
-  - include: '#punctuation'
-  - include: '#strings'
-  - include: '#types'
   -
-    comment: inferred types, wildcard patterns
+    comment: inferred types, wildcard patterns, ignored params
     name: comment.char.underscore.rust
-    match: \b_\b
+    match: \b_\w*\b
   # TODO: capture * as wildcard syntax in use declarations
   # TODO: capture <> as punctuation when used in type declarations
   # strings
@@ -23,6 +17,11 @@ patterns:
     name: variable.language.self.rust
     match: \b[Ss]elf\b
   # constants
+  # constant.other (ALL CAPS, user-defined...)
+  -
+    comment: ALL CAPS constants
+    name: constant.other.caps.rust
+    match: '\b[A-Z][A-Z0-9_]+\b'
   # constant.numeric
   -
     comment: decimal integers and floats
@@ -71,15 +70,44 @@ patterns:
   -
     comment: macros
     name: meta.macro.rust
-    match: '([a-zA-Z_][0-9a-zA-Z_]*)(!)'
+    match: ([a-zA-Z_][0-9a-zA-Z_]*)(!)
     captures:
       1:
         name: entity.name.function.macro.rust
       2:
         name: keyword.operator.macro.not.rust
+  -
+    comment: macro type metavariables
+    name: meta.macro.metavariable.type.rust
+    match: (\$)([A-Z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?
+    captures:
+      1:
+        name: keyword.operator.macro.dollar.rust
+      2:
+        name: entity.name.type.metavariable.rust
+      4:
+        name: keyword.operator.key-value.rust
+      5:
+        name: variable.other.metavariable.specifier.rust
+    patterns:
+      - include: '#keywords'
+  -
+    comment: macro metavariables
+    name: meta.macro.metavariable.rust
+    match: (\$)([a-z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?
+    captures:
+      1:
+        name: keyword.operator.macro.dollar.rust
+      2:
+        name: variable.other.metavariable.name.rust
+      4:
+        name: keyword.operator.key-value.rust
+      5:
+        name: variable.other.metavariable.specifier.rust
+    patterns:
+      - include: '#keywords'
   # functions TODO: defs and calls
-  # types
-  # meta scopes
+  # attributes
   -
     comment: attributes
     name: meta.attribute.rust
@@ -99,6 +127,12 @@ patterns:
       - include: '#keywords'
       - include: '#punctuation'
       - include: '#strings'
+  - include: '#comments'
+  - include: '#keywords'
+  - include: '#lifetimes'
+  - include: '#punctuation'
+  - include: '#strings'
+  - include: '#types'
 repository:
   comments:
     patterns:
@@ -273,7 +307,7 @@ repository:
     patterns:
       -
         comment: numeric types
-        name: entity.name.type.numeric
+        name: entity.name.type.numeric.rust
         match: (f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)
   punctuation:
     patterns:

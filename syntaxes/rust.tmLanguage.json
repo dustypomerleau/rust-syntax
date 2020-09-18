@@ -7,32 +7,19 @@
   "scopeName": "source.rust",
   "patterns": [
     {
-      "include": "#comments"
-    },
-    {
-      "include": "#keywords"
-    },
-    {
-      "include": "#lifetimes"
-    },
-    {
-      "include": "#punctuation"
-    },
-    {
-      "include": "#strings"
-    },
-    {
-      "include": "#types"
-    },
-    {
-      "comment": "inferred types, wildcard patterns",
+      "comment": "inferred types, wildcard patterns, ignored params",
       "name": "comment.char.underscore.rust",
-      "match": "\\b_\\b"
+      "match": "\\b_\\w*\\b"
     },
     {
       "comment": "self",
       "name": "variable.language.self.rust",
       "match": "\\b[Ss]elf\\b"
+    },
+    {
+      "comment": "ALL CAPS constants",
+      "name": "constant.other.caps.rust",
+      "match": "\\b[A-Z][A-Z0-9_]+\\b"
     },
     {
       "comment": "decimal integers and floats",
@@ -105,6 +92,54 @@
       }
     },
     {
+      "comment": "macro type metavariables",
+      "name": "meta.macro.metavariable.type.rust",
+      "match": "(\\$)([A-Z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?",
+      "captures": {
+        "1": {
+          "name": "keyword.operator.macro.dollar.rust"
+        },
+        "2": {
+          "name": "entity.name.type.metavariable.rust"
+        },
+        "4": {
+          "name": "keyword.operator.key-value.rust"
+        },
+        "5": {
+          "name": "variable.other.metavariable.specifier.rust"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#keywords"
+        }
+      ]
+    },
+    {
+      "comment": "macro metavariables",
+      "name": "meta.macro.metavariable.rust",
+      "match": "(\\$)([a-z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?",
+      "captures": {
+        "1": {
+          "name": "keyword.operator.macro.dollar.rust"
+        },
+        "2": {
+          "name": "variable.other.metavariable.name.rust"
+        },
+        "4": {
+          "name": "keyword.operator.key-value.rust"
+        },
+        "5": {
+          "name": "variable.other.metavariable.specifier.rust"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#keywords"
+        }
+      ]
+    },
+    {
       "comment": "attributes",
       "name": "meta.attribute.rust",
       "begin": "(#)(\\!?)(\\[)",
@@ -136,6 +171,24 @@
           "include": "#strings"
         }
       ]
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#lifetimes"
+    },
+    {
+      "include": "#punctuation"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#types"
     }
   ],
   "repository": {
@@ -376,7 +429,7 @@
       "patterns": [
         {
           "comment": "numeric types",
-          "name": "entity.name.type.numeric",
+          "name": "entity.name.type.numeric.rust",
           "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
         }
       ]
