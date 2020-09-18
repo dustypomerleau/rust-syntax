@@ -22,6 +22,9 @@
       "include": "#strings"
     },
     {
+      "include": "#types"
+    },
+    {
       "comment": "inferred types, wildcard patterns",
       "name": "comment.char.underscore.rust",
       "match": "\\b_\\b"
@@ -100,11 +103,6 @@
           "name": "keyword.operator.macro.not.rust"
         }
       }
-    },
-    {
-      "comment": "numeric types",
-      "name": "entity.name.type.numeric",
-      "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
     },
     {
       "comment": "attributes",
@@ -371,6 +369,15 @@
               "name": "entity.name.type.lifetime.rust"
             }
           }
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "comment": "numeric types",
+          "name": "entity.name.type.numeric",
+          "match": "(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)"
         }
       ]
     },

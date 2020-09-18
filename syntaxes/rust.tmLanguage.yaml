@@ -9,6 +9,7 @@ patterns:
   - include: '#lifetimes'
   - include: '#punctuation'
   - include: '#strings'
+  - include: '#types'
   -
     comment: inferred types, wildcard patterns
     name: comment.char.underscore.rust
@@ -78,10 +79,6 @@ patterns:
         name: keyword.operator.macro.not.rust
   # functions TODO: defs and calls
   # types
-  -
-    comment: numeric types
-    name: entity.name.type.numeric
-    match: (f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)
   # meta scopes
   -
     comment: attributes
@@ -272,6 +269,12 @@ repository:
             name: punctuation.definition.lifetime.rust
           3:
             name: entity.name.type.lifetime.rust
+  types:
+    patterns:
+      -
+        comment: numeric types
+        name: entity.name.type.numeric
+        match: (f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)
   punctuation:
     patterns:
       -
