@@ -4,78 +4,7 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
-  -
-    comment: inferred types, wildcard patterns, ignored params
-    name: comment.char.underscore.rust
-    match: \b_\w*\b
-  # TODO: capture * as wildcard syntax in use declarations
-  # TODO: capture <> as punctuation when used in type declarations
-  # strings
-  # variables
-  -
-    comment: self
-    name: variable.language.self.rust
-    match: \b[Ss]elf\b
-  # constants
-  # constant.other (ALL CAPS, user-defined...)
-  -
-    comment: ALL CAPS constants
-    name: constant.other.caps.rust
-    match: '\b[A-Z][A-Z0-9_]+\b'
-  # constant.numeric
-  -
-    comment: decimal integers and floats
-    name: constant.numeric.decimal.rust
-    match: \b\d[\d_]*(\.?)[\d_]*(?:(E)([+-])([\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
-    captures:
-      1:
-        name: punctuation.separator.dot.decimal.rust
-      2:
-        name: keyword.operator.exponent.rust
-      3:
-        name: keyword.operator.exponent.sign.rust
-      4:
-        name: constant.numeric.decimal.exponent.mantissa.rust
-      5:
-        name: entity.name.type.numeric.rust
-  -
-    comment: hexadecimal integers
-    name: constant.numeric.hex.rust
-    match: \b0x[\da-fA-F_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
-    captures:
-      1:
-        name: entity.name.type.numeric.rust
-  -
-    comment: octal integers
-    name: constant.numeric.oct.rust
-    match: \b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
-    captures:
-      1:
-        name: entity.name.type.numeric.rust
-  -
-    comment: binary integers
-    name: constant.numeric.bin.rust
-    match: \b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
-    captures:
-      1:
-        name: entity.name.type.numeric.rust
-  # constant.language
-  -
-    comment: booleans
-    name: constant.language.bool.rust
-    match: \btrue|false\b
-  # entity.name
-  # entity.name.function
   # macros
-  -
-    comment: macros
-    name: meta.macro.rust
-    match: ([a-zA-Z_][0-9a-zA-Z_]*)(!)
-    captures:
-      1:
-        name: entity.name.function.macro.rust
-      2:
-        name: keyword.operator.macro.not.rust
   -
     comment: macro type metavariables
     name: meta.macro.metavariable.type.rust
@@ -106,7 +35,38 @@ patterns:
         name: variable.other.metavariable.specifier.rust
     patterns:
       - include: '#keywords'
+  -
+    comment: macro rules
+    name: meta.macro.rules.rust
+    begin: \bmacro_rules\b
+    beginCaptures:
+      0:
+        name: entity.name.function.macro.rust
+    end: \{
+    endCaptures:
+      0:
+        name: punctuation.braces.rust
+    patterns:
+      - include: '#keywords'
+      - include: '#macros'
   # functions TODO: defs and calls
+  -
+    comment: function definition
+    name: meta.function.definition.rust
+    begin: \b(fn)\s
+    beginCaptures:
+      1:
+        name: keyword.control.fn.rust
+    end: \{
+    endCaptures:
+      0:
+        name: punctuation.braces.rust
+    patterns:
+      - include: '#comments'
+      - include: '#keywords'
+      - include: '#punctuation'
+      - include: '#types'
+      - include: '#variables'
   # attributes
   -
     comment: attributes
@@ -127,12 +87,57 @@ patterns:
       - include: '#keywords'
       - include: '#punctuation'
       - include: '#strings'
+  # modules
+  -
+    comment: modules
+    match: (mod)\s+([a-z][A-Za-z0-9_]*)
+    captures:
+      1:
+        name: keyword.control.rust
+      2:
+        name: entity.name.module.rust
+  # imports
+  -
+    comment: external crate imports
+    name: meta.import.rust
+    begin: \b(extern)\s+(crate)
+    beginCaptures:
+      1:
+        name: keyword.control.rust
+      2:
+        name: keyword.other.crate.rust
+    end: ;
+    endCaptures:
+      0:
+        name: punctuation.semi.rust
+    patterns:
+      - include: '#comments'
+      - include: '#keywords'
+      - include: '#punctuation'
+  -
+    comment: use statements
+    name: meta.use.rust
+    begin: \b(use)\s
+    beginCaptures:
+      1:
+        name: keyword.control.rust
+    end: ;
+    endCaptures:
+      0:
+        name: punctuation.semi.rust
+    patterns:
+      - include: '#comments'
+      - include: '#keywords'
+      - include: '#punctuation'
   - include: '#comments'
+  - include: '#constants'
   - include: '#keywords'
   - include: '#lifetimes'
+  - include: '#macros'
   - include: '#punctuation'
   - include: '#strings'
   - include: '#types'
+  - include: '#variables'
 repository:
   comments:
     patterns:
@@ -162,6 +167,71 @@ repository:
         end: \*/
         patterns:
           - include: '#comments'
+      -
+        comment: inferred types, wildcard patterns, ignored params
+        name: comment.char.underscore.rust
+        match: \b_\w*\b
+  constants:
+    # todo: flesh out `type N2` vs `const N2`
+    # do a separate meta for traits, types, consts, structs
+    # in practice, you can't distinguish types, structs, and consts in all contexts, but you can distinguish them at the time of definition
+    # they will have to default to type coloration in other locations, since that is the most common use case and structs are basically types
+    # use of all caps constants will obviously fix this ambiguity
+    patterns:
+      -
+        comment: ALL CAPS constants
+        name: constant.other.caps.rust
+        match: '\b[A-Z]{2}[A-Z0-9_]*\b'
+      -
+        comment: constant declarations
+        match: '\b(const)\s+([A-Z][A-Za-z0-9_]*)\b'
+        captures:
+          1:
+            name: keyword.control.rust
+          2:
+            name: constant.other.caps.rust
+      # constant.numeric
+      -
+        comment: decimal integers and floats
+        name: constant.numeric.decimal.rust
+        match: \b\d[\d_]*(\.?)[\d_]*(?:(E)([+-])([\d_]+))?(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+        captures:
+          1:
+            name: punctuation.separator.dot.decimal.rust
+          2:
+            name: keyword.operator.exponent.rust
+          3:
+            name: keyword.operator.exponent.sign.rust
+          4:
+            name: constant.numeric.decimal.exponent.mantissa.rust
+          5:
+            name: entity.name.type.numeric.rust
+      -
+        comment: hexadecimal integers
+        name: constant.numeric.hex.rust
+        match: \b0x[\da-fA-F_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+        captures:
+          1:
+            name: entity.name.type.numeric.rust
+      -
+        comment: octal integers
+        name: constant.numeric.oct.rust
+        match: \b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+        captures:
+          1:
+            name: entity.name.type.numeric.rust
+      -
+        comment: binary integers
+        name: constant.numeric.bin.rust
+        match: \b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\b
+        captures:
+          1:
+            name: entity.name.type.numeric.rust
+      # constant.language
+      -
+        comment: booleans
+        name: constant.language.bool.rust
+        match: \btrue|false\b
   escapes:
     comment: 'escapes: ASCII, byte, Unicode, quote, regex'
     name: constant.character.escape.rust
@@ -303,12 +373,45 @@ repository:
             name: punctuation.definition.lifetime.rust
           3:
             name: entity.name.type.lifetime.rust
+  macros:
+    patterns:
+      -
+        comment: macros
+        name: meta.macro.rust
+        match: ([a-zA-Z_][0-9a-zA-Z_]*)(!)
+        captures:
+          1:
+            name: entity.name.function.macro.rust
+          2:
+            name: keyword.operator.macro.not.rust
   types:
     patterns:
       -
         comment: numeric types
-        name: entity.name.type.numeric.rust
-        match: (f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)
+        match: '(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\b'
+        captures:
+          1:
+            name: entity.name.type.numeric.rust
+      -
+        comment: types
+        name: entity.name.type.rust
+        match: '\b[A-Z][A-Za-z0-9]*\b'
+      -
+        comment: trait declarations
+        match: \b(trait)\s+([A-Z][A-Za-z0-9]*)\b
+        captures:
+          1:
+            name: keyword.control.rust
+          2:
+            name: entity.name.type.trait.rust
+      -
+        comment: struct declarations
+        match: \b(struct)\s+([A-Z][A-Za-z0-9]*)\b
+        captures:
+          1:
+            name: keyword.control.rust
+          2:
+            name: entity.name.type.struct.rust
   punctuation:
     patterns:
       -
@@ -381,6 +484,13 @@ repository:
             name: punctuation.definition.char.rust
         patterns:
           - include: '#escapes'
+  variables:
+    patterns:
+      -
+        comment: self
+        name: variable.language.self.rust
+        match: \b[Ss]elf\b
+
 
 # ALL_CAPS_CONSTANTS
 # true declared constants
