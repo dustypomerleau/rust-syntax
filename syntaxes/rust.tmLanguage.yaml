@@ -393,6 +393,23 @@ repository:
           1:
             name: entity.name.type.numeric.rust
       -
+        comment: parameterized types # TODO switch to begin/end terminology up to the angle brackets and include lifetimes, types
+        begin: \b([A-Z][A-Za-z0-9]*)(<)
+        beginCaptures:
+          1:
+            name: entity.name.type.rust
+          2:
+            name: punctuation.definition.type.rust
+        end: '>'
+        endCaptures:
+          0:
+            name: punctuation.definition.type.rust
+        patterns:
+          - include: '#comments'
+          - include: '#lifetimes'
+          - include: '#punctuation'
+          - include: '#types'
+      -
         comment: types
         name: entity.name.type.rust
         match: '\b[A-Z][A-Za-z0-9]*\b'
