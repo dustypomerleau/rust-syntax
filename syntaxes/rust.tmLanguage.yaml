@@ -4,6 +4,33 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
+  # paths
+  -
+    comment: namespace (non-type, non-function path segment)
+    match: (?<!\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)
+    captures:
+      1:
+        name: entity.name.namespace.rust
+      2:
+        name: keyword.operator.namespace.rust
+  # other
+  -
+    comment: boxed slice literal
+    begin: (<)(\[)
+    beginCaptures:
+      1:
+        name: punctuation.brackets.angle.rust
+      2:
+        name: punctuation.brackets.square.rust
+    end: '>'
+    endCaptures:
+      0:
+        name: punctuation.brackets.angle.rust
+    patterns:
+      - include: '#comments'
+      - include: '#lifetimes'
+      - include: '#punctuation'
+      - include: '#types'
   # macros
   -
     comment: macro type metavariables
@@ -49,24 +76,6 @@ patterns:
     patterns:
       - include: '#keywords'
       - include: '#macros'
-  # functions TODO: defs and calls
-  -
-    comment: function definition
-    name: meta.function.definition.rust
-    begin: \b(fn)\s
-    beginCaptures:
-      1:
-        name: keyword.control.fn.rust
-    end: \{
-    endCaptures:
-      0:
-        name: punctuation.braces.rust
-    patterns:
-      - include: '#comments'
-      - include: '#keywords'
-      - include: '#punctuation'
-      - include: '#types'
-      - include: '#variables'
   # attributes
   -
     comment: attributes
@@ -114,6 +123,8 @@ patterns:
       - include: '#comments'
       - include: '#keywords'
       - include: '#punctuation'
+  # todo: perhaps scrap this meta scope and just let the paths show through
+  # or alternatively just makes sure you include the namespaces
   -
     comment: use statements
     name: meta.use.rust
@@ -131,6 +142,7 @@ patterns:
       - include: '#punctuation'
   - include: '#comments'
   - include: '#constants'
+  - include: '#functions'
   - include: '#keywords'
   - include: '#lifetimes'
   - include: '#macros'
@@ -181,10 +193,10 @@ repository:
       -
         comment: ALL CAPS constants
         name: constant.other.caps.rust
-        match: '\b[A-Z]{2}[A-Z0-9_]*\b'
+        match: \b[A-Z]{2}[A-Z0-9_]*\b
       -
         comment: constant declarations
-        match: '\b(const)\s+([A-Z][A-Za-z0-9_]*)\b'
+        match: \b(const)\s+([A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
             name: keyword.control.rust
@@ -247,6 +259,62 @@ repository:
         name: constant.character.escape.unicode.punctuation.rust
       5:
         name: constant.character.escape.unicode.punctuation.rust
+  functions:
+    # todo: create a repo item for params, and then see if you can include it only inside function defs and calls, and put it last so that perhaps the other scopes will still work
+    patterns:
+      -
+        comment: function definition
+        name: meta.function.definition.rust
+        begin: \b(fn)\s+([a-z0-9_]+)(\()
+        beginCaptures:
+          1:
+            name: keyword.control.fn.rust
+          2:
+            name: entity.name.function.rust
+          3:
+            name: punctuation.parentheses.rust
+        end: \{
+        endCaptures:
+          0:
+            name: punctuation.braces.rust
+        patterns:
+          - include: '#comments'
+          - include: '#constants'
+          - include: '#functions'
+          - include: '#keywords'
+          - include: '#lifetimes'
+          - include: '#macros'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#types'
+          - include: '#variables'
+      # todo: need a separate call for type calls so to speak, or do you?
+      -
+        comment: function/method calls, chaining
+        name: meta.function.call.rust
+        begin: (\.)?([a-z0-9_]+)(\()
+        beginCaptures:
+          1:
+            name: keyword.operator.access.dot.rust
+          2:
+            name: entity.name.function.rust
+          3:
+            name: punctuation.parentheses.rust
+        end: \)
+        endCaptures:
+          0:
+            name: punctuation.parentheses.rust
+        patterns:
+          - include: '#comments'
+          - include: '#constants'
+          - include: '#functions'
+          - include: '#keywords'
+          - include: '#lifetimes'
+          - include: '#macros'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#types'
+          - include: '#variables'
   keywords:
     patterns:
       -
@@ -266,10 +334,6 @@ repository:
         comment: mut
         name: keyword.other.mut.rust
         match: \bmut\b
-      -
-        comment: super
-        name: keyword.other.super.rust
-        match: \bsuper\b
       # keyword.operator
       -
         comment: math operators
@@ -298,7 +362,11 @@ repository:
       -
         comment: comparison operators
         name: keyword.operator.comparison.rust
-        match: (==|!=|<=?|(?<!=)>=?)
+        match: (=(=|>)?|!=|<=|(?<!=)>=)
+      -
+        comment: less than, greater than (special case)
+        name: keyword.operator.comparison.rust
+        match: (<\s|(?<!=)>\s)
       -
         comment: namespace operator
         name: keyword.operator.namespace.rust
@@ -393,22 +461,26 @@ repository:
           1:
             name: entity.name.type.numeric.rust
       -
-        comment: parameterized types # TODO switch to begin/end terminology up to the angle brackets and include lifetimes, types
+        comment: parameterized types
         begin: \b([A-Z][A-Za-z0-9]*)(<)
         beginCaptures:
           1:
             name: entity.name.type.rust
           2:
-            name: punctuation.definition.type.rust
+            name: punctuation.brackets.angle.rust
         end: '>'
         endCaptures:
           0:
-            name: punctuation.definition.type.rust
+            name: punctuation.brackets.angle.rust
         patterns:
           - include: '#comments'
           - include: '#lifetimes'
           - include: '#punctuation'
           - include: '#types'
+      -
+        comment: primitive types
+        name: entity.name.type.primitive.rust
+        match: \b(bool|char|str)\b
       -
         comment: types
         name: entity.name.type.rust
@@ -451,6 +523,10 @@ repository:
         comment: square brackets
         name: punctuation.brackets.square.rust
         match: '[\[\]]'
+      -
+        comment: angle brackets
+        name: punctuation.brackets.angle.rust
+        match: '[<>]'
   strings:
     patterns:
       -
@@ -501,12 +577,18 @@ repository:
             name: punctuation.definition.char.rust
         patterns:
           - include: '#escapes'
+  # todo: let statements
   variables:
     patterns:
       -
         comment: self
         name: variable.language.self.rust
         match: \b[Ss]elf\b
+      -
+        comment: super
+        name: variable.language.super.rust
+        match: \bsuper\b
+
 
 
 # ALL_CAPS_CONSTANTS
