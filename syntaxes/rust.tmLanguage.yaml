@@ -61,7 +61,7 @@ patterns:
     end: \{
     endCaptures:
       0:
-        name: punctuation.braces.rust
+        name: punctuation.brackets.curly.rust
     patterns:
       - include: '#keywords'
       - include: '#macros'
@@ -128,7 +128,6 @@ patterns:
       - include: '#namespaces'
       - include: '#punctuation'
       - include: '#types'
-      - include: '#variables'
   - include: '#comments'
   - include: '#constants'
   - include: '#gtypes'
@@ -256,18 +255,20 @@ repository:
       -
         comment: function definition
         name: meta.function.definition.rust
-        begin: \b(fn)\s+([A-Za-z0-9_]+)(\()
+        begin: \b(fn)\s+([A-Za-z0-9_]+)((\()|(<))
         beginCaptures:
           1:
             name: keyword.control.fn.rust
           2:
             name: entity.name.function.rust
-          3:
-            name: punctuation.parentheses.rust
+          4:
+            name: punctuation.brackets.round.rust
+          5:
+            name: punctuation.brackets.angle.rust
         end: \{
         endCaptures:
           0:
-            name: punctuation.braces.rust
+            name: punctuation.brackets.curly.rust
         patterns:
           - include: '#comments'
           - include: '#constants'
@@ -291,11 +292,11 @@ repository:
           2:
             name: entity.name.function.rust
           3:
-            name: punctuation.parentheses.rust
+            name: punctuation.brackets.round.rust
         end: \)
         endCaptures:
           0:
-            name: punctuation.parentheses.rust
+            name: punctuation.brackets.round.rust
         patterns:
           - include: '#comments'
           - include: '#constants'
@@ -545,11 +546,11 @@ repository:
         match: ','
       -
         comment: curly braces
-        name: punctuation.braces.rust
+        name: punctuation.brackets.curly.rust
         match: '[{}]'
       -
-        comment: parentheses
-        name: punctuation.parentheses.rust
+        comment: parentheses, round brackets
+        name: punctuation.brackets.round.rust
         match: '[()]'
       -
         comment: semicolon
