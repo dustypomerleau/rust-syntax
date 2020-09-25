@@ -1,4 +1,5 @@
 # author reference files
+*.afdesign
 atom-rust-syntax.json
 default-rust.tmLanguage.json
 elixir-example.json
