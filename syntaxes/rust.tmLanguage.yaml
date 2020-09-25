@@ -18,21 +18,25 @@ patterns:
         name: punctuation.brackets.angle.rust
     patterns:
       - include: '#comments'
+      - include: '#gtypes'
+      - include: '#lvariables'
       - include: '#lifetimes'
       - include: '#punctuation'
       - include: '#types'
   -
     comment: macro type metavariables
     name: meta.macro.metavariable.type.rust
-    match: (\$)([A-Z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?
+    match: (\$)((crate)|([A-Z][A-Za-z0-9_]*))((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?
     captures:
       1:
         name: keyword.operator.macro.dollar.rust
-      2:
-        name: entity.name.type.metavariable.rust
+      3:
+        name: keyword.other.crate.rust
       4:
+        name: entity.name.type.metavariable.rust
+      6:
         name: keyword.operator.key-value.rust
-      5:
+      7:
         name: variable.other.metavariable.specifier.rust
     patterns:
       - include: '#keywords'
@@ -54,17 +58,18 @@ patterns:
   -
     comment: macro rules
     name: meta.macro.rules.rust
-    begin: \bmacro_rules\b
-    beginCaptures:
-      0:
+    match: \b(macro_rules)(!)\s+(([a-z0-9_]+)|([A-Z][a-z0-9_]*))\s+(\{)
+    captures:
+      1:
         name: entity.name.function.macro.rust
-    end: \{
-    endCaptures:
-      0:
+      2:
+        name: keyword.operator.macro.not.rust
+      4:
+        name: entity.name.function.rust
+      5:
+        name: entity.name.type.macro.rust
+      6:
         name: punctuation.brackets.curly.rust
-    patterns:
-      - include: '#keywords'
-      - include: '#macros'
   -
     comment: attributes
     name: meta.attribute.rust
@@ -128,6 +133,7 @@ patterns:
       - include: '#namespaces'
       - include: '#punctuation'
       - include: '#types'
+      - include: '#lvariables'
   - include: '#comments'
   - include: '#lvariables'
   - include: '#constants'
@@ -175,11 +181,6 @@ repository:
         name: comment.char.underscore.rust
         match: \b_\w*\b
   constants:
-    # todo: flesh out `type N2` vs `const N2`
-    # do a separate meta for traits, types, consts, structs
-    # in practice, you can't distinguish types, structs, and consts in all contexts, but you can distinguish them at the time of definition
-    # they will have to default to type coloration in other locations, since that is the most common use case and structs are basically types
-    # use of all caps constants will obviously fix this ambiguity
     patterns:
       -
         comment: ALL CAPS constants
@@ -193,7 +194,6 @@ repository:
             name: keyword.control.rust
           2:
             name: constant.other.caps.rust
-      # constant.numeric
       -
         comment: decimal integers and floats
         name: constant.numeric.decimal.rust
@@ -230,7 +230,6 @@ repository:
         captures:
           1:
             name: entity.name.type.numeric.rust
-      # constant.language
       -
         comment: booleans
         name: constant.language.bool.rust
@@ -251,7 +250,6 @@ repository:
       5:
         name: constant.character.escape.unicode.punctuation.rust
   functions:
-    # todo: create a repo item for params, and then see if you can include it only inside function defs and calls, and put it last so that perhaps the other scopes will still work
     patterns:
       -
         comment: function definition
@@ -332,7 +330,6 @@ repository:
         comment: mut
         name: keyword.other.mut.rust
         match: \bmut\b
-      # keyword.operator
       -
         comment: math operators
         name: keyword.operator.math.rust
@@ -370,7 +367,6 @@ repository:
         name: keyword.operator.namespace.rust
         match: '::'
       -
-        # note: you could replace the zero length assertion here with a capture that scopes the dereferenced variable, but this way the scope of whatever is dereferenced shines through
         comment: dereference asterisk
         match: (\*)(?=\w+)
         captures:
@@ -421,13 +417,14 @@ repository:
         name: punctuation.definition.interpolation.rust
     patterns:
       - include: '#comments'
+      - include: '#keywords'
+      - include: '#lvariables'
+      - include: '#namespaces'
       - include: '#constants'
       - include: '#gtypes'
       - include: '#functions'
-      - include: '#keywords'
       - include: '#lifetimes'
       - include: '#macros'
-      - include: '#namespaces'
       - include: '#punctuation'
       - include: '#strings'
       - include: '#types'
@@ -457,17 +454,18 @@ repository:
       -
         comment: macros
         name: meta.macro.rust
-        match: ([a-zA-Z_][0-9a-zA-Z_]*)(!)
+        match: (([a-z_][A-Za-z0-9_]*)|([A-Z_][A-Za-z0-9_]*))(!)
         captures:
-          1:
-            name: entity.name.function.macro.rust
           2:
+            name: entity.name.function.macro.rust
+          3:
+            name: entity.name.type.macro.rust
+          4:
             name: keyword.operator.macro.not.rust
   namespaces:
     patterns:
       -
         comment: namespace (non-type, non-function path segment)
-        # match: (?<!\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)
         match: (?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)
         captures:
           1:
@@ -533,7 +531,7 @@ repository:
       -
         comment: types
         name: entity.name.type.rust
-        match: '\b[A-Z][A-Za-z0-9]*\b'
+        match: '\b[A-Z][A-Za-z0-9]*\b(?!!)'
   gtypes:
     patterns:
       -
@@ -620,7 +618,6 @@ repository:
             name: punctuation.definition.char.rust
         patterns:
           - include: '#escapes'
-  # todo: let statements
   lvariables:
     patterns:
       -
@@ -636,4 +633,4 @@ repository:
       -
         comment: variables
         name: variable.other.rust
-        match: \b[a-z0-9_]+\b
+        match: \b(?<!\.)[a-z0-9_]+\b
