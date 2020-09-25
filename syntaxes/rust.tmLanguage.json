@@ -7,18 +7,6 @@
   "scopeName": "source.rust",
   "patterns": [
     {
-      "comment": "namespace (non-type, non-function path segment)",
-      "match": "(?<!\\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)",
-      "captures": {
-        "1": {
-          "name": "entity.name.namespace.rust"
-        },
-        "2": {
-          "name": "keyword.operator.namespace.rust"
-        }
-      }
-    },
-    {
       "comment": "boxed slice literal",
       "begin": "(<)(\\[)",
       "beginCaptures": {
@@ -152,6 +140,12 @@
         },
         {
           "include": "#strings"
+        },
+        {
+          "include": "#gtypes"
+        },
+        {
+          "include": "#types"
         }
       ]
     },
@@ -220,7 +214,16 @@
           "include": "#keywords"
         },
         {
+          "include": "#namespaces"
+        },
+        {
           "include": "#punctuation"
+        },
+        {
+          "include": "#types"
+        },
+        {
+          "include": "#variables"
         }
       ]
     },
@@ -231,7 +234,13 @@
       "include": "#constants"
     },
     {
+      "include": "#gtypes"
+    },
+    {
       "include": "#functions"
+    },
+    {
+      "include": "#types"
     },
     {
       "include": "#keywords"
@@ -243,13 +252,13 @@
       "include": "#macros"
     },
     {
+      "include": "#namespaces"
+    },
+    {
       "include": "#punctuation"
     },
     {
       "include": "#strings"
-    },
-    {
-      "include": "#types"
     },
     {
       "include": "#variables"
@@ -412,7 +421,7 @@
         {
           "comment": "function definition",
           "name": "meta.function.definition.rust",
-          "begin": "\\b(fn)\\s+([a-z0-9_]+)(\\()",
+          "begin": "\\b(fn)\\s+([A-Za-z0-9_]+)(\\()",
           "beginCaptures": {
             "1": {
               "name": "keyword.control.fn.rust"
@@ -438,6 +447,9 @@
               "include": "#constants"
             },
             {
+              "include": "#gtypes"
+            },
+            {
               "include": "#functions"
             },
             {
@@ -448,6 +460,9 @@
             },
             {
               "include": "#macros"
+            },
+            {
+              "include": "#namespaces"
             },
             {
               "include": "#punctuation"
@@ -466,7 +481,7 @@
         {
           "comment": "function/method calls, chaining",
           "name": "meta.function.call.rust",
-          "begin": "(\\.)?([a-z0-9_]+)(\\()",
+          "begin": "(\\.)?([A-Za-z0-9_]+)(\\()",
           "beginCaptures": {
             "1": {
               "name": "keyword.operator.access.dot.rust"
@@ -492,6 +507,9 @@
               "include": "#constants"
             },
             {
+              "include": "#gtypes"
+            },
+            {
               "include": "#functions"
             },
             {
@@ -502,6 +520,9 @@
             },
             {
               "include": "#macros"
+            },
+            {
+              "include": "#namespaces"
             },
             {
               "include": "#punctuation"
@@ -651,7 +672,45 @@
         "0": {
           "name": "punctuation.definition.interpolation.rust"
         }
-      }
+      },
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#constants"
+        },
+        {
+          "include": "#gtypes"
+        },
+        {
+          "include": "#functions"
+        },
+        {
+          "include": "#keywords"
+        },
+        {
+          "include": "#lifetimes"
+        },
+        {
+          "include": "#macros"
+        },
+        {
+          "include": "#namespaces"
+        },
+        {
+          "include": "#punctuation"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#types"
+        },
+        {
+          "include": "#variables"
+        }
+      ]
     },
     "lifetimes": {
       "patterns": [
@@ -701,6 +760,22 @@
         }
       ]
     },
+    "namespaces": {
+      "patterns": [
+        {
+          "comment": "namespace (non-type, non-function path segment)",
+          "match": "(?<!\\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)",
+          "captures": {
+            "1": {
+              "name": "entity.name.namespace.rust"
+            },
+            "2": {
+              "name": "keyword.operator.namespace.rust"
+            }
+          }
+        }
+      ]
+    },
     "types": {
       "patterns": [
         {
@@ -734,6 +809,9 @@
               "include": "#comments"
             },
             {
+              "include": "#keywords"
+            },
+            {
               "include": "#lifetimes"
             },
             {
@@ -748,11 +826,6 @@
           "comment": "primitive types",
           "name": "entity.name.type.primitive.rust",
           "match": "\\b(bool|char|str)\\b"
-        },
-        {
-          "comment": "types",
-          "name": "entity.name.type.rust",
-          "match": "\\b[A-Z][A-Za-z0-9]*\\b"
         },
         {
           "comment": "trait declarations",
@@ -777,6 +850,37 @@
               "name": "entity.name.type.struct.rust"
             }
           }
+        },
+        {
+          "comment": "enum declarations",
+          "match": "\\b(enum)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.rust"
+            },
+            "2": {
+              "name": "entity.name.type.enum.rust"
+            }
+          }
+        },
+        {
+          "comment": "types",
+          "name": "entity.name.type.rust",
+          "match": "\\b[A-Z][A-Za-z0-9]*\\b"
+        }
+      ]
+    },
+    "gtypes": {
+      "patterns": [
+        {
+          "comment": "option types",
+          "name": "entity.name.type.option.rust",
+          "match": "\\b(Some|None)\\b"
+        },
+        {
+          "comment": "result types",
+          "name": "entity.name.type.result.rust",
+          "match": "\\b(Ok|Err)\\b"
         }
       ]
     },
@@ -905,6 +1009,11 @@
           "comment": "super",
           "name": "variable.language.super.rust",
           "match": "\\bsuper\\b"
+        },
+        {
+          "comment": "variables",
+          "name": "variable.other.rust",
+          "match": "\\b[a-z0-9_]+\\b"
         }
       ]
     }
