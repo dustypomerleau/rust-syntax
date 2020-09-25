@@ -228,6 +228,9 @@
       "include": "#comments"
     },
     {
+      "include": "#lvariables"
+    },
+    {
       "include": "#constants"
     },
     {
@@ -444,6 +447,12 @@
               "include": "#comments"
             },
             {
+              "include": "#keywords"
+            },
+            {
+              "include": "#lvariables"
+            },
+            {
               "include": "#constants"
             },
             {
@@ -451,9 +460,6 @@
             },
             {
               "include": "#functions"
-            },
-            {
-              "include": "#keywords"
             },
             {
               "include": "#lifetimes"
@@ -504,6 +510,15 @@
               "include": "#comments"
             },
             {
+              "include": "#keywords"
+            },
+            {
+              "include": "#lvariables"
+            },
+            {
+              "include": "#namespaces"
+            },
+            {
               "include": "#constants"
             },
             {
@@ -513,16 +528,10 @@
               "include": "#functions"
             },
             {
-              "include": "#keywords"
-            },
-            {
               "include": "#lifetimes"
             },
             {
               "include": "#macros"
-            },
-            {
-              "include": "#namespaces"
             },
             {
               "include": "#punctuation"
@@ -764,7 +773,7 @@
       "patterns": [
         {
           "comment": "namespace (non-type, non-function path segment)",
-          "match": "(?<!\\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)",
+          "match": "(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)",
           "captures": {
             "1": {
               "name": "entity.name.namespace.rust"
@@ -812,6 +821,9 @@
               "include": "#keywords"
             },
             {
+              "include": "#lvariables"
+            },
+            {
               "include": "#lifetimes"
             },
             {
@@ -819,6 +831,9 @@
             },
             {
               "include": "#types"
+            },
+            {
+              "include": "#variables"
             }
           ]
         },
@@ -998,7 +1013,7 @@
         }
       ]
     },
-    "variables": {
+    "lvariables": {
       "patterns": [
         {
           "comment": "self",
@@ -1009,7 +1024,11 @@
           "comment": "super",
           "name": "variable.language.super.rust",
           "match": "\\bsuper\\b"
-        },
+        }
+      ]
+    },
+    "variables": {
+      "patterns": [
         {
           "comment": "variables",
           "name": "variable.other.rust",

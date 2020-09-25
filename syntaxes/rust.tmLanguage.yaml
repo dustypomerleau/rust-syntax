@@ -129,6 +129,7 @@ patterns:
       - include: '#punctuation'
       - include: '#types'
   - include: '#comments'
+  - include: '#lvariables'
   - include: '#constants'
   - include: '#gtypes'
   - include: '#functions'
@@ -271,10 +272,11 @@ repository:
             name: punctuation.brackets.curly.rust
         patterns:
           - include: '#comments'
+          - include: '#keywords'
+          - include: '#lvariables'
           - include: '#constants'
           - include: '#gtypes'
           - include: '#functions'
-          - include: '#keywords'
           - include: '#lifetimes'
           - include: '#macros'
           - include: '#namespaces'
@@ -299,13 +301,14 @@ repository:
             name: punctuation.brackets.round.rust
         patterns:
           - include: '#comments'
+          - include: '#keywords'
+          - include: '#lvariables'
+          - include: '#namespaces'
           - include: '#constants'
           - include: '#gtypes'
           - include: '#functions'
-          - include: '#keywords'
           - include: '#lifetimes'
           - include: '#macros'
-          - include: '#namespaces'
           - include: '#punctuation'
           - include: '#strings'
           - include: '#types'
@@ -464,7 +467,8 @@ repository:
     patterns:
       -
         comment: namespace (non-type, non-function path segment)
-        match: (?<!\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)
+        # match: (?<!\.)(?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)
+        match: (?<![A-Za-z0-9_])([a-z0-9_]+)((?<!super|self)::)
         captures:
           1:
             name: entity.name.namespace.rust
@@ -493,9 +497,11 @@ repository:
         patterns:
           - include: '#comments'
           - include: '#keywords'
+          - include: '#lvariables'
           - include: '#lifetimes'
           - include: '#punctuation'
           - include: '#types'
+          - include: '#variables'
       -
         comment: primitive types
         name: entity.name.type.primitive.rust
@@ -615,7 +621,7 @@ repository:
         patterns:
           - include: '#escapes'
   # todo: let statements
-  variables:
+  lvariables:
     patterns:
       -
         comment: self
@@ -625,6 +631,8 @@ repository:
         comment: super
         name: variable.language.super.rust
         match: \bsuper\b
+  variables:
+    patterns:
       -
         comment: variables
         name: variable.other.rust
