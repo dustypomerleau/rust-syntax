@@ -541,7 +541,7 @@ repository:
       -
         comment: types
         name: entity.name.type.rust
-        match: '\b[A-Z][A-Za-z0-9]*\b(?!!)(?!::)'
+        match: '\b[A-Z][A-Za-z0-9]*\b(?!!)'
   gtypes:
     patterns:
       -
