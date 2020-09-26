@@ -34,7 +34,7 @@
   "contributes": {
     "grammars": [
       {
-        "language": "rust",
+        "language": "rust-rs",
         "scopeName": "source.rust",
         "path": "./syntaxes/rust.tmLanguage.json"
       }
