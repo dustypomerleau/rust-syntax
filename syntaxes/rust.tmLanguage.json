@@ -626,13 +626,13 @@
         {
           "comment": "comparison operators",
           "name": "keyword.operator.comparison.rust",
-          "match": "(=(=|>)?|!=|<=|(?<!=)>=)"
+          "match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
         },
         {
           "comment": "less than, greater than (special case)",
-          "match": "(?<!=)\\b([<>])\\s",
+          "match": "(^|\\s)(?<!=)([<>])\\s",
           "captures": {
-            "1": {
+            "2": {
               "name": "keyword.operator.comparison.rust"
             }
           }
@@ -961,7 +961,7 @@
         {
           "comment": "angle brackets",
           "name": "punctuation.brackets.angle.rust",
-          "match": "[<>]"
+          "match": "(?<!=)[<>]"
         }
       ]
     },
