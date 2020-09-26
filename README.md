@@ -2,7 +2,7 @@
 
 This extension provides a TextMate-style grammar for Rust, with the following goals:
 
-- Every item on the page should have at least one scope for themes to target.
+- Every item on the page should have at least one scope for theme designers to target.
 - It should be possible to visually distinguish declarations and invocations (function names, types—this may require disabling semantic highlighting).
 - All punctuation should be themeable.
 - Punctuation should be separated from its contents (example: quotation marks can be themed separately from strings).
