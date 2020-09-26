@@ -911,6 +911,18 @@
           }
         },
         {
+          "comment": "type declarations",
+          "match": "\\b(type)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.control.rust"
+            },
+            "2": {
+              "name": "entity.name.type.declaration.rust"
+            }
+          }
+        },
+        {
           "comment": "types",
           "name": "entity.name.type.rust",
           "match": "\\b[A-Z][A-Za-z0-9]*\\b(?!!)"
