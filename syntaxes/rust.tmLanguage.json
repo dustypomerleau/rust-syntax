@@ -630,7 +630,7 @@
         },
         {
           "comment": "less than, greater than (special case)",
-          "match": "\\s([<>])\\s",
+          "match": "(?<!=)\\b([<>])\\s",
           "captures": {
             "1": {
               "name": "keyword.operator.comparison.rust"
