@@ -2,7 +2,7 @@
   "name": "rust-syntax",
   "displayName": "Rust Syntax",
   "version": "0.1.0",
-  "description": "A nuanced syntax for Rust highlighting",
+  "description": "Improved Rust syntax highlighting",
   "publisher": "dustypomerleau",
   "homepage": "https://github.com/dustypomerleau/rust-syntax",
   "author": {
