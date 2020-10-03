@@ -426,19 +426,7 @@ repository:
       0:
         name: punctuation.definition.interpolation.rust
     patterns:
-      - include: '#comments'
-      - include: '#keywords'
-      - include: '#lvariables'
-      - include: '#namespaces'
-      - include: '#constants'
-      - include: '#gtypes'
-      - include: '#functions'
-      - include: '#lifetimes'
-      - include: '#macros'
-      - include: '#punctuation'
-      - include: '#strings'
-      - include: '#types'
-      - include: '#variables'
+      - include: '#interpolations'
   lifetimes:
     patterns:
       -
