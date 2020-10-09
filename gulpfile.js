@@ -4,7 +4,7 @@ var yaml = require('gulp-yaml')
 gulp.task('yaml', function(cb) {
   gulp
     .src('./syntaxes/*.yaml')
-    .pipe(yaml({ safe: false, space: 2 }))
+    .pipe(yaml({ safe: false, space: 4 }))
     .pipe(
       gulp.dest(function (f) {
         return f.base
