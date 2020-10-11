@@ -494,15 +494,18 @@
                 {
                     "comment": "function/method calls, chaining",
                     "name": "meta.function.call.rust",
-                    "begin": "(\\.)?([A-Za-z0-9_]+)(\\()",
+                    "begin": "(?:(pub)|(?:(\\.)?([A-Za-z0-9_]+)))(\\()",
                     "beginCaptures": {
                         "1": {
-                            "name": "keyword.operator.access.dot.rust"
+                            "name": "keyword.other.rust"
                         },
                         "2": {
-                            "name": "entity.name.function.rust"
+                            "name": "keyword.operator.access.dot.rust"
                         },
                         "3": {
+                            "name": "entity.name.function.rust"
+                        },
+                        "4": {
                             "name": "punctuation.brackets.round.rust"
                         }
                     },
@@ -577,18 +580,6 @@
                     "comment": "other keywords",
                     "name": "keyword.other.rust",
                     "match": "\\b(as|become|box|dyn|final|impl|in|override|priv|pub|ref|typeof|union|unsafe|unsized|use|virtual)\\b"
-                },
-                {
-                    "comment": "pub as a function",
-                    "match": "\\b(pub)(\\()",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.rust"
-                        },
-                        "2": {
-                            "name": "punctuation.brackets.round.rust"
-                        }
-                    }
                 },
                 {
                     "comment": "fn",
