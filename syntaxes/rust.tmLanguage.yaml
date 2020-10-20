@@ -586,22 +586,9 @@ repository:
           - include: '#escapes'
           - include: '#interpolations'
       -
-        comment: double-quoted raw strings and raw byte strings (no hash)
+        comment: double-quoted raw strings and raw byte strings
         name: string.quoted.double.rust
-        begin: '(b?r)(")'
-        beginCaptures:
-          1:
-            name: string.quoted.byte.raw.rust
-          2:
-            name: punctuation.definition.string.rust
-        end: '"'
-        endCaptures:
-          0:
-            name: punctuation.definition.string.rust
-      -
-        comment: double-quoted raw strings and raw byte strings (with hash)
-        name: string.quoted.double.rust
-        begin: '(b?r)(#+)(")'
+        begin: '(b?r)(#*)(")'
         beginCaptures:
           1:
             name: string.quoted.byte.raw.rust
@@ -609,7 +596,7 @@ repository:
             name: punctuation.definition.string.raw.rust
           3:
             name: punctuation.definition.string.rust
-        end: '(")(#+)'
+        end: '(")(\2)'
         endCaptures:
           1:
             name: punctuation.definition.string.rust
