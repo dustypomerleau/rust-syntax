@@ -1,9 +1,9 @@
-# author reference files
 *.afdesign
 *.vsix
 atom-rust-syntax.json
 default-rust.tmLanguage.json
 elixir-example.json
+RA-20201018-rust.tmGrammar.json
 regex_notes.rb
 rust-enhanced.sublime-syntax
 rust*.rs
