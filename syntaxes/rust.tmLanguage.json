@@ -241,11 +241,6 @@
             ]
         },
         {
-            "comment": "raw identifiers",
-            "name": "variable.other.raw.id.rust",
-            "match": "r#(?!(crate|[Ss]elf|super))(([A-Za-z][A-Za-z0-9_]*)|(_[A-Za-z0-9_]+))"
-        },
-        {
             "include": "#block-comments"
         },
         {
@@ -304,7 +299,7 @@
                 {
                     "comment": "inferred types, wildcard patterns, ignored params",
                     "name": "comment.char.underscore.rust",
-                    "match": "\\b_(?!_)\\w*\\b"
+                    "match": "\\b_\\w*\\b[^!(]"
                 }
             ]
         },
