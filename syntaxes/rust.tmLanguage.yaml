@@ -17,6 +17,7 @@ patterns:
       0:
         name: punctuation.brackets.angle.rust
     patterns:
+      - include: '#block-comments'
       - include: '#comments'
       - include: '#gtypes'
       - include: '#lvariables'
@@ -111,6 +112,7 @@ patterns:
       0:
         name: punctuation.semi.rust
     patterns:
+      - include: '#block-comments'
       - include: '#comments'
       - include: '#keywords'
       - include: '#punctuation'
@@ -126,12 +128,18 @@ patterns:
       0:
         name: punctuation.semi.rust
     patterns:
+      - include: '#block-comments'
       - include: '#comments'
       - include: '#keywords'
       - include: '#namespaces'
       - include: '#punctuation'
       - include: '#types'
       - include: '#lvariables'
+  -
+    comment: raw identifiers
+    name: variable.other.raw.id.rust
+    match: r#(?!(crate|[Ss]elf|super))(([A-Za-z][A-Za-z0-9_]*)|(_[A-Za-z0-9_]+))
+  - include: '#block-comments'
   - include: '#comments'
   - include: '#lvariables'
   - include: '#constants'
@@ -152,32 +160,30 @@ repository:
         comment: documentation comments
         name: comment.line.documentation.rust
         match: ^\s*///.*
-        patterns:
-          - include: '#comments'
       -
         comment: line comments
         name: comment.line.double-slash.rust
         match: \s*//.*
-        patterns:
-          - include: '#comments'
+      -
+        comment: inferred types, wildcard patterns, ignored params
+        name: comment.char.underscore.rust
+        match: \b_(?!_)\w*\b
+  block-comments:
+    patterns:
       -
         comment: block comments
         name: comment.block.rust
         begin: /\*(?!\*)
         end: \*/
         patterns:
-          - include: '#comments'
+          - include: '#block-comments'
       -
         comment: block documentation comments
         name: comment.block.documentation.rust
         begin: /\*\*
         end: \*/
         patterns:
-          - include: '#comments'
-      -
-        comment: inferred types, wildcard patterns, ignored params
-        name: comment.char.underscore.rust
-        match: \b_\w*\b
+          - include: '#block-comments'
   constants:
     patterns:
       -
@@ -267,6 +273,7 @@ repository:
           0:
             name: punctuation.brackets.curly.rust
         patterns:
+          - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
           - include: '#lvariables'
@@ -298,6 +305,7 @@ repository:
           0:
             name: punctuation.brackets.round.rust
         patterns:
+          - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
           - include: '#lvariables'
@@ -484,6 +492,7 @@ repository:
           0:
             name: punctuation.brackets.angle.rust
         patterns:
+          - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
           - include: '#lvariables'
