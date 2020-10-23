@@ -258,7 +258,7 @@ repository:
       -
         comment: function definition
         name: meta.function.definition.rust
-        begin: \b(fn)\s+([A-Za-z0-9_]+)((\()|(<))
+        begin: \b(fn)\s+((?:r#(?!(crate|[Ss]elf|super)))?[A-Za-z0-9_]+)((\()|(<))
         beginCaptures:
           1:
             name: keyword.control.fn.rust
@@ -290,7 +290,7 @@ repository:
       -
         comment: function/method calls, chaining
         name: meta.function.call.rust
-        begin: (?:(pub)|(?:(\.)?([A-Za-z0-9_]+)))(\()
+        begin: (?:(pub)|(?:(\.)?((?:r#(?!(crate|[Ss]elf|super)))?[A-Za-z0-9_]+)))(\()
         beginCaptures:
           1:
             name: keyword.other.rust
@@ -641,4 +641,4 @@ repository:
       -
         comment: variables
         name: variable.other.rust
-        match: \b(?<!\.)[a-z0-9_]+\b
+        match: \b(?<!\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\b
