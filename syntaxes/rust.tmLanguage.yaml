@@ -164,10 +164,6 @@ repository:
         comment: line comments
         name: comment.line.double-slash.rust
         match: \s*//.*
-      -
-        comment: inferred types, wildcard patterns, ignored params
-        name: comment.char.underscore.rust
-        match: \b_\w*\b[^!(]
   block-comments:
     patterns:
       -
@@ -258,7 +254,7 @@ repository:
       -
         comment: function definition
         name: meta.function.definition.rust
-        begin: \b(fn)\s+((?:r#(?!(crate|[Ss]elf|super)))?[A-Za-z0-9_]+)((\()|(<))
+        begin: \b(fn)\s+((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)((\()|(<))
         beginCaptures:
           1:
             name: keyword.control.fn.rust
@@ -290,15 +286,17 @@ repository:
       -
         comment: function/method calls, chaining
         name: meta.function.call.rust
-        begin: (?:(pub)|(?:(\.)?((?:r#(?!(crate|[Ss]elf|super)))?[A-Za-z0-9_]+)))(\()
+        begin: (?:(pub)|(\.)|(::))?((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\()
         beginCaptures:
           1:
             name: keyword.other.rust
           2:
             name: keyword.operator.access.dot.rust
           3:
-            name: entity.name.function.rust
+            name: keyword.operator.namespace.rust
           4:
+            name: entity.name.function.rust
+          5:
             name: punctuation.brackets.round.rust
         end: \)
         endCaptures:
