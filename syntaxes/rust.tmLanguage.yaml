@@ -252,6 +252,14 @@ repository:
   functions:
     patterns:
       -
+        comment: pub as a function
+        match: \b(pub)(\()
+        captures:
+          1:
+            name: keyword.other.rust
+          2:
+            name: punctuation.brackets.round.rust
+      -
         comment: function definition
         name: meta.function.definition.rust
         begin: \b(fn)\s+((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)((\()|(<))
