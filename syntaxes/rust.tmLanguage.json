@@ -498,21 +498,12 @@
                 {
                     "comment": "function/method calls, chaining",
                     "name": "meta.function.call.rust",
-                    "begin": "(?:(pub)|(\\.)|(::))?((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\\()",
+                    "begin": "((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\\()",
                     "beginCaptures": {
                         "1": {
-                            "name": "keyword.other.rust"
-                        },
-                        "2": {
-                            "name": "keyword.operator.access.dot.rust"
-                        },
-                        "3": {
-                            "name": "keyword.operator.namespace.rust"
-                        },
-                        "4": {
                             "name": "entity.name.function.rust"
                         },
-                        "5": {
+                        "2": {
                             "name": "punctuation.brackets.round.rust"
                         }
                     },
