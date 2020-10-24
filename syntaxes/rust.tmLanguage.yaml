@@ -92,7 +92,7 @@ patterns:
       - include: '#types'
   -
     comment: modules
-    match: (mod)\s+([a-z][A-Za-z0-9_]*)
+    match: (mod)\s+((?:r#(?!crate|[Ss]elf|super))?[a-z][A-Za-z0-9_]*)
     captures:
       1:
         name: keyword.control.rust
