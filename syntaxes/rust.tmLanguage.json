@@ -641,9 +641,9 @@
                 },
                 {
                     "comment": "less than, greater than (special case)",
-                    "match": "(^|\\s)(?<!=)([<>])\\s",
+                    "match": "(?<!^\\s*)\\s+(?<!=)([<>])\\s+",
                     "captures": {
-                        "2": {
+                        "1": {
                             "name": "keyword.operator.comparison.rust"
                         }
                     }

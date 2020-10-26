@@ -4,6 +4,7 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
+  # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
   -
     comment: boxed slice literal
     begin: (<)(\[)
@@ -375,9 +376,9 @@ repository:
         match: (=(=)?(?!>)|!=|<=|(?<!=)>=)
       -
         comment: less than, greater than (special case)
-        match: (^|\s)(?<!=)([<>])\s
+        match: '(?<!^\s*)\s+(?<!=)([<>])\s+'
         captures:
-          2:
+          1:
             name: keyword.operator.comparison.rust
       -
         comment: namespace operator
