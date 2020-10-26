@@ -375,10 +375,22 @@ repository:
         match: (=(=)?(?!>)|!=|<=|(?<!=)>=)
       -
         comment: less than, greater than (special case)
-        match: '(?<!^\s*)\s+(?<!=)([<>])\s+'
+        match: (?:\b|(?:(\))|(\])|(\})))[ \t]+([<>])[ \t]+(?:\b|(?:(\()|(\[)|(\{)))
         captures:
           1:
+            name: punctuation.brackets.round.rust
+          2:
+            name: punctuation.brackets.square.rust
+          3:
+            name: punctuation.brackets.curly.rust
+          4:
             name: keyword.operator.comparison.rust
+          5:
+            name: punctuation.brackets.round.rust
+          6:
+            name: punctuation.brackets.square.rust
+          7:
+            name: punctuation.brackets.curly.rust
       -
         comment: namespace operator
         name: keyword.operator.namespace.rust
