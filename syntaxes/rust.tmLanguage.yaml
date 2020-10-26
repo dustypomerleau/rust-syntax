@@ -4,7 +4,6 @@ fileTypes:
   - rs
 scopeName: source.rust
 patterns:
-  # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
   -
     comment: boxed slice literal
     begin: (<)(\[)
@@ -513,6 +512,7 @@ repository:
             name: storage.type.rust
           2:
             name: entity.name.type.trait.rust
+      # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
       -
         comment: struct declarations
         match: \b(struct)\s+([A-Z][A-Za-z0-9]*)\b
