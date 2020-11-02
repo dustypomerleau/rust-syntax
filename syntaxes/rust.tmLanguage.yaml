@@ -85,6 +85,8 @@ patterns:
       0:
         name: punctuation.brackets.attribute.rust
     patterns:
+      - include: '#block-comments'
+      - include: '#comments'
       - include: '#keywords'
       - include: '#punctuation'
       - include: '#strings'
@@ -135,10 +137,6 @@ patterns:
       - include: '#punctuation'
       - include: '#types'
       - include: '#lvariables'
-  # -
-  #   comment: raw identifiers
-  #   name: variable.other.raw.id.rust
-  #   match: r#(?!(crate|[Ss]elf|super))(([A-Za-z][A-Za-z0-9_]*)|(_[A-Za-z0-9_]+))
   - include: '#block-comments'
   - include: '#comments'
   - include: '#lvariables'
@@ -259,6 +257,7 @@ repository:
             name: keyword.other.rust
           2:
             name: punctuation.brackets.round.rust
+      # todo: meta.function definition can also end at ; instead of opening brace - see line 317 and 327 of rust2 sample code
       -
         comment: function definition
         name: meta.function.definition.rust
