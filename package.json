@@ -1,7 +1,7 @@
 {
   "name": "rust-syntax",
   "displayName": "Rust Syntax",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "Improved Rust syntax highlighting",
   "publisher": "dustypomerleau",
   "homepage": "https://github.com/dustypomerleau/rust-syntax",
