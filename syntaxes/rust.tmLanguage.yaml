@@ -1,3 +1,5 @@
+# todo: struct fields are getting source.rust (see rust2.rs lines 1885 and 1888 with self.slice_head)
+# you can capture this because function and method calls will always have parens, even if they are chained to another function by a dot, so you can match the case where a dot is followed by lowercase and then a word boundary without parens
 $schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
 name: Rust
 fileTypes:
@@ -257,7 +259,6 @@ repository:
             name: keyword.other.rust
           2:
             name: punctuation.brackets.round.rust
-      # todo: meta.function definition can also end at ; instead of opening brace - see line 317 and 327 of rust2 sample code
       -
         comment: function definition
         name: meta.function.definition.rust
