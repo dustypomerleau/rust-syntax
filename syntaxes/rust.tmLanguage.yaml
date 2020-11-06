@@ -390,7 +390,7 @@ repository:
       -
         comment: assignment operators
         name: keyword.operator.assignment.rust
-        match: (-=|\*=|/=|%=|\^=|&=|\|=|<<=|>>=)
+        match: (\+=|-=|\*=|/=|%=|\^=|&=|\|=|<<=|>>=)
       -
         comment: single equal
         name: keyword.operator.assignment.equal.rust
