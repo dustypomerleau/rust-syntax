@@ -677,7 +677,10 @@ repository:
         match: \bsuper\b
   variables:
     patterns:
+      # In order to capture variables ending ranges, but not struct field access, we match a preceding dot, only if it's preceded by at least one other dot.
+      # The double negation states that the pattern "must not be preceded by a dot that is not preceded by a dot."
+      # Attempting to match on (\.{2,})? won't work, because then struct field access can match after the dot.
       -
         comment: variables
         name: variable.other.rust
-        match: \b(?<!\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\b
+        match: \b(?<!(?<!\.)\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\b
