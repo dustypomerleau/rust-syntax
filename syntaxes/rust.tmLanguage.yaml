@@ -29,7 +29,7 @@ patterns:
   -
     comment: macro type metavariables
     name: meta.macro.metavariable.type.rust
-    match: (\$)((crate)|([A-Z][A-Za-z0-9_]*))((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?
+    match: (\$)((crate)|([A-Z][A-Za-z0-9_]*))((:)(block|expr|ident|item|lifetime|literal|meta|path?|stmt|tt|ty|vis))?
     captures:
       1:
         name: keyword.operator.macro.dollar.rust
@@ -46,7 +46,7 @@ patterns:
   -
     comment: macro metavariables
     name: meta.macro.metavariable.rust
-    match: (\$)([a-z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|pat|path|stmt|tt|ty|vis))?
+    match: (\$)([a-z][A-Za-z0-9_]*)((:)(block|expr|ident|item|lifetime|literal|meta|path?|stmt|tt|ty|vis))?
     captures:
       1:
         name: keyword.operator.macro.dollar.rust
@@ -375,6 +375,7 @@ repository:
         comment: mut
         name: storage.modifier.mut.rust
         match: \bmut\b
+      # todo: reorder math and assignment operators so that assignment takes precedence in -=, \=, etc.
       -
         comment: math operators
         name: keyword.operator.math.rust
