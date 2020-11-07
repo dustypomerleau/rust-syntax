@@ -676,11 +676,6 @@
                     "match": "\\bmut\\b"
                 },
                 {
-                    "comment": "math operators",
-                    "name": "keyword.operator.math.rust",
-                    "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
-                },
-                {
                     "comment": "logical operators",
                     "name": "keyword.operator.logical.rust",
                     "match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
@@ -704,6 +699,11 @@
                     "comment": "comparison operators",
                     "name": "keyword.operator.comparison.rust",
                     "match": "(=(=)?(?!>)|!=|<=|(?<!=)>=)"
+                },
+                {
+                    "comment": "math operators",
+                    "name": "keyword.operator.math.rust",
+                    "match": "(([+%]|(\\*(?!\\w)))(?!=))|(-(?!>))|(/(?!/))"
                 },
                 {
                     "comment": "less than, greater than (special case)",

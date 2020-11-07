@@ -375,11 +375,6 @@ repository:
         comment: mut
         name: storage.modifier.mut.rust
         match: \bmut\b
-      # todo: reorder math and assignment operators so that assignment takes precedence in -=, \=, etc.
-      -
-        comment: math operators
-        name: keyword.operator.math.rust
-        match: '(([+%]|(\*(?!\w)))(?!=))|(-(?!>))|(/(?!/))'
       -
         comment: logical operators
         name: keyword.operator.logical.rust
@@ -400,6 +395,10 @@ repository:
         comment: comparison operators
         name: keyword.operator.comparison.rust
         match: (=(=)?(?!>)|!=|<=|(?<!=)>=)
+      -
+        comment: math operators
+        name: keyword.operator.math.rust
+        match: '(([+%]|(\*(?!\w)))(?!=))|(-(?!>))|(/(?!/))'
       -
         comment: less than, greater than (special case)
         match: (?:\b|(?:(\))|(\])|(\})))[ \t]+([<>])[ \t]+(?:\b|(?:(\()|(\[)|(\{)))
