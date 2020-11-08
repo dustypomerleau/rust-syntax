@@ -2,6 +2,11 @@
 
 Notable changes to the Rust Syntax extension will be documented in this file.
 
+## **[0.3.0]:** 2020-11-08
+
+- more conventional keyword scopes (thanks: @cynecx)
+- many interval patch fixes (ranges, angle brackets, operator precedence, turbofish, comments, raw strings)
+
 ## **[0.2.0]:** 2020-10-10
 
 - move non-control keywords into `storage` and `keyword.other`
