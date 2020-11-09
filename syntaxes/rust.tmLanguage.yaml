@@ -296,6 +296,11 @@ repository:
           - include: '#types'
           - include: '#variables'
       -
+        # todo: capitalized functions in most cases represent enum members or tuple structs
+        # separate these out and color them accordingly
+        # this has to be done without breaking struct scoping when the struct keyword is used:
+        # struct MyStruct()
+        # this currently highlights correctly, even with parens
         comment: function/method calls, chaining
         name: meta.function.call.rust
         begin: ((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\()
