@@ -167,16 +167,20 @@ repository:
   block-comments:
     patterns:
       -
-        comment: block comments
+        comment: empty block comments
         name: comment.block.rust
-        begin: /\*(?!\*)
-        end: \*/
-        patterns:
-          - include: '#block-comments'
+        match: /\*\*/
       -
         comment: block documentation comments
         name: comment.block.documentation.rust
         begin: /\*\*
+        end: \*/
+        patterns:
+          - include: '#block-comments'
+      -
+        comment: block comments
+        name: comment.block.rust
+        begin: /\*(?!\*)
         end: \*/
         patterns:
           - include: '#block-comments'
