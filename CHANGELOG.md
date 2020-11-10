@@ -2,6 +2,11 @@
 
 Notable changes to the Rust Syntax extension will be documented in this file.
 
+## **[0.4.0]:** 2020-11-10
+
+- add a stub for future scope tests
+- add dev dependencies and a CI workflow for contributors
+
 ## **[0.3.0]:** 2020-11-08
 
 - more conventional keyword scopes (thanks: @cynecx)
