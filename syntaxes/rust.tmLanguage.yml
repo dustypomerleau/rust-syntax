@@ -482,7 +482,7 @@ repository:
     patterns:
       -
         comment: named lifetime parameters
-        match: (['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\b
+        match: (['])([A-Za-z_][A-Za-z0-9_]*)(?!['])\b
         captures:
           1:
             name: punctuation.definition.lifetime.rust
@@ -490,7 +490,7 @@ repository:
             name: entity.name.type.lifetime.rust
       -
         comment: borrowing references to named lifetimes
-        match: (\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\b
+        match: (\&)(['])([A-Za-z_][A-Za-z0-9_]*)(?!['])\b
         captures:
           1:
             name: keyword.operator.borrow.rust
