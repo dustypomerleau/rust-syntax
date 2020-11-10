@@ -11,7 +11,8 @@ This grammar is being evaluated in VS Code Nightly, and may become the default R
 However, for the moment this extension is the most current version.
 Feedback is ongoing, so the current scopes may change.
 
-The grammar in [Rust Analyzer][] is temporarily being kept in sync with this one while we wait on a merge into VS Code Stable, but if you have issues or a PR, please submit them here.
+The grammar in [Rust Analyzer][] is temporarily being kept in sync with this one while we wait on a merge into VS Code Stable.
+If you have an issue or PR, please submit it here.
 
 ## Contributing
 
