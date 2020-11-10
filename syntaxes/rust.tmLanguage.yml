@@ -304,7 +304,7 @@ repository:
         # this currently highlights correctly, even with parens
         comment: function/method calls, chaining
         name: meta.function.call.rust
-        begin: ((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\()
+        begin: \b((?:r#(?!crate|[Ss]elf|super))?[a-z0-9_]+)(\()
         beginCaptures:
           1:
             name: entity.name.function.rust
@@ -332,7 +332,7 @@ repository:
       -
         comment: function/method calls with turbofish
         name: meta.function.call.rust
-        begin: ((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(?=::<.*>\()
+        begin: \b((?:r#(?!crate|[Ss]elf|super))?[a-z0-9_]+)(?=::<.*>\()
         beginCaptures:
           1:
             name: entity.name.function.rust
@@ -588,7 +588,7 @@ repository:
       -
         comment: types
         name: entity.name.type.rust
-        match: '\b[A-Z][A-Za-z0-9_]*\b(?!!)'
+        match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
   gtypes:
     patterns:
       -
