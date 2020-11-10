@@ -51,6 +51,6 @@ If you need a theme that works out of the box with this grammar, please check ou
 ![Yarra Valley](./images/rust.png)
 
 [Rust Analyzer]: https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer
-[unit test]: https://github.com/dustypomerleau/rust-syntax/tree/master/test/test.rs
+[unit test]: https://github.com/dustypomerleau/rust-syntax/blob/master/test/test.rs
 [vscode-tmgrammar-test]: https://github.com/PanAeon/vscode-tmgrammar-test/blob/master/README.md
 [Yarra Valley]: https://marketplace.visualstudio.com/items?itemName=dustypomerleau.yarra-valley
