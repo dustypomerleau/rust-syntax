@@ -3,7 +3,7 @@ var yaml = require('gulp-yaml')
 
 gulp.task('yaml', function(cb) {
   gulp
-    .src('./syntaxes/*.yaml')
+    .src('./syntaxes/*.yml')
     .pipe(yaml({ safe: false, space: 4 }))
     .pipe(
       gulp.dest(function (f) {
@@ -16,7 +16,7 @@ gulp.task('yaml', function(cb) {
 gulp.task(
   'watch-yaml',
   gulp.series('yaml', function(cb) {
-    gulp.watch('./syntaxes/*.yaml', gulp.series('yaml'))
+    gulp.watch('./syntaxes/*.yml', gulp.series('yaml'))
     cb()
   })
 )
