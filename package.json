@@ -38,6 +38,14 @@
         "scopeName": "source.rust",
         "path": "./syntaxes/rust.tmLanguage.json"
       }
+    ],
+    "languages": [
+      {
+        "id": "rust",
+        "extensions": [".rs"],
+        "aliases": ["Rust", "rs"],
+        "configuration": "./language-configuration.json"
+      }
     ]
   },
   "devDependencies": {
