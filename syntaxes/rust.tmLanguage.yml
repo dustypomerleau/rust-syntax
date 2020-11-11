@@ -105,7 +105,7 @@ patterns:
   -
     comment: external crate imports
     name: meta.import.rust
-    begin: \b(extern)\s+(crate)
+    begin: \b(extern)\s+(crate)\b
     beginCaptures:
       1:
         name: storage.type.rust
