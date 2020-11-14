@@ -898,7 +898,7 @@
                 {
                     "comment": "closure traits",
                     "name": "entity.name.type.trait.rust",
-                    "match": "\\b(Fn|FnOnce|FnMut)\\b"
+                    "match": "\\b(Fn(Once|Mut)?)\\b"
                 },
                 {
                     "comment": "numeric types",
