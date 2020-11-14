@@ -108,7 +108,7 @@ patterns:
     begin: \b(extern)\s+(crate)\b
     beginCaptures:
       1:
-        name: storage.type.rust
+        name: storage.modifier.rust
       2:
         name: keyword.other.crate.rust
     end: ;
