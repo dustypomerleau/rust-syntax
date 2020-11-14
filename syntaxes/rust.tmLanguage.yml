@@ -521,6 +521,22 @@ repository:
   types:
     patterns:
       -
+        comment: impl traits
+        name: entity.name.type.trait.rust
+        match: (?<=\bimpl(?:<.*>)?\s+.*)[A-Z_][A-Za-z0-9_]*\b(?=(?:<.*>)?\s+for\s)
+      -
+        comment: impl struct after trait
+        name: entity.name.type.struct.rust
+        match: (?<=\bimpl(?:<.*>)?\s+.*[A-Z_][A-Za-z0-9_]*(?:<.*>)?\s+for\s+([&'].*\s+.*)?)[A-Z_][A-Za-z0-9_]*\b
+      -
+        comment: impl structs
+        name: entity.name.type.struct.rust
+        match: (?<=\bimpl(?:<.*>)?\s+)[A-Z_][A-Za-z0-9_]*\b(?!(?:<.*>)?\s+for\s)
+      -
+        comment: derivable traits
+        name: entity.name.type.trait.rust
+        match: \b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\b
+      -
         comment: numeric types
         match: '(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\b'
         captures:
@@ -560,14 +576,38 @@ repository:
           2:
             name: entity.name.type.trait.rust
       # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
+      # todo: nest blocks in struct and enum defs
       -
         comment: struct declarations
-        match: \b(struct)\s+([A-Z][A-Za-z0-9_]*)\b
-        captures:
+        name: meta.struct.definition.rust
+        begin: \b(struct)\s+([A-Z][A-Za-z0-9_]*)\b
+        beginCaptures:
           1:
             name: storage.type.rust
           2:
             name: entity.name.type.struct.rust
+        end: (\})|(;)
+        endCaptures:
+          1:
+            name: punctuation.brackets.curly.rust
+          2:
+            name: punctuation.semi.rust
+        patterns:
+          - include: '#block-comments'
+          - include: '#comments'
+          - include: '#lvariables'
+          - include: '#constants'
+          - include: '#gtypes'
+          - include: '#functions'
+          - include: '#types'
+          - include: '#keywords'
+          - include: '#lifetimes'
+          - include: '#macros'
+          - include: '#namespaces'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#fields'
+          - include: '#variables'
       -
         comment: enum declarations
         match: \b(enum)\s+([A-Z][A-Za-z0-9_]*)\b
@@ -584,10 +624,41 @@ repository:
             name: storage.type.rust
           2:
             name: entity.name.type.declaration.rust
+      # todo: handle inside enum declarations, where these may be used without parens and won't match here
+      # todo: handle the case of Ok(Version::Version1), where Version1 should also get this scope but isn't followed by ( - careful with this one it could catch all sorts of namespaces
+      # perhaps only match it when the value before :: is also starting with a capital letter - YES
+      # note: despite variable scope, this is included in types because:
+      # 1. it represents a type of sorts
+      # 2. precedence will cause `entity.name.type.rust` to match before variables
+      # todo: consider removing the option and result types and just letting them have this scope, or give them `variable.other.enummember.option|result.rust`
+
+      # idea:
+      # keep result an option types separate, but parent scope them same as enum member
+      # perhaps you can always scope as enum member when you have Something::Something, regardless of () or {} - try this
+      # Enum::Member
+      # scope as enum member when you have Something::Something {} - remember your word boundaries so that the capital preceding is at the start of the word (or an underscore)
+      # scope as enum member when you have Something::Something()
+      # scope as enum member when you have Something() inside an enum declaration
+      # scope as enum member when you just have Something inside enum declaration - make these 2 identical definitions, including one inside the enum definition and one in the main grammar
+      # scope as struct when you have Something {}
+      # scope as struct when you have something::Something()
+      # scope as struct when you have Something() (traits can also look like this)
+      # scope as type when you have something::Something
+      # scope as type when you just have Something
+      # impl Type for Struct (latch onto `for`)
+      # impl Struct (you gotta deal with type parameters in the way for both of these though)
+      # see how far that gets you, then look at examples that are parameterized - perhaps you can just include <.*> in the positive lookahead, but it might mean 2 versions of everything
+      # you'll need to define meta.block.rust with all scopes allowed and then include inside enum definition and struct definition
+      # YV type: purple, struct: blue, enum member: regex pink
+      -
+        comment: enum members and tuple structs
+        name: variable.other.enummember.rust
+        match: (?<!->\s*)\b[A-Z_][A-Za-z0-9_]*(?=\(| \{)
       -
         comment: types
         name: entity.name.type.rust
         match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
+      # todo: separate definition for tuple structs, enum members, and struct literals, and then another definition for enum members inside the enum declaration
   gtypes:
     patterns:
       -
@@ -693,3 +764,15 @@ repository:
         comment: variables
         name: variable.other.rust
         match: \b(?<!(?<!\.)\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\b
+  fields:
+    patterns:
+      -
+        # todo: YV
+        # todo: handle the case of dot access `s.field`
+        comment: struct field names
+        match: \b([a-z_][a-z0-9_]*)(:)(?=\s)
+        captures:
+          1:
+            name: variable.other.property.rust
+          2:
+            name: keyword.operator.key-value.rust

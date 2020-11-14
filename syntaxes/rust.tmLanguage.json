@@ -873,6 +873,26 @@
         "types": {
             "patterns": [
                 {
+                    "comment": "impl traits",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "(?<=\\bimpl(?:<.*>)?\\s+.*)[A-Z_][A-Za-z0-9_]*\\b(?=(?:<.*>)?\\s+for\\s)"
+                },
+                {
+                    "comment": "impl struct after trait",
+                    "name": "entity.name.type.struct.rust",
+                    "match": "(?<=\\bimpl(?:<.*>)?\\s+.*[A-Z_][A-Za-z0-9_]*(?:<.*>)?\\s+for\\s+([&'].*\\s+.*)?)[A-Z_][A-Za-z0-9_]*\\b"
+                },
+                {
+                    "comment": "impl structs",
+                    "name": "entity.name.type.struct.rust",
+                    "match": "(?<=\\bimpl(?:<.*>)?\\s+)[A-Z_][A-Za-z0-9_]*\\b(?!(?:<.*>)?\\s+for\\s)"
+                },
+                {
+                    "comment": "derivable traits",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
+                },
+                {
                     "comment": "numeric types",
                     "match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
                     "captures": {
@@ -944,15 +964,72 @@
                 },
                 {
                     "comment": "struct declarations",
-                    "match": "\\b(struct)\\s+([A-Z][A-Za-z0-9_]*)\\b",
-                    "captures": {
+                    "name": "meta.struct.definition.rust",
+                    "begin": "\\b(struct)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+                    "beginCaptures": {
                         "1": {
                             "name": "storage.type.rust"
                         },
                         "2": {
                             "name": "entity.name.type.struct.rust"
                         }
-                    }
+                    },
+                    "end": "(\\})|(;)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.brackets.curly.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.semi.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#lvariables"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#gtypes"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#lifetimes"
+                        },
+                        {
+                            "include": "#macros"
+                        },
+                        {
+                            "include": "#namespaces"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#fields"
+                        },
+                        {
+                            "include": "#variables"
+                        }
+                    ]
                 },
                 {
                     "comment": "enum declarations",
@@ -977,6 +1054,11 @@
                             "name": "entity.name.type.declaration.rust"
                         }
                     }
+                },
+                {
+                    "comment": "enum members and tuple structs",
+                    "name": "variable.other.enummember.rust",
+                    "match": "(?<!->\\s*)\\b[A-Z_][A-Za-z0-9_]*(?=\\(| \\{)"
                 },
                 {
                     "comment": "types",
@@ -1133,6 +1215,22 @@
                     "comment": "variables",
                     "name": "variable.other.rust",
                     "match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\\b"
+                }
+            ]
+        },
+        "fields": {
+            "patterns": [
+                {
+                    "comment": "struct field names",
+                    "match": "\\b([a-z_][a-z0-9_]*)(:)(?=\\s)",
+                    "captures": {
+                        "1": {
+                            "name": "variable.other.property.rust"
+                        },
+                        "2": {
+                            "name": "keyword.operator.key-value.rust"
+                        }
+                    }
                 }
             ]
         }
