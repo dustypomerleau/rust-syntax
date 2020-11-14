@@ -1,5 +1,3 @@
-# todo: struct fields are getting source.rust (see rust2.rs lines 1885 and 1888 with self.slice_head)
-# you can capture this because function and method calls will always have parens, even if they are chained to another function by a dot, so you can match the case where a dot is followed by lowercase and then a word boundary without parens
 $schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
 name: Rust
 fileTypes:
@@ -297,11 +295,6 @@ repository:
           - include: '#types'
           - include: '#variables'
       -
-        # todo: capitalized functions in most cases represent enum members or tuple structs
-        # separate these out and color them accordingly
-        # this has to be done without breaking struct scoping when the struct keyword is used:
-        # struct MyStruct()
-        # this currently highlights correctly, even with parens
         comment: function/method calls, chaining
         name: meta.function.call.rust
         begin: \b((?:r#(?!crate|[Ss]elf|super))?[a-z0-9_]+)(\()
@@ -656,32 +649,7 @@ repository:
             name: storage.type.rust
           2:
             name: entity.name.type.declaration.rust
-      # todo: handle inside enum declarations, where these may be used without parens and won't match here
-      # todo: handle the case of Ok(Version::Version1), where Version1 should also get this scope but isn't followed by ( - careful with this one it could catch all sorts of namespaces
-      # perhaps only match it when the value before :: is also starting with a capital letter - YES
-      # note: despite variable scope, this is included in types because:
-      # 1. it represents a type of sorts
-      # 2. precedence will cause `entity.name.type.rust` to match before variables
-      # todo: consider removing the option and result types and just letting them have this scope, or give them `variable.other.enummember.option|result.rust`
-
-      # idea:
-      # keep result an option types separate, but parent scope them same as enum member
-      # perhaps you can always scope as enum member when you have Something::Something, regardless of () or {} - try this
-      # Enum::Member
-      # scope as enum member when you have Something::Something {} - remember your word boundaries so that the capital preceding is at the start of the word (or an underscore)
-      # scope as enum member when you have Something::Something()
-      # scope as enum member when you have Something() inside an enum declaration
-      # scope as enum member when you just have Something inside enum declaration - make these 2 identical definitions, including one inside the enum definition and one in the main grammar
-      # scope as struct when you have Something {}
-      # scope as struct when you have something::Something()
-      # scope as struct when you have Something() (traits can also look like this)
-      # scope as type when you have something::Something
-      # scope as type when you just have Something
-      # impl Type for Struct (latch onto `for`)
-      # impl Struct (you gotta deal with type parameters in the way for both of these though)
-      # see how far that gets you, then look at examples that are parameterized - perhaps you can just include <.*> in the positive lookahead, but it might mean 2 versions of everything
-      # you'll need to define meta.block.rust with all scopes allowed and then include inside enum definition and struct definition
-      # YV type: purple, struct: blue, enum member: regex pink
+      # YV type: purple, struct: blue, enum member: dark pink, trait: light pink
       -
         comment: enum members and tuple structs
         name: variable.other.enummember.rust
@@ -690,7 +658,6 @@ repository:
         comment: types
         name: entity.name.type.rust
         match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
-      # todo: separate definition for tuple structs, enum members, and struct literals, and then another definition for enum members inside the enum declaration
   gtypes:
     patterns:
       -
