@@ -1,6 +1,6 @@
 // SYNTAX TEST "source.rust" "Textmate grammar scope tests"
 
-// PLEASE NOTE: My apologies, but we are blocked on testing, due to an inability of the test platform to process some of the lookbehinds in the grammar. VS Code has no issue with them, but the test engine cannot create the Oniguruma scanner needed to run the tests.
+// PLEASE NOTE: My apologies, but we are blocked on testing, due to an inability of the test platform to process some of the lookbehinds in the grammar. VS Code has no issue with them, but the test engine cannot create the Oniguruma scanner needed to run the tests. Candidates for causing the breakage includ variable-length assertions, although I haven't been able to pin down the exact cause.
 
 // This file is a placeholder stub that will gradually be expanded to unit test all scopes.
 // Instructions for writing Textmate grammar tests can be found at:
@@ -8,7 +8,7 @@
 
 // example test
 extern crate std;
-// <------ meta.import.rust storage.type.rust
+// <------ meta.import.rust storage.modifier.rust
 //     ^^^^^ meta.import.rust keyword.other.crate.rust
 //           ^^^ meta.import.rust
 //              ^ meta.import.rust punctuation.semi.rust
