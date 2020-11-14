@@ -893,6 +893,11 @@
                     "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
                 },
                 {
+                    "comment": "closure traits",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b(Fn|FnOnce|FnMut)\\b"
+                },
+                {
                     "comment": "numeric types",
                     "match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
                     "captures": {

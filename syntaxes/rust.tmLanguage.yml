@@ -519,6 +519,33 @@ repository:
           2:
             name: keyword.operator.namespace.rust
   types:
+    # // nonspecific - no distinction can be made
+    # Type
+    # namespace::Type
+
+    # // likely enum
+    # Enum::Member
+    # Enum::Member()
+    # Enum::Member {}
+
+    # // likely struct
+    # Struct {}
+    # namespace::Struct()
+    # Struct::method()
+
+    # // inside enum declarations, favor member:
+    # enum Enum {
+    #     Member(),
+    #     Member
+    # }
+
+    # // outside enum declarations, favor Struct
+    # Struct()
+    # // (option and result types have their own scopes, so wouldn't be caught here)
+
+    # // leverage impl
+    # impl Struct {}
+    # impl Trait for Struct {}
     patterns:
       -
         comment: impl traits
@@ -536,6 +563,10 @@ repository:
         comment: derivable traits
         name: entity.name.type.trait.rust
         match: \b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\b
+      -
+        comment: closure traits
+        name: entity.name.type.trait.rust
+        match: \b(Fn|FnOnce|FnMut)\b
       -
         comment: numeric types
         match: '(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\b'
