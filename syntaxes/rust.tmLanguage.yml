@@ -540,14 +540,16 @@ repository:
     # impl Struct {}
     # impl Trait for Struct {}
     patterns:
+      # todo: test heaps of impls to see if you're catching all the variations
+      # todo: copy the approach for impl traits to the others below it
       -
         comment: impl traits
         name: entity.name.type.trait.rust
-        match: (?<=\bimpl(<.*>)?\s+.*)[A-Z_][A-Za-z0-9_]*\b(?=(<.*>)?\s+for\s)
+        match: (?<=\bimpl(<.*>)?\s+([A-Za-z_][A-Za-z0-9_]*::)*)[A-Z_][A-Za-z0-9_]*\b(?=(<.*>)?\s+for\s)
       -
         comment: impl struct after trait
         name: entity.name.type.struct.rust
-        match: (?<=\bimpl(<.*>)?\s+.*[A-Z_][A-Za-z0-9_]*(<.*>)?\s+for\s+([&'].*\s+.*)?)[A-Z_][A-Za-z0-9_]*\b
+        match: (?<=\bimpl(<.*>)?\s*.*\s+[A-Z_][A-Za-z0-9_]*(<.*>)?\s*.*\s+for\s+([&'].*\s+.*)?)[A-Z_][A-Za-z0-9_]*\b
       -
         comment: impl structs
         name: entity.name.type.struct.rust
