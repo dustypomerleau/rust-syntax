@@ -878,12 +878,12 @@
                 {
                     "comment": "impl traits",
                     "name": "entity.name.type.trait.rust",
-                    "match": "(?<=\\bimpl(<.*>)?\\s+.*)[A-Z_][A-Za-z0-9_]*\\b(?=(<.*>)?\\s+for\\s)"
+                    "match": "(?<=\\bimpl(<.*>)?\\s+([A-Za-z_][A-Za-z0-9_]*::)*)[A-Z_][A-Za-z0-9_]*\\b(?=(<.*>)?\\s+for\\s)"
                 },
                 {
                     "comment": "impl struct after trait",
                     "name": "entity.name.type.struct.rust",
-                    "match": "(?<=\\bimpl(<.*>)?\\s+.*[A-Z_][A-Za-z0-9_]*(<.*>)?\\s+for\\s+([&'].*\\s+.*)?)[A-Z_][A-Za-z0-9_]*\\b"
+                    "match": "(?<=\\bimpl(<.*>)?\\s*.*\\s+[A-Z_][A-Za-z0-9_]*(<.*>)?\\s*.*\\s+for\\s+([&'].*\\s+.*)?)[A-Z_][A-Za-z0-9_]*\\b"
                 },
                 {
                     "comment": "impl structs",
