@@ -19,8 +19,8 @@ patterns:
     patterns:
       - include: '#block-comments'
       - include: '#comments'
-      - include: '#gtypes'
-      - include: '#lvariables'
+      - include: '#generic-types'
+      - include: '#language-variables'
       - include: '#lifetimes'
       - include: '#punctuation'
       - include: '#types'
@@ -90,7 +90,7 @@ patterns:
       - include: '#keywords'
       - include: '#punctuation'
       - include: '#strings'
-      - include: '#gtypes'
+      - include: '#generic-types'
       - include: '#types'
   -
     comment: modules
@@ -136,12 +136,12 @@ patterns:
       - include: '#namespaces'
       - include: '#punctuation'
       - include: '#types'
-      - include: '#lvariables'
+      - include: '#language-variables'
   - include: '#block-comments'
   - include: '#comments'
-  - include: '#lvariables'
+  - include: '#language-variables'
   - include: '#constants'
-  - include: '#gtypes'
+  - include: '#generic-types'
   - include: '#functions'
   - include: '#types'
   - include: '#keywords'
@@ -282,9 +282,9 @@ repository:
           - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
-          - include: '#lvariables'
+          - include: '#language-variables'
           - include: '#constants'
-          - include: '#gtypes'
+          - include: '#generic-types'
           - include: '#functions'
           - include: '#lifetimes'
           - include: '#macros'
@@ -310,9 +310,9 @@ repository:
           - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
-          - include: '#lvariables'
+          - include: '#language-variables'
           - include: '#constants'
-          - include: '#gtypes'
+          - include: '#generic-types'
           - include: '#functions'
           - include: '#lifetimes'
           - include: '#macros'
@@ -336,9 +336,9 @@ repository:
           - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
-          - include: '#lvariables'
+          - include: '#language-variables'
           - include: '#constants'
-          - include: '#gtypes'
+          - include: '#generic-types'
           - include: '#functions'
           - include: '#lifetimes'
           - include: '#macros'
@@ -584,7 +584,7 @@ repository:
           - include: '#block-comments'
           - include: '#comments'
           - include: '#keywords'
-          - include: '#lvariables'
+          - include: '#language-variables'
           - include: '#lifetimes'
           - include: '#punctuation'
           - include: '#types'
@@ -621,9 +621,9 @@ repository:
         patterns:
           - include: '#block-comments'
           - include: '#comments'
-          - include: '#lvariables'
+          - include: '#language-variables'
           - include: '#constants'
-          - include: '#gtypes'
+          - include: '#generic-types'
           - include: '#functions'
           - include: '#types'
           - include: '#keywords'
@@ -659,7 +659,7 @@ repository:
         comment: types
         name: entity.name.type.rust
         match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
-  gtypes:
+  generic-types:
     patterns:
       -
         comment: option types
@@ -745,7 +745,7 @@ repository:
             name: punctuation.definition.char.rust
         patterns:
           - include: '#escapes'
-  lvariables:
+  language-variables:
     patterns:
       -
         comment: self
