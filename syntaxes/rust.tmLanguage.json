@@ -31,10 +31,10 @@
                     "include": "#comments"
                 },
                 {
-                    "include": "#gtypes"
+                    "include": "#generic-types"
                 },
                 {
-                    "include": "#lvariables"
+                    "include": "#language-variables"
                 },
                 {
                     "include": "#lifetimes"
@@ -158,7 +158,7 @@
                     "include": "#strings"
                 },
                 {
-                    "include": "#gtypes"
+                    "include": "#generic-types"
                 },
                 {
                     "include": "#types"
@@ -245,7 +245,7 @@
                     "include": "#types"
                 },
                 {
-                    "include": "#lvariables"
+                    "include": "#language-variables"
                 }
             ]
         },
@@ -256,13 +256,13 @@
             "include": "#comments"
         },
         {
-            "include": "#lvariables"
+            "include": "#language-variables"
         },
         {
             "include": "#constants"
         },
         {
-            "include": "#gtypes"
+            "include": "#generic-types"
         },
         {
             "include": "#functions"
@@ -487,13 +487,13 @@
                             "include": "#keywords"
                         },
                         {
-                            "include": "#lvariables"
+                            "include": "#language-variables"
                         },
                         {
                             "include": "#constants"
                         },
                         {
-                            "include": "#gtypes"
+                            "include": "#generic-types"
                         },
                         {
                             "include": "#functions"
@@ -550,13 +550,13 @@
                             "include": "#keywords"
                         },
                         {
-                            "include": "#lvariables"
+                            "include": "#language-variables"
                         },
                         {
                             "include": "#constants"
                         },
                         {
-                            "include": "#gtypes"
+                            "include": "#generic-types"
                         },
                         {
                             "include": "#functions"
@@ -610,13 +610,13 @@
                             "include": "#keywords"
                         },
                         {
-                            "include": "#lvariables"
+                            "include": "#language-variables"
                         },
                         {
                             "include": "#constants"
                         },
                         {
-                            "include": "#gtypes"
+                            "include": "#generic-types"
                         },
                         {
                             "include": "#functions"
@@ -937,7 +937,7 @@
                             "include": "#keywords"
                         },
                         {
-                            "include": "#lvariables"
+                            "include": "#language-variables"
                         },
                         {
                             "include": "#lifetimes"
@@ -999,13 +999,13 @@
                             "include": "#comments"
                         },
                         {
-                            "include": "#lvariables"
+                            "include": "#language-variables"
                         },
                         {
                             "include": "#constants"
                         },
                         {
-                            "include": "#gtypes"
+                            "include": "#generic-types"
                         },
                         {
                             "include": "#functions"
@@ -1075,7 +1075,7 @@
                 }
             ]
         },
-        "gtypes": {
+        "generic-types": {
             "patterns": [
                 {
                     "comment": "option types",
@@ -1203,7 +1203,7 @@
                 }
             ]
         },
-        "lvariables": {
+        "language-variables": {
             "patterns": [
                 {
                     "comment": "self",
