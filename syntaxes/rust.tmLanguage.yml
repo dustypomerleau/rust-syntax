@@ -335,17 +335,17 @@ repository:
         patterns:
           - include: '#block-comments'
           - include: '#comments'
-          - include: '#keywords'
           - include: '#language-variables'
           - include: '#constants'
           - include: '#generic-types'
+          - include: '#types'
           - include: '#functions'
           - include: '#lifetimes'
           - include: '#macros'
           - include: '#namespaces'
           - include: '#punctuation'
+          - include: '#keywords'
           - include: '#strings'
-          - include: '#types'
           - include: '#variables'
   keywords:
     patterns:
