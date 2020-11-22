@@ -607,9 +607,6 @@
                             "include": "#comments"
                         },
                         {
-                            "include": "#keywords"
-                        },
-                        {
                             "include": "#language-variables"
                         },
                         {
@@ -617,6 +614,9 @@
                         },
                         {
                             "include": "#generic-types"
+                        },
+                        {
+                            "include": "#types"
                         },
                         {
                             "include": "#functions"
@@ -634,10 +634,10 @@
                             "include": "#punctuation"
                         },
                         {
-                            "include": "#strings"
+                            "include": "#keywords"
                         },
                         {
-                            "include": "#types"
+                            "include": "#strings"
                         },
                         {
                             "include": "#variables"
