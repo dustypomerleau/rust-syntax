@@ -7,47 +7,6 @@
     "scopeName": "source.rust",
     "patterns": [
         {
-            "comment": "boxed slice literal",
-            "begin": "(<)(\\[)",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.brackets.angle.rust"
-                },
-                "2": {
-                    "name": "punctuation.brackets.square.rust"
-                }
-            },
-            "end": ">",
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.brackets.angle.rust"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#block-comments"
-                },
-                {
-                    "include": "#comments"
-                },
-                {
-                    "include": "#generic-types"
-                },
-                {
-                    "include": "#language-variables"
-                },
-                {
-                    "include": "#lifetimes"
-                },
-                {
-                    "include": "#punctuation"
-                },
-                {
-                    "include": "#types"
-                }
-            ]
-        },
-        {
             "comment": "macro type metavariables",
             "name": "meta.macro.metavariable.type.rust",
             "match": "(\\$)((crate)|([A-Z][A-Za-z0-9_]*))((:)(block|expr|ident|item|lifetime|literal|meta|path?|stmt|tt|ty|vis))?",
@@ -116,51 +75,6 @@
                     "name": "punctuation.brackets.curly.rust"
                 }
             }
-        },
-        {
-            "comment": "attributes",
-            "name": "meta.attribute.rust",
-            "begin": "(#)(\\!?)(\\[)",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.definition.attribute.rust"
-                },
-                "2": {
-                    "name": "keyword.operator.attribute.inner.rust"
-                },
-                "3": {
-                    "name": "punctuation.brackets.attribute.rust"
-                }
-            },
-            "end": "\\]",
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.brackets.attribute.rust"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#block-comments"
-                },
-                {
-                    "include": "#comments"
-                },
-                {
-                    "include": "#keywords"
-                },
-                {
-                    "include": "#punctuation"
-                },
-                {
-                    "include": "#strings"
-                },
-                {
-                    "include": "#generic-types"
-                },
-                {
-                    "include": "#types"
-                }
-            ]
         },
         {
             "comment": "modules",
@@ -251,6 +165,9 @@
         },
         {
             "include": "#comments"
+        },
+        {
+            "include": "#attributes"
         },
         {
             "include": "#language-variables"
@@ -467,10 +384,13 @@
                             "name": "punctuation.brackets.angle.rust"
                         }
                     },
-                    "end": "\\{|;",
+                    "end": "(\\{)|(;)",
                     "endCaptures": {
-                        "0": {
+                        "1": {
                             "name": "punctuation.brackets.curly.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.semi.rust"
                         }
                     },
                     "patterns": [
@@ -479,6 +399,12 @@
                         },
                         {
                             "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
+                        },
+                        {
+                            "include": "#punctuation"
                         },
                         {
                             "include": "#keywords"
@@ -503,9 +429,6 @@
                         },
                         {
                             "include": "#namespaces"
-                        },
-                        {
-                            "include": "#punctuation"
                         },
                         {
                             "include": "#strings"
@@ -542,6 +465,9 @@
                         },
                         {
                             "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
                         },
                         {
                             "include": "#keywords"
@@ -602,6 +528,9 @@
                         },
                         {
                             "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
                         },
                         {
                             "include": "#language-variables"
@@ -873,47 +802,11 @@
         "types": {
             "patterns": [
                 {
-                    "comment": "impl traits",
-                    "name": "entity.name.type.trait.rust",
-                    "match": "(?<=\\bimpl(<.*>)?\\s+([A-Za-z_][A-Za-z0-9_]*::)*)[A-Z_][A-Za-z0-9_]*\\b(?=(<.*>)?\\s+for\\s)"
-                },
-                {
-                    "comment": "impl struct after trait",
-                    "name": "entity.name.type.struct.rust",
-                    "match": "(?<=\\bimpl(<.*>)?\\s*.*\\s+[A-Z_][A-Za-z0-9_]*(<.*>)?\\s*.*\\s+for\\s+([&'].*\\s+.*)?)[A-Z_][A-Za-z0-9_]*\\b"
-                },
-                {
-                    "comment": "impl structs",
-                    "name": "entity.name.type.struct.rust",
-                    "match": "(?<=\\bimpl(<.*>)?\\s+)[A-Z_][A-Za-z0-9_]*\\b(?!(<.*>)?\\s+for\\s)"
-                },
-                {
-                    "comment": "derivable traits",
-                    "name": "entity.name.type.trait.rust",
-                    "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
-                },
-                {
-                    "comment": "closure traits",
-                    "name": "entity.name.type.trait.rust",
-                    "match": "\\b(Fn(Once|Mut)?)\\b"
-                },
-                {
-                    "comment": "numeric types",
-                    "match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
-                    "captures": {
-                        "1": {
-                            "name": "entity.name.type.numeric.rust"
-                        }
-                    }
-                },
-                {
-                    "comment": "parameterized types",
-                    "begin": "\\b([A-Z][A-Za-z0-9_]*)(<)",
+                    "comment": "type parameters",
+                    "name": "meta.type.parameter.rust",
+                    "begin": "<(?![<=\\s])",
                     "beginCaptures": {
-                        "1": {
-                            "name": "entity.name.type.rust"
-                        },
-                        "2": {
+                        "0": {
                             "name": "punctuation.brackets.angle.rust"
                         }
                     },
@@ -931,16 +824,37 @@
                             "include": "#comments"
                         },
                         {
+                            "include": "#attributes"
+                        },
+                        {
                             "include": "#keywords"
                         },
                         {
                             "include": "#language-variables"
                         },
                         {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
                             "include": "#lifetimes"
                         },
                         {
+                            "include": "#macros"
+                        },
+                        {
+                            "include": "#namespaces"
+                        },
+                        {
                             "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
                         },
                         {
                             "include": "#types"
@@ -949,6 +863,69 @@
                             "include": "#variables"
                         }
                     ]
+                },
+                {
+                    "comment": "derivable traits",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
+                },
+                {
+                    "comment": "closure traits",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b(Fn(Once|Mut)?)\\b"
+                },
+                {
+                    "comment": "enum with member",
+                    "match": "\\b([A-Z_][A-Za-z0-9_]*)(::)([A-Z_][A-Za-z0-9_]*)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.type.enum.rust"
+                        },
+                        "2": {
+                            "name": "keyword.operator.namespace.rust"
+                        },
+                        "3": {
+                            "name": "variable.other.enummember.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "namespaced struct",
+                    "match": "\\b([a-z_][a-z0-9_]*)(::)([A-Z_][A-Za-z0-9_]*)\\b(?=\\(|\\s+\\{)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.namespace.rust"
+                        },
+                        "2": {
+                            "name": "keyword.operator.namespace.rust"
+                        },
+                        "3": {
+                            "name": "entity.name.type.struct.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "struct with method",
+                    "name": "entity.name.type.struct.rust",
+                    "match": "\\b[A-Z_][A-Za-z0-9_]*(?=::[a-z_][a-z0-9_]*\\()"
+                },
+                {
+                    "comment": "isolated Struct",
+                    "match": "(?<!::)(?<!->\\s)\\b([A-Z_][A-Za-z0-9_]*)(?=\\s+\\{|\\()",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.type.struct.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "numeric types",
+                    "match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.type.numeric.rust"
+                        }
+                    }
                 },
                 {
                     "comment": "primitive types",
@@ -996,6 +973,9 @@
                             "include": "#comments"
                         },
                         {
+                            "include": "#attributes"
+                        },
+                        {
                             "include": "#language-variables"
                         },
                         {
@@ -1038,15 +1018,78 @@
                 },
                 {
                     "comment": "enum declarations",
-                    "match": "\\b(enum)\\s+([A-Z][A-Za-z0-9_]*)\\b",
-                    "captures": {
+                    "name": "meta.enum.definition.rust",
+                    "begin": "\\b(enum)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+                    "beginCaptures": {
                         "1": {
                             "name": "storage.type.rust"
                         },
                         "2": {
                             "name": "entity.name.type.enum.rust"
                         }
-                    }
+                    },
+                    "end": "(\\})|(;)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.brackets.curly.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.semi.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
+                        },
+                        {
+                            "include": "#language-variables"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#members"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#lifetimes"
+                        },
+                        {
+                            "include": "#macros"
+                        },
+                        {
+                            "include": "#namespaces"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#fields"
+                        },
+                        {
+                            "include": "#variables"
+                        }
+                    ]
                 },
                 {
                     "comment": "type declarations",
@@ -1061,11 +1104,6 @@
                     }
                 },
                 {
-                    "comment": "enum members and tuple structs",
-                    "name": "variable.other.enummember.rust",
-                    "match": "(?<!->\\s*)\\b[A-Z_][A-Za-z0-9_]*(?=\\(| \\{)"
-                },
-                {
                     "comment": "types",
                     "name": "entity.name.type.rust",
                     "match": "\\b_?[A-Z][A-Za-z0-9_]*\\b(?!!)"
@@ -1076,12 +1114,12 @@
             "patterns": [
                 {
                     "comment": "option types",
-                    "name": "entity.name.type.option.rust",
+                    "name": "variable.other.enummember.rust",
                     "match": "\\b(Some|None)\\b"
                 },
                 {
                     "comment": "result types",
-                    "name": "entity.name.type.result.rust",
+                    "name": "variable.other.enummember.rust",
                     "match": "\\b(Ok|Err)\\b"
                 }
             ]
@@ -1236,6 +1274,68 @@
                             "name": "keyword.operator.key-value.rust"
                         }
                     }
+                }
+            ]
+        },
+        "members": {
+            "patterns": [
+                {
+                    "comment": "enum members",
+                    "match": "^\\s+?([A-Z_][A-Za-z_]*)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "variable.other.enummember.rust"
+                        }
+                    }
+                }
+            ]
+        },
+        "attributes": {
+            "patterns": [
+                {
+                    "comment": "attributes",
+                    "name": "meta.attribute.rust",
+                    "begin": "(#)(\\!?)(\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.attribute.rust"
+                        },
+                        "2": {
+                            "name": "keyword.operator.attribute.inner.rust"
+                        },
+                        "3": {
+                            "name": "punctuation.brackets.attribute.rust"
+                        }
+                    },
+                    "end": "\\]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.attribute.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#types"
+                        }
+                    ]
                 }
             ]
         }
