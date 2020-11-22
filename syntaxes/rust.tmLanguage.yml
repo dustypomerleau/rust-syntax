@@ -396,7 +396,7 @@ repository:
       -
         comment: comparison operators
         name: keyword.operator.comparison.rust
-        match: (=(=)?(?!>)|!=|<=|(?<!=)>=)
+        match: (==|!=|<=|>=)
       -
         comment: math operators
         name: keyword.operator.math.rust
