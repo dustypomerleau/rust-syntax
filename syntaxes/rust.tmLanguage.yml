@@ -565,6 +565,16 @@ repository:
         name: entity.name.type.struct.rust
         match: \b[A-Z_][A-Za-z0-9_]*(?=::[a-z_][a-z0-9_]*\()
       -
+        comment: struct with field access
+        match: \b([A-Z_][A-Za-z0-9_]*)(\.)([a-z_][a-z0-9_]*)\b(?!\()
+        captures:
+          1:
+            name: entity.name.type.struct.rust
+          2:
+            name: keyword.operator.access.dot.rust
+          3:
+            name: variable.other.property.rust
+      -
         comment: isolated Struct
         match: (?<!::)(?<!->\s)\b([A-Z_][A-Za-z0-9_]*)(?=\s+\{|\()
         captures:
@@ -580,6 +590,7 @@ repository:
         comment: primitive types
         name: entity.name.type.primitive.rust
         match: \b(bool|char|str)\b
+      # todo: traits and structs in impl blocks
       -
         comment: trait declarations
         match: \b(trait)\s+([A-Z][A-Za-z0-9_]*)\b
@@ -667,7 +678,7 @@ repository:
             name: storage.type.rust
           2:
             name: entity.name.type.declaration.rust
-      # YV type: purple, struct: blue, enum member: dark pink, trait: light pink
+      # YV type: purple, struct: blue, enums?, enum member: dark pink, trait: light pink
       -
         comment: types
         name: entity.name.type.rust
