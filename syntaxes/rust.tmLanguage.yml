@@ -566,7 +566,7 @@ repository:
         match: \b[A-Z_][A-Za-z0-9_]*(?=::[a-z_][a-z0-9_]*\()
       -
         comment: struct with field access
-        match: \b([A-Z_][A-Za-z0-9_]*)(\.)([a-z_][a-z0-9_]*)\b(?!\()
+        match: \b([A-Z_][A-Za-z0-9_]*)(\.)([a-z_][a-z0-9_]*)\b(\.)?(?!\()
         captures:
           1:
             name: entity.name.type.struct.rust
@@ -574,6 +574,8 @@ repository:
             name: keyword.operator.access.dot.rust
           3:
             name: variable.other.property.rust
+          4:
+            name: keyword.operator.access.dot.rust
       -
         comment: isolated Struct
         match: (?<!::)(?<!->\s)\b([A-Z_][A-Za-z0-9_]*)(?=\s+\{|\()
@@ -790,11 +792,15 @@ repository:
         comment: variables
         name: variable.other.rust
         match: \b(?<!(?<!\.)\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\b
+      # note: relies on precedence not to catch Struct.field
+      -
+        comment: variable with field access
+        name: variable.other.property.rust
+        match: (?<=\.)[a-z_][a-z0-9_]*(?=\.)
   fields:
     patterns:
       -
         # todo: YV
-        # todo: handle the case of dot access `s.field`
         comment: struct field names
         match: \b([a-z_][a-z0-9_]*)(:)(?=\s)
         captures:
