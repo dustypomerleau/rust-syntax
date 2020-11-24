@@ -865,11 +865,6 @@
                     ]
                 },
                 {
-                    "comment": "derivable traits",
-                    "name": "entity.name.type.trait.rust",
-                    "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
-                },
-                {
                     "comment": "closure traits",
                     "name": "entity.name.type.trait.rust",
                     "match": "\\b(Fn(Once|Mut)?)\\b"
@@ -1353,12 +1348,69 @@
                             "include": "#strings"
                         },
                         {
+                            "include": "#derivations"
+                        },
+                        {
                             "include": "#generic-types"
                         },
                         {
                             "include": "#types"
                         }
                     ]
+                }
+            ]
+        },
+        "derivations": {
+            "patterns": [
+                {
+                    "comment": "derive calls",
+                    "begin": "\\bderive([(])",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.brackets.round.rust"
+                        }
+                    },
+                    "end": "[)]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.round.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#traits"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#types"
+                        }
+                    ]
+                }
+            ]
+        },
+        "traits": {
+            "patterns": [
+                {
+                    "comment": "traits inside `derive()`",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b[A-Z_][A-Za-z0-9_]*\\b"
                 }
             ]
         }
