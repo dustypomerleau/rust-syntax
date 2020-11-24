@@ -1142,6 +1142,199 @@
                     ]
                 },
                 {
+                    "comment": "impl block without trait",
+                    "begin": "\\bimpl\\b(?!.*for)",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.other.rust"
+                        }
+                    },
+                    "end": "(\\{)|(;)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.brackets.curly.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.semi.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
+                        },
+                        {
+                            "include": "#language-variables"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#lifetimes"
+                        },
+                        {
+                            "include": "#macros"
+                        },
+                        {
+                            "include": "#namespaces"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#variables"
+                        }
+                    ]
+                },
+                {
+                    "comment": "impl block with trait",
+                    "begin": "\\bimpl\\b",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.other.rust"
+                        }
+                    },
+                    "end": "\\b(?=for\\b)",
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
+                        },
+                        {
+                            "include": "#language-variables"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
+                            "include": "#traits"
+                        },
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#lifetimes"
+                        },
+                        {
+                            "include": "#macros"
+                        },
+                        {
+                            "include": "#namespaces"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#variables"
+                        }
+                    ]
+                },
+                {
+                    "comment": "impl block post-trait (to catch struct)",
+                    "begin": "\\b(for)\\s+([A-Z_][A-Za-z0-9_]*)\\b",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "keyword.control.rust"
+                        },
+                        "2": {
+                            "name": "entity.name.type.struct.rust"
+                        }
+                    },
+                    "end": "(\\{)|(;)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.brackets.curly.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.semi.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
+                        },
+                        {
+                            "include": "#language-variables"
+                        },
+                        {
+                            "include": "#constants"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#functions"
+                        },
+                        {
+                            "include": "#types"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#lifetimes"
+                        },
+                        {
+                            "include": "#macros"
+                        },
+                        {
+                            "include": "#namespaces"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#variables"
+                        }
+                    ]
+                },
+                {
                     "comment": "derivable traits",
                     "name": "entity.name.type.trait.rust",
                     "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
