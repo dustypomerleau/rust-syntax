@@ -110,16 +110,32 @@ patterns:
   - include: '#strings'
   - include: '#variables'
 repository:
-  comments:
+  attributes:
     patterns:
       -
-        comment: documentation comments
-        name: comment.line.documentation.rust
-        match: ^\s*///.*
-      -
-        comment: line comments
-        name: comment.line.double-slash.rust
-        match: \s*//.*
+        comment: attributes
+        name: meta.attribute.rust
+        begin: '(#)(\!?)(\[)'
+        beginCaptures:
+          1:
+            name: punctuation.definition.attribute.rust
+          2:
+            name: keyword.operator.attribute.inner.rust
+          3:
+            name: punctuation.brackets.attribute.rust
+        end: '\]'
+        endCaptures:
+          0:
+            name: punctuation.brackets.attribute.rust
+        patterns:
+          - include: '#block-comments'
+          - include: '#comments'
+          - include: '#keywords'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#derivations'
+          - include: '#generic-types'
+          - include: '#types'
   block-comments:
     patterns:
       -
@@ -140,6 +156,16 @@ repository:
         end: \*/
         patterns:
           - include: '#block-comments'
+  comments:
+    patterns:
+      -
+        comment: documentation comments
+        name: comment.line.documentation.rust
+        match: ^\s*///.*
+      -
+        comment: line comments
+        name: comment.line.double-slash.rust
+        match: \s*//.*
   constants:
     patterns:
       -
@@ -194,6 +220,27 @@ repository:
         comment: booleans
         name: constant.language.bool.rust
         match: \b(true|false)\b
+  derivations:
+    patterns:
+      -
+        comment: derive calls
+        begin: \bderive([(])
+        beginCaptures:
+          1:
+            name: punctuation.brackets.round.rust
+        end: '[)]'
+        endCaptures:
+          0:
+            name: punctuation.brackets.round.rust
+        patterns:
+          - include: '#block-comments'
+          - include: '#comments'
+          - include: '#keywords'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#traits'
+          - include: '#generic-types'
+          - include: '#types'
   escapes:
     comment: 'escapes: ASCII, byte, Unicode, quote, regex'
     name: constant.character.escape.rust
@@ -209,6 +256,18 @@ repository:
         name: constant.character.escape.unicode.punctuation.rust
       5:
         name: constant.character.escape.unicode.punctuation.rust
+  fields:
+    patterns:
+      -
+        # todo: YV
+        comment: struct field names
+        match: \b([a-z_][a-z0-9_]*)(:)(?=\s)
+        captures:
+          1:
+            # We use `property` here, because themes are more likely to set this than `field`.
+            name: variable.other.property.rust
+          2:
+            name: keyword.operator.key-value.rust
   functions:
     patterns:
       -
@@ -311,6 +370,28 @@ repository:
           - include: '#keywords'
           - include: '#strings'
           - include: '#variables'
+  generic-types:
+    # todo: consider simply merging these into one enum member definition and grouping with other enum members
+    patterns:
+      -
+        comment: option types
+        # name: entity.name.type.option.rust
+        name: variable.other.enummember.rust
+        match: \b(Some|None)\b
+      -
+        comment: result types
+        # name: entity.name.type.result.rust
+        name: variable.other.enummember.rust
+        match: \b(Ok|Err)\b
+  interpolations:
+    comment: curly brace interpolations
+    name: meta.interpolation.rust
+    match: '({)[^"{}]*(})'
+    captures:
+      1:
+        name: punctuation.definition.interpolation.rust
+      2:
+        name: punctuation.definition.interpolation.rust
   keywords:
     patterns:
       -
@@ -425,15 +506,16 @@ repository:
         comment: question mark operator, questionably sized, macro kleene matcher
         name: keyword.operator.question.rust
         match: \?
-  interpolations:
-    comment: curly brace interpolations
-    name: meta.interpolation.rust
-    match: '({)[^"{}]*(})'
-    captures:
-      1:
-        name: punctuation.definition.interpolation.rust
-      2:
-        name: punctuation.definition.interpolation.rust
+  language-variables:
+    patterns:
+      -
+        comment: self
+        name: variable.language.self.rust
+        match: \b[Ss]elf\b
+      -
+        comment: super
+        name: variable.language.super.rust
+        match: \bsuper\b
   lifetimes:
     patterns:
       -
@@ -465,6 +547,14 @@ repository:
             name: entity.name.function.macro.rust
           3:
             name: entity.name.type.macro.rust
+  members:
+    patterns:
+      -
+        comment: enum members
+        match: ^\s+?([A-Z_][A-Za-z_]*)\b
+        captures:
+          1:
+            name: variable.other.enummember.rust
   namespaces:
     patterns:
       -
@@ -475,34 +565,89 @@ repository:
             name: entity.name.namespace.rust
           2:
             name: keyword.operator.namespace.rust
+  punctuation:
+    patterns:
+      -
+        comment: comma
+        name: punctuation.comma.rust
+        match: ','
+      -
+        comment: curly braces
+        name: punctuation.brackets.curly.rust
+        match: '[{}]'
+      -
+        comment: parentheses, round brackets
+        name: punctuation.brackets.round.rust
+        match: '[()]'
+      -
+        comment: semicolon
+        name: punctuation.semi.rust
+        match: ;
+      -
+        comment: square brackets
+        name: punctuation.brackets.square.rust
+        match: '[\[\]]'
+      -
+        comment: angle brackets
+        name: punctuation.brackets.angle.rust
+        match: '(?<!=)[<>]'
+  strings:
+    patterns:
+      -
+        comment: double-quoted strings and byte strings
+        name: string.quoted.double.rust
+        begin: '(b?)(")'
+        beginCaptures:
+          1:
+            name: string.quoted.byte.raw.rust
+          2:
+            name: punctuation.definition.string.rust
+        end: '"'
+        endCaptures:
+          0:
+            name: punctuation.definition.string.rust
+        patterns:
+          - include: '#escapes'
+          - include: '#interpolations'
+      -
+        comment: double-quoted raw strings and raw byte strings
+        name: string.quoted.double.rust
+        begin: '(b?r)(#*)(")'
+        beginCaptures:
+          1:
+            name: string.quoted.byte.raw.rust
+          2:
+            name: punctuation.definition.string.raw.rust
+          3:
+            name: punctuation.definition.string.rust
+        end: '(")(\2)'
+        endCaptures:
+          1:
+            name: punctuation.definition.string.rust
+          2:
+            name: punctuation.definition.string.raw.rust
+      -
+        comment: characters and bytes
+        name: string.quoted.single.char.rust
+        begin: "(b)?(')"
+        beginCaptures:
+          1:
+            name: string.quoted.byte.raw.rust
+          2:
+            name: punctuation.definition.char.rust
+        end: "'"
+        endCaptures:
+          0:
+            name: punctuation.definition.char.rust
+        patterns:
+          - include: '#escapes'
+  traits:
+    patterns:
+      -
+        comment: traits inside `derive()`
+        name: entity.name.type.trait.rust
+        match: \b[A-Z_][A-Za-z0-9_]*\b
   types:
-    # // nonspecific - no distinction can be made
-    # Type
-    # namespace::Type
-
-    # // likely enum
-    # Enum::Member
-    # Enum::Member()
-    # Enum::Member {}
-
-    # // likely struct
-    # Struct {}
-    # namespace::Struct()
-    # Struct::method()
-
-    # // inside enum declarations, favor member:
-    # enum Enum {
-    #     Member(),
-    #     Member
-    # }
-
-    # // outside enum declarations, favor Struct
-    # Struct()
-    # // (option and result types have their own scopes, so wouldn't be caught here)
-
-    # // leverage impl
-    # impl Struct {}
-    # impl Trait for Struct {}
     patterns:
       # todo: test heaps of impls to see if you're catching all the variations
       -
@@ -532,10 +677,10 @@ repository:
           - include: '#strings'
           - include: '#types'
           - include: '#variables'
-      # -
-      #   comment: derivable traits
-      #   name: entity.name.type.trait.rust
-      #   match: \b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\b
+      -
+        comment: derivable traits
+        name: entity.name.type.trait.rust
+        match: \b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\b
       -
         comment: closure traits
         name: entity.name.type.trait.rust
@@ -601,9 +746,7 @@ repository:
             name: storage.type.rust
           2:
             name: entity.name.type.trait.rust
-      # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
       # todo: nest blocks in struct and enum defs
-      # todo: attributes need to be in the repository and included in struct and enum definitions
       -
         comment: struct declarations
         name: meta.struct.definition.rust
@@ -685,104 +828,6 @@ repository:
         comment: types
         name: entity.name.type.rust
         match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
-  generic-types:
-    patterns:
-      -
-        comment: option types
-        # name: entity.name.type.option.rust
-        name: variable.other.enummember.rust
-        match: \b(Some|None)\b
-      -
-        comment: result types
-        # name: entity.name.type.result.rust
-        name: variable.other.enummember.rust
-        match: \b(Ok|Err)\b
-  punctuation:
-    patterns:
-      -
-        comment: comma
-        name: punctuation.comma.rust
-        match: ','
-      -
-        comment: curly braces
-        name: punctuation.brackets.curly.rust
-        match: '[{}]'
-      -
-        comment: parentheses, round brackets
-        name: punctuation.brackets.round.rust
-        match: '[()]'
-      -
-        comment: semicolon
-        name: punctuation.semi.rust
-        match: ;
-      -
-        comment: square brackets
-        name: punctuation.brackets.square.rust
-        match: '[\[\]]'
-      -
-        comment: angle brackets
-        name: punctuation.brackets.angle.rust
-        match: '(?<!=)[<>]'
-  strings:
-    patterns:
-      -
-        comment: double-quoted strings and byte strings
-        name: string.quoted.double.rust
-        begin: '(b?)(")'
-        beginCaptures:
-          1:
-            name: string.quoted.byte.raw.rust
-          2:
-            name: punctuation.definition.string.rust
-        end: '"'
-        endCaptures:
-          0:
-            name: punctuation.definition.string.rust
-        patterns:
-          - include: '#escapes'
-          - include: '#interpolations'
-      -
-        comment: double-quoted raw strings and raw byte strings
-        name: string.quoted.double.rust
-        begin: '(b?r)(#*)(")'
-        beginCaptures:
-          1:
-            name: string.quoted.byte.raw.rust
-          2:
-            name: punctuation.definition.string.raw.rust
-          3:
-            name: punctuation.definition.string.rust
-        end: '(")(\2)'
-        endCaptures:
-          1:
-            name: punctuation.definition.string.rust
-          2:
-            name: punctuation.definition.string.raw.rust
-      -
-        comment: characters and bytes
-        name: string.quoted.single.char.rust
-        begin: "(b)?(')"
-        beginCaptures:
-          1:
-            name: string.quoted.byte.raw.rust
-          2:
-            name: punctuation.definition.char.rust
-        end: "'"
-        endCaptures:
-          0:
-            name: punctuation.definition.char.rust
-        patterns:
-          - include: '#escapes'
-  language-variables:
-    patterns:
-      -
-        comment: self
-        name: variable.language.self.rust
-        match: \b[Ss]elf\b
-      -
-        comment: super
-        name: variable.language.super.rust
-        match: \bsuper\b
   variables:
     patterns:
       # In order to capture variables ending ranges, but not struct field access, we match a preceding dot, only if it's preceded by at least one other dot.
@@ -797,76 +842,3 @@ repository:
         comment: variable with field access
         name: variable.other.property.rust
         match: (?<=\.)[a-z_][a-z0-9_]*(?=\.)
-  fields:
-    patterns:
-      -
-        # todo: YV
-        comment: struct field names
-        match: \b([a-z_][a-z0-9_]*)(:)(?=\s)
-        captures:
-          1:
-            # We use `property` here, because themes are more likely to set this than `field`.
-            name: variable.other.property.rust
-          2:
-            name: keyword.operator.key-value.rust
-  members:
-    patterns:
-      -
-        comment: enum members
-        match: ^\s+?([A-Z_][A-Za-z_]*)\b
-        captures:
-          1:
-            name: variable.other.enummember.rust
-  attributes:
-    patterns:
-      -
-        comment: attributes
-        name: meta.attribute.rust
-        begin: '(#)(\!?)(\[)'
-        beginCaptures:
-          1:
-            name: punctuation.definition.attribute.rust
-          2:
-            name: keyword.operator.attribute.inner.rust
-          3:
-            name: punctuation.brackets.attribute.rust
-        end: '\]'
-        endCaptures:
-          0:
-            name: punctuation.brackets.attribute.rust
-        patterns:
-          - include: '#block-comments'
-          - include: '#comments'
-          - include: '#keywords'
-          - include: '#punctuation'
-          - include: '#strings'
-          - include: '#derivations'
-          - include: '#generic-types'
-          - include: '#types'
-  derivations:
-    patterns:
-      -
-        comment: derive calls
-        begin: \bderive([(])
-        beginCaptures:
-          1:
-            name: punctuation.brackets.round.rust
-        end: '[)]'
-        endCaptures:
-          0:
-            name: punctuation.brackets.round.rust
-        patterns:
-          - include: '#block-comments'
-          - include: '#comments'
-          - include: '#keywords'
-          - include: '#punctuation'
-          - include: '#strings'
-          - include: '#traits'
-          - include: '#generic-types'
-          - include: '#types'
-  traits:
-    patterns:
-      -
-        comment: traits inside `derive()`
-        name: entity.name.type.trait.rust
-        match: \b[A-Z_][A-Za-z0-9_]*\b
