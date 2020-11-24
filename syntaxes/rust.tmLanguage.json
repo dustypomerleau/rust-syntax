@@ -207,17 +207,55 @@
         }
     ],
     "repository": {
-        "comments": {
+        "attributes": {
             "patterns": [
                 {
-                    "comment": "documentation comments",
-                    "name": "comment.line.documentation.rust",
-                    "match": "^\\s*///.*"
-                },
-                {
-                    "comment": "line comments",
-                    "name": "comment.line.double-slash.rust",
-                    "match": "\\s*//.*"
+                    "comment": "attributes",
+                    "name": "meta.attribute.rust",
+                    "begin": "(#)(\\!?)(\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.attribute.rust"
+                        },
+                        "2": {
+                            "name": "keyword.operator.attribute.inner.rust"
+                        },
+                        "3": {
+                            "name": "punctuation.brackets.attribute.rust"
+                        }
+                    },
+                    "end": "\\]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.attribute.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#derivations"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#types"
+                        }
+                    ]
                 }
             ]
         },
@@ -249,6 +287,20 @@
                             "include": "#block-comments"
                         }
                     ]
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "comment": "documentation comments",
+                    "name": "comment.line.documentation.rust",
+                    "match": "^\\s*///.*"
+                },
+                {
+                    "comment": "line comments",
+                    "name": "comment.line.double-slash.rust",
+                    "match": "\\s*//.*"
                 }
             ]
         },
@@ -330,6 +382,51 @@
                 }
             ]
         },
+        "derivations": {
+            "patterns": [
+                {
+                    "comment": "derive calls",
+                    "begin": "\\bderive([(])",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.brackets.round.rust"
+                        }
+                    },
+                    "end": "[)]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.round.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#block-comments"
+                        },
+                        {
+                            "include": "#comments"
+                        },
+                        {
+                            "include": "#keywords"
+                        },
+                        {
+                            "include": "#punctuation"
+                        },
+                        {
+                            "include": "#strings"
+                        },
+                        {
+                            "include": "#traits"
+                        },
+                        {
+                            "include": "#generic-types"
+                        },
+                        {
+                            "include": "#types"
+                        }
+                    ]
+                }
+            ]
+        },
         "escapes": {
             "comment": "escapes: ASCII, byte, Unicode, quote, regex",
             "name": "constant.character.escape.rust",
@@ -351,6 +448,22 @@
                     "name": "constant.character.escape.unicode.punctuation.rust"
                 }
             }
+        },
+        "fields": {
+            "patterns": [
+                {
+                    "comment": "struct field names",
+                    "match": "\\b([a-z_][a-z0-9_]*)(:)(?=\\s)",
+                    "captures": {
+                        "1": {
+                            "name": "variable.other.property.rust"
+                        },
+                        "2": {
+                            "name": "keyword.operator.key-value.rust"
+                        }
+                    }
+                }
+            ]
         },
         "functions": {
             "patterns": [
@@ -572,6 +685,33 @@
                 }
             ]
         },
+        "generic-types": {
+            "patterns": [
+                {
+                    "comment": "option types",
+                    "name": "variable.other.enummember.rust",
+                    "match": "\\b(Some|None)\\b"
+                },
+                {
+                    "comment": "result types",
+                    "name": "variable.other.enummember.rust",
+                    "match": "\\b(Ok|Err)\\b"
+                }
+            ]
+        },
+        "interpolations": {
+            "comment": "curly brace interpolations",
+            "name": "meta.interpolation.rust",
+            "match": "({)[^\"{}]*(})",
+            "captures": {
+                "1": {
+                    "name": "punctuation.definition.interpolation.rust"
+                },
+                "2": {
+                    "name": "punctuation.definition.interpolation.rust"
+                }
+            }
+        },
         "keywords": {
             "patterns": [
                 {
@@ -722,18 +862,19 @@
                 }
             ]
         },
-        "interpolations": {
-            "comment": "curly brace interpolations",
-            "name": "meta.interpolation.rust",
-            "match": "({)[^\"{}]*(})",
-            "captures": {
-                "1": {
-                    "name": "punctuation.definition.interpolation.rust"
+        "language-variables": {
+            "patterns": [
+                {
+                    "comment": "self",
+                    "name": "variable.language.self.rust",
+                    "match": "\\b[Ss]elf\\b"
                 },
-                "2": {
-                    "name": "punctuation.definition.interpolation.rust"
+                {
+                    "comment": "super",
+                    "name": "variable.language.super.rust",
+                    "match": "\\bsuper\\b"
                 }
-            }
+            ]
         },
         "lifetimes": {
             "patterns": [
@@ -783,6 +924,19 @@
                 }
             ]
         },
+        "members": {
+            "patterns": [
+                {
+                    "comment": "enum members",
+                    "match": "^\\s+?([A-Z_][A-Za-z_]*)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "variable.other.enummember.rust"
+                        }
+                    }
+                }
+            ]
+        },
         "namespaces": {
             "patterns": [
                 {
@@ -796,6 +950,129 @@
                             "name": "keyword.operator.namespace.rust"
                         }
                     }
+                }
+            ]
+        },
+        "punctuation": {
+            "patterns": [
+                {
+                    "comment": "comma",
+                    "name": "punctuation.comma.rust",
+                    "match": ","
+                },
+                {
+                    "comment": "curly braces",
+                    "name": "punctuation.brackets.curly.rust",
+                    "match": "[{}]"
+                },
+                {
+                    "comment": "parentheses, round brackets",
+                    "name": "punctuation.brackets.round.rust",
+                    "match": "[()]"
+                },
+                {
+                    "comment": "semicolon",
+                    "name": "punctuation.semi.rust",
+                    "match": ";"
+                },
+                {
+                    "comment": "square brackets",
+                    "name": "punctuation.brackets.square.rust",
+                    "match": "[\\[\\]]"
+                },
+                {
+                    "comment": "angle brackets",
+                    "name": "punctuation.brackets.angle.rust",
+                    "match": "(?<!=)[<>]"
+                }
+            ]
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "comment": "double-quoted strings and byte strings",
+                    "name": "string.quoted.double.rust",
+                    "begin": "(b?)(\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.byte.raw.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.string.rust"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        },
+                        {
+                            "include": "#interpolations"
+                        }
+                    ]
+                },
+                {
+                    "comment": "double-quoted raw strings and raw byte strings",
+                    "name": "string.quoted.double.rust",
+                    "begin": "(b?r)(#*)(\")",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.byte.raw.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.string.raw.rust"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.string.rust"
+                        }
+                    },
+                    "end": "(\")(\\2)",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.string.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.string.raw.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "characters and bytes",
+                    "name": "string.quoted.single.char.rust",
+                    "begin": "(b)?(')",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "string.quoted.byte.raw.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.char.rust"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.char.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#escapes"
+                        }
+                    ]
+                }
+            ]
+        },
+        "traits": {
+            "patterns": [
+                {
+                    "comment": "traits inside `derive()`",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b[A-Z_][A-Za-z0-9_]*\\b"
                 }
             ]
         },
@@ -863,6 +1140,11 @@
                             "include": "#variables"
                         }
                     ]
+                },
+                {
+                    "comment": "derivable traits",
+                    "name": "entity.name.type.trait.rust",
+                    "match": "\\b(Clone|Copy|Debug|Default|Eq|Hash|Ord|PartialEq|PartialOrd)\\b"
                 },
                 {
                     "comment": "closure traits",
@@ -1123,148 +1405,6 @@
                 }
             ]
         },
-        "generic-types": {
-            "patterns": [
-                {
-                    "comment": "option types",
-                    "name": "variable.other.enummember.rust",
-                    "match": "\\b(Some|None)\\b"
-                },
-                {
-                    "comment": "result types",
-                    "name": "variable.other.enummember.rust",
-                    "match": "\\b(Ok|Err)\\b"
-                }
-            ]
-        },
-        "punctuation": {
-            "patterns": [
-                {
-                    "comment": "comma",
-                    "name": "punctuation.comma.rust",
-                    "match": ","
-                },
-                {
-                    "comment": "curly braces",
-                    "name": "punctuation.brackets.curly.rust",
-                    "match": "[{}]"
-                },
-                {
-                    "comment": "parentheses, round brackets",
-                    "name": "punctuation.brackets.round.rust",
-                    "match": "[()]"
-                },
-                {
-                    "comment": "semicolon",
-                    "name": "punctuation.semi.rust",
-                    "match": ";"
-                },
-                {
-                    "comment": "square brackets",
-                    "name": "punctuation.brackets.square.rust",
-                    "match": "[\\[\\]]"
-                },
-                {
-                    "comment": "angle brackets",
-                    "name": "punctuation.brackets.angle.rust",
-                    "match": "(?<!=)[<>]"
-                }
-            ]
-        },
-        "strings": {
-            "patterns": [
-                {
-                    "comment": "double-quoted strings and byte strings",
-                    "name": "string.quoted.double.rust",
-                    "begin": "(b?)(\")",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.byte.raw.rust"
-                        },
-                        "2": {
-                            "name": "punctuation.definition.string.rust"
-                        }
-                    },
-                    "end": "\"",
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.definition.string.rust"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#escapes"
-                        },
-                        {
-                            "include": "#interpolations"
-                        }
-                    ]
-                },
-                {
-                    "comment": "double-quoted raw strings and raw byte strings",
-                    "name": "string.quoted.double.rust",
-                    "begin": "(b?r)(#*)(\")",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.byte.raw.rust"
-                        },
-                        "2": {
-                            "name": "punctuation.definition.string.raw.rust"
-                        },
-                        "3": {
-                            "name": "punctuation.definition.string.rust"
-                        }
-                    },
-                    "end": "(\")(\\2)",
-                    "endCaptures": {
-                        "1": {
-                            "name": "punctuation.definition.string.rust"
-                        },
-                        "2": {
-                            "name": "punctuation.definition.string.raw.rust"
-                        }
-                    }
-                },
-                {
-                    "comment": "characters and bytes",
-                    "name": "string.quoted.single.char.rust",
-                    "begin": "(b)?(')",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "string.quoted.byte.raw.rust"
-                        },
-                        "2": {
-                            "name": "punctuation.definition.char.rust"
-                        }
-                    },
-                    "end": "'",
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.definition.char.rust"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#escapes"
-                        }
-                    ]
-                }
-            ]
-        },
-        "language-variables": {
-            "patterns": [
-                {
-                    "comment": "self",
-                    "name": "variable.language.self.rust",
-                    "match": "\\b[Ss]elf\\b"
-                },
-                {
-                    "comment": "super",
-                    "name": "variable.language.super.rust",
-                    "match": "\\bsuper\\b"
-                }
-            ]
-        },
         "variables": {
             "patterns": [
                 {
@@ -1276,141 +1416,6 @@
                     "comment": "variable with field access",
                     "name": "variable.other.property.rust",
                     "match": "(?<=\\.)[a-z_][a-z0-9_]*(?=\\.)"
-                }
-            ]
-        },
-        "fields": {
-            "patterns": [
-                {
-                    "comment": "struct field names",
-                    "match": "\\b([a-z_][a-z0-9_]*)(:)(?=\\s)",
-                    "captures": {
-                        "1": {
-                            "name": "variable.other.property.rust"
-                        },
-                        "2": {
-                            "name": "keyword.operator.key-value.rust"
-                        }
-                    }
-                }
-            ]
-        },
-        "members": {
-            "patterns": [
-                {
-                    "comment": "enum members",
-                    "match": "^\\s+?([A-Z_][A-Za-z_]*)\\b",
-                    "captures": {
-                        "1": {
-                            "name": "variable.other.enummember.rust"
-                        }
-                    }
-                }
-            ]
-        },
-        "attributes": {
-            "patterns": [
-                {
-                    "comment": "attributes",
-                    "name": "meta.attribute.rust",
-                    "begin": "(#)(\\!?)(\\[)",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "punctuation.definition.attribute.rust"
-                        },
-                        "2": {
-                            "name": "keyword.operator.attribute.inner.rust"
-                        },
-                        "3": {
-                            "name": "punctuation.brackets.attribute.rust"
-                        }
-                    },
-                    "end": "\\]",
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.brackets.attribute.rust"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#block-comments"
-                        },
-                        {
-                            "include": "#comments"
-                        },
-                        {
-                            "include": "#keywords"
-                        },
-                        {
-                            "include": "#punctuation"
-                        },
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#derivations"
-                        },
-                        {
-                            "include": "#generic-types"
-                        },
-                        {
-                            "include": "#types"
-                        }
-                    ]
-                }
-            ]
-        },
-        "derivations": {
-            "patterns": [
-                {
-                    "comment": "derive calls",
-                    "begin": "\\bderive([(])",
-                    "beginCaptures": {
-                        "1": {
-                            "name": "punctuation.brackets.round.rust"
-                        }
-                    },
-                    "end": "[)]",
-                    "endCaptures": {
-                        "0": {
-                            "name": "punctuation.brackets.round.rust"
-                        }
-                    },
-                    "patterns": [
-                        {
-                            "include": "#block-comments"
-                        },
-                        {
-                            "include": "#comments"
-                        },
-                        {
-                            "include": "#keywords"
-                        },
-                        {
-                            "include": "#punctuation"
-                        },
-                        {
-                            "include": "#strings"
-                        },
-                        {
-                            "include": "#traits"
-                        },
-                        {
-                            "include": "#generic-types"
-                        },
-                        {
-                            "include": "#types"
-                        }
-                    ]
-                }
-            ]
-        },
-        "traits": {
-            "patterns": [
-                {
-                    "comment": "traits inside `derive()`",
-                    "name": "entity.name.type.trait.rust",
-                    "match": "\\b[A-Z_][A-Za-z0-9_]*\\b"
                 }
             ]
         }
