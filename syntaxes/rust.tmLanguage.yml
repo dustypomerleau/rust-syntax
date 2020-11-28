@@ -781,6 +781,7 @@ repository:
           3:
             name: variable.other.enummember.rust
       -
+        # todo: use begin/end and catch field names
         comment: namespaced struct
         match: \b([a-z_][a-z0-9_]*)(::)([A-Z_][A-Za-z0-9_]*)\b(?=\(|\s+\{)
         captures:
@@ -807,6 +808,7 @@ repository:
           4:
             name: keyword.operator.access.dot.rust
       -
+        # todo: use begin/end and catch field names
         comment: isolated Struct
         match: (?<!::)(?<!->\s)\b([A-Z_][A-Za-z0-9_]*)(?=\s+\{|\()
         captures:
@@ -822,7 +824,6 @@ repository:
         comment: primitive types
         name: entity.name.type.primitive.rust
         match: \b(bool|char|str)\b
-      # todo: traits and structs in impl blocks
       -
         comment: trait declarations
         match: \b(trait)\s+([A-Z][A-Za-z0-9_]*)\b
