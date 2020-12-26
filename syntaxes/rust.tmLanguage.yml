@@ -5,26 +5,6 @@ fileTypes:
 scopeName: source.rust
 patterns:
   -
-    comment: boxed slice literal
-    begin: (<)(\[)
-    beginCaptures:
-      1:
-        name: punctuation.brackets.angle.rust
-      2:
-        name: punctuation.brackets.square.rust
-    end: '>'
-    endCaptures:
-      0:
-        name: punctuation.brackets.angle.rust
-    patterns:
-      - include: '#block-comments'
-      - include: '#comments'
-      - include: '#generic-types'
-      - include: '#language-variables'
-      - include: '#lifetimes'
-      - include: '#punctuation'
-      - include: '#types'
-  -
     comment: macro type metavariables
     name: meta.macro.metavariable.type.rust
     match: (\$)((crate)|([A-Z][A-Za-z0-9_]*))((:)(block|expr|ident|item|lifetime|literal|meta|path?|stmt|tt|ty|vis))?
@@ -69,30 +49,6 @@ patterns:
         name: entity.name.type.macro.rust
       5:
         name: punctuation.brackets.curly.rust
-  -
-    comment: attributes
-    name: meta.attribute.rust
-    begin: '(#)(\!?)(\[)'
-    beginCaptures:
-      1:
-        name: punctuation.definition.attribute.rust
-      2:
-        name: keyword.operator.attribute.inner.rust
-      3:
-        name: punctuation.brackets.attribute.rust
-    end: '\]'
-    endCaptures:
-      0:
-        name: punctuation.brackets.attribute.rust
-    patterns:
-      - include: '#block-comments'
-      - include: '#comments'
-      - include: '#keywords'
-      - include: '#lifetimes'
-      - include: '#punctuation'
-      - include: '#strings'
-      - include: '#generic-types'
-      - include: '#types'
   -
     comment: modules
     match: (mod)\s+((?:r#(?!crate|[Ss]elf|super))?[a-z][A-Za-z0-9_]*)
@@ -140,6 +96,7 @@ patterns:
       - include: '#language-variables'
   - include: '#block-comments'
   - include: '#comments'
+  - include: '#attributes'
   - include: '#language-variables'
   - include: '#constants'
   - include: '#generic-types'
@@ -275,13 +232,18 @@ repository:
             name: punctuation.brackets.round.rust
           5:
             name: punctuation.brackets.angle.rust
-        end: \{|;
+        end: (\{)|(;)
         endCaptures:
-          0:
+          1:
             name: punctuation.brackets.curly.rust
+          2:
+            name: punctuation.semi.rust
         patterns:
+          # todo: try to standardize the order of includes if tests still pass
           - include: '#block-comments'
           - include: '#comments'
+          - include: '#attributes'
+          - include: '#punctuation'
           - include: '#keywords'
           - include: '#language-variables'
           - include: '#constants'
@@ -290,7 +252,6 @@ repository:
           - include: '#lifetimes'
           - include: '#macros'
           - include: '#namespaces'
-          - include: '#punctuation'
           - include: '#strings'
           - include: '#types'
           - include: '#variables'
@@ -310,6 +271,7 @@ repository:
         patterns:
           - include: '#block-comments'
           - include: '#comments'
+          - include: '#attributes'
           - include: '#keywords'
           - include: '#language-variables'
           - include: '#constants'
@@ -336,6 +298,7 @@ repository:
         patterns:
           - include: '#block-comments'
           - include: '#comments'
+          - include: '#attributes'
           - include: '#language-variables'
           - include: '#constants'
           - include: '#generic-types'
@@ -542,19 +505,33 @@ repository:
     # impl Trait for Struct {}
     patterns:
       # todo: test heaps of impls to see if you're catching all the variations
-      # todo: copy the approach for impl traits to the others below it
       -
-        comment: impl traits
-        name: entity.name.type.trait.rust
-        match: (?<=\bimpl(<.*>)?\s+([A-Za-z_][A-Za-z0-9_]*::)*)[A-Z_][A-Za-z0-9_]*\b(?=(<.*>)?\s+for\s)
-      -
-        comment: impl struct after trait
-        name: entity.name.type.struct.rust
-        match: (?<=\bimpl(<.*>)?\s*.*\s+[A-Z_][A-Za-z0-9_]*(<.*>)?\s*.*\s+for\s+([&'].*\s+.*)?)[A-Z_][A-Za-z0-9_]*\b
-      -
-        comment: impl structs
-        name: entity.name.type.struct.rust
-        match: (?<=\bimpl(<.*>)?\s+)[A-Z_][A-Za-z0-9_]*\b(?!(<.*>)?\s+for\s)
+        comment: type parameters
+        name: meta.type.parameter.rust
+        begin: <(?![<=\s])
+        beginCaptures:
+          0:
+            name: punctuation.brackets.angle.rust
+        end: '>'
+        endCaptures:
+          0:
+            name: punctuation.brackets.angle.rust
+        patterns:
+          - include: '#block-comments'
+          - include: '#comments'
+          - include: '#attributes'
+          - include: '#keywords'
+          - include: '#language-variables'
+          - include: '#constants'
+          - include: '#generic-types'
+          - include: '#functions'
+          - include: '#lifetimes'
+          - include: '#macros'
+          - include: '#namespaces'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#types'
+          - include: '#variables'
       -
         comment: derivable traits
         name: entity.name.type.trait.rust
@@ -564,32 +541,41 @@ repository:
         name: entity.name.type.trait.rust
         match: \b(Fn(Once|Mut)?)\b
       -
+        comment: enum with member
+        match: \b([A-Z_][A-Za-z0-9_]*)(::)([A-Z_][A-Za-z0-9_]*)\b
+        captures:
+          1:
+            name: entity.name.type.enum.rust
+          2:
+            name: keyword.operator.namespace.rust
+          3:
+            name: variable.other.enummember.rust
+      -
+        comment: namespaced struct
+        match: \b([a-z_][a-z0-9_]*)(::)([A-Z_][A-Za-z0-9_]*)\b(?=\(|\s+\{)
+        captures:
+          1:
+            name: entity.name.namespace.rust
+          2:
+            name: keyword.operator.namespace.rust
+          3:
+            name: entity.name.type.struct.rust
+      -
+        comment: struct with method
+        name: entity.name.type.struct.rust
+        match: \b[A-Z_][A-Za-z0-9_]*(?=::[a-z_][a-z0-9_]*\()
+      -
+        comment: isolated Struct
+        match: (?<!::)(?<!->\s)\b([A-Z_][A-Za-z0-9_]*)(?=\s+\{|\()
+        captures:
+          1:
+            name: entity.name.type.struct.rust
+      -
         comment: numeric types
         match: '(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\b'
         captures:
           1:
             name: entity.name.type.numeric.rust
-      -
-        comment: parameterized types
-        begin: \b([A-Z][A-Za-z0-9_]*)(<)
-        beginCaptures:
-          1:
-            name: entity.name.type.rust
-          2:
-            name: punctuation.brackets.angle.rust
-        end: '>'
-        endCaptures:
-          0:
-            name: punctuation.brackets.angle.rust
-        patterns:
-          - include: '#block-comments'
-          - include: '#comments'
-          - include: '#keywords'
-          - include: '#language-variables'
-          - include: '#lifetimes'
-          - include: '#punctuation'
-          - include: '#types'
-          - include: '#variables'
       -
         comment: primitive types
         name: entity.name.type.primitive.rust
@@ -604,6 +590,7 @@ repository:
             name: entity.name.type.trait.rust
       # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
       # todo: nest blocks in struct and enum defs
+      # todo: attributes need to be in the repository and included in struct and enum definitions
       -
         comment: struct declarations
         name: meta.struct.definition.rust
@@ -622,6 +609,7 @@ repository:
         patterns:
           - include: '#block-comments'
           - include: '#comments'
+          - include: '#attributes'
           - include: '#language-variables'
           - include: '#constants'
           - include: '#generic-types'
@@ -635,14 +623,42 @@ repository:
           - include: '#strings'
           - include: '#fields'
           - include: '#variables'
+      # todo: members in one-liner enums aren't caught
+      # enum Version { Version1, Version2 }
       -
         comment: enum declarations
-        match: \b(enum)\s+([A-Z][A-Za-z0-9_]*)\b
-        captures:
+        name: meta.enum.definition.rust
+        begin: \b(enum)\s+([A-Z][A-Za-z0-9_]*)\b
+        beginCaptures:
           1:
             name: storage.type.rust
           2:
             name: entity.name.type.enum.rust
+        end: (\})|(;)
+        endCaptures:
+          1:
+            name: punctuation.brackets.curly.rust
+          2:
+            name: punctuation.semi.rust
+        patterns:
+          - include: '#block-comments'
+          - include: '#comments'
+          - include: '#attributes'
+          - include: '#language-variables'
+          - include: '#constants'
+          - include: '#generic-types'
+          - include: '#members'
+          - include: '#functions'
+          - include: '#types'
+          - include: '#keywords'
+          - include: '#lifetimes'
+          - include: '#macros'
+          - include: '#namespaces'
+          - include: '#punctuation'
+          - include: '#strings'
+          # todo: are there circumstances under which we would have typed variable declarations inside enums (or structs)? by allowing `fields` here they will automatically highlight correctly, but then function parameters with specified types will not.
+          - include: '#fields'
+          - include: '#variables'
       -
         comment: type declarations
         match: \b(type)\s+([A-Z][A-Za-z0-9_]*)\b
@@ -653,10 +669,6 @@ repository:
             name: entity.name.type.declaration.rust
       # YV type: purple, struct: blue, enum member: dark pink, trait: light pink
       -
-        comment: enum members and tuple structs
-        name: variable.other.enummember.rust
-        match: (?<!->\s*)\b[A-Z_][A-Za-z0-9_]*(?=\(| \{)
-      -
         comment: types
         name: entity.name.type.rust
         match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
@@ -664,11 +676,13 @@ repository:
     patterns:
       -
         comment: option types
-        name: entity.name.type.option.rust
+        # name: entity.name.type.option.rust
+        name: variable.other.enummember.rust
         match: \b(Some|None)\b
       -
         comment: result types
-        name: entity.name.type.result.rust
+        # name: entity.name.type.result.rust
+        name: variable.other.enummember.rust
         match: \b(Ok|Err)\b
   punctuation:
     patterns:
@@ -774,6 +788,40 @@ repository:
         match: \b([a-z_][a-z0-9_]*)(:)(?=\s)
         captures:
           1:
+            # We use `property` here, because themes are more likely to set this than `field`.
             name: variable.other.property.rust
           2:
             name: keyword.operator.key-value.rust
+  members:
+    patterns:
+      -
+        comment: enum members
+        match: ^\s+?([A-Z_][A-Za-z_]*)\b
+        captures:
+          1:
+            name: variable.other.enummember.rust
+  attributes:
+    patterns:
+      -
+        comment: attributes
+        name: meta.attribute.rust
+        begin: '(#)(\!?)(\[)'
+        beginCaptures:
+          1:
+            name: punctuation.definition.attribute.rust
+          2:
+            name: keyword.operator.attribute.inner.rust
+          3:
+            name: punctuation.brackets.attribute.rust
+        end: '\]'
+        endCaptures:
+          0:
+            name: punctuation.brackets.attribute.rust
+        patterns:
+          - include: '#block-comments'
+          - include: '#comments'
+          - include: '#keywords'
+          - include: '#punctuation'
+          - include: '#strings'
+          - include: '#generic-types'
+          - include: '#types'
