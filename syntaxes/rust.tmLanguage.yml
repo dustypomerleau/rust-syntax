@@ -90,6 +90,7 @@ patterns:
       - include: '#block-comments'
       - include: '#comments'
       - include: '#keywords'
+      - include: '#lifetimes'
       - include: '#punctuation'
       - include: '#strings'
       - include: '#gtypes'

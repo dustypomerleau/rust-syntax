@@ -149,6 +149,9 @@
                     "include": "#keywords"
                 },
                 {
+                    "include": "#lifetimes"
+                },
+                {
                     "include": "#punctuation"
                 },
                 {
