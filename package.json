@@ -1,7 +1,7 @@
 {
   "name": "rust-syntax",
   "displayName": "Rust Syntax",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "description": "Improved Rust syntax highlighting",
   "publisher": "dustypomerleau",
   "homepage": "https://github.com/dustypomerleau/rust-syntax",
@@ -49,6 +49,5 @@
   },
   "engines": {
     "vscode": "^1.44.0"
-  },
-  "dependencies": {}
+  }
 }
