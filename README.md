@@ -7,23 +7,8 @@ This extension provides a TextMate grammar for Rust, with the following goals:
 - Make punctuation themeable. For symbols with multiple roles, distinguish punctuation use from operator use.
 - Include appropriate child scopes in `meta` scopes (attributes, interpolation, `format!`).
 
-This grammar is being evaluated in VS Code Nightly, and may become the default Rust grammar for VS Code in the future.
-However, for the moment this extension is the most current version.
-Feedback is ongoing, so the current scopes may change.
-
-The grammar in [Rust Analyzer][] is temporarily being kept in sync with this one while we wait on a merge into VS Code Stable.
-If you have an issue or PR, please submit it here.
-
-## Contributing
-
-The grammar is maintained as YAML, using tasks to generate JSON on save (please don't edit the JSON grammar directly).
-You can regenerate the JSON manually from the command palette using `Tasks: Run Build Task`.
-
-Along with your changes, please add (or modify) a [unit test][] with a brief code snippet that demonstrates the scopes affected by your PR.
-Instructions for writing tests are available in @PanAeon's [vscode-tmgrammar-test][] repo.
-You can run the tests from the command palette using `Tasks: Run Test Task`.
-
-A PR with a failing test is the preferred way of filing an issue, as it ensures there is a code snippet to work on.
+This grammar has been upstreamed as the default Rust grammar for VS Code (issues and PRs should be submitted here).
+It takes approximately 4 weeks for new changes to be scraped, so you'll need the extension if you want to see changes immediately.
 
 ## Compatibility
 
@@ -33,24 +18,45 @@ If you want to modify the colors in a particular theme, you can do so in your `s
 
 ```json
 "editor.tokenColorCustomizations": {
-  "textMateRules": [
-    {
-      "scope": "variable.other.rust",
-      "settings": {
-        "foreground": "#c651e5"
-      }
+    "[Theme Name]": {
+        "textMateRules": [
+            {
+                "scope": "variable.other.rust",
+                "settings": {
+                    "foreground": "#ffff00"
+                }
+            }
+        ]
     }
-  ]
 }
 ```
 
 The VS Code command `Developer: Inspect Editor Tokens and Scopes` will show you the scope stack at the current cursor position.
 
-If you need a theme that works out of the box with this grammar, please check out [Yarra Valley][]:
+Rust Syntax is compatible with [Rust Analyzer][], but the scopes provided by Rust Syntax will only be visible if you choose to disable semantic highlighting in your `settings.json`:
 
-![Yarra Valley](./images/rust.png)
+```json
+"[rust]": {
+    "editor.semanticHighlighting.enabled": false
+}
+```
+
+## Contributing
+
+The grammar is maintained as YAML, using tasks to generate JSON on save (please don't edit the JSON grammar directly).
+You can regenerate the JSON manually from the command palette using `Tasks: Run Build Task`.
+
+Tests have not yet been implemented for the grammar, but the framework is in place to do this when time allows.
+If you submit new changes, please add (or modify) a [unit test][] with a brief code snippet that demonstrates the scopes affected by your PR.
+Instructions for writing tests are available in @PanAeon's [vscode-tmgrammar-test][] repo.
+You can run the tests from the command palette using `Tasks: Run Test Task`.
+
+A PR with a failing test is the preferred way of filing an issue, as it ensures there is a code snippet to work on.
+
+If you need a theme that works out of the box with this grammar, please check out [Tol][] or [Yarra Valley][].
 
 [Rust Analyzer]: https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer
+[Tol]: https://marketplace.visualstudio.com/items?itemName=dustypomerleau.tol
 [unit test]: https://github.com/dustypomerleau/rust-syntax/blob/master/test/test.rs
 [vscode-tmgrammar-test]: https://github.com/PanAeon/vscode-tmgrammar-test/blob/master/README.md
 [Yarra Valley]: https://marketplace.visualstudio.com/items?itemName=dustypomerleau.yarra-valley
