@@ -2,6 +2,10 @@
 
 Notable changes to the Rust Syntax extension will be documented in this file.
 
+## **[0.5.0]:** 2021-06-09
+
+- allow granular targeting of `storage.type` scopes by adding `keyword` scopes (thanks to @a5hk)
+
 ## **[0.4.0]:** 2020-11-10
 
 - add a stub for future scope tests
