@@ -1,3 +1,4 @@
 *.afdesign
 *.vsix
 refs/
+node_modules

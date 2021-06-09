@@ -363,8 +363,28 @@ repository:
         match: \b(await|break|continue|do|else|for|if|loop|match|return|try|while|yield)\b
       -
         comment: storage keywords
-        name: storage.type.rust
-        match: \b(const|enum|extern|let|macro|mod|struct|trait|type)\b
+        name: keyword.other.rust storage.type.rust
+        match: \b(extern|let|macro|mod)\b
+      -
+        comment: const keyword
+        name: storage.modifier.rust
+        match: \b(const)\b
+      -
+        comment: type keyword
+        name: keyword.declaration.type.rust storage.type.rust
+        match: \b(type)\b
+      -
+        comment: enum keyword
+        name: keyword.declaration.enum.rust storage.type.rust
+        match: \b(enum)\b
+      -
+        comment: trait keyword
+        name: keyword.declaration.trait.rust storage.type.rust
+        match: \b(trait)\b
+      -
+        comment: struct keyword
+        name: keyword.declaration.struct.rust storage.type.rust
+        match: \b(struct)\b
       -
         comment: storage modifiers
         name: storage.modifier.rust
@@ -557,7 +577,7 @@ repository:
         match: \b(trait)\s+([A-Z][A-Za-z0-9]*)\b
         captures:
           1:
-            name: storage.type.rust
+            name: keyword.declaration.trait.rust storage.type.rust
           2:
             name: entity.name.type.trait.rust
       # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
@@ -566,7 +586,7 @@ repository:
         match: \b(struct)\s+([A-Z][A-Za-z0-9]*)\b
         captures:
           1:
-            name: storage.type.rust
+            name: keyword.declaration.struct.rust storage.type.rust
           2:
             name: entity.name.type.struct.rust
       -
@@ -574,7 +594,7 @@ repository:
         match: \b(enum)\s+([A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
-            name: storage.type.rust
+            name: keyword.declaration.enum.rust storage.type.rust
           2:
             name: entity.name.type.enum.rust
       -
@@ -582,7 +602,7 @@ repository:
         match: \b(type)\s+([A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
-            name: storage.type.rust
+            name: keyword.declaration.type.rust storage.type.rust
           2:
             name: entity.name.type.declaration.rust
       -
