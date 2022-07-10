@@ -43,9 +43,9 @@
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-yaml": "^2.0.4",
-    "js-yaml": "^3.14.0",
-    "vsce": "^1.81.1",
-    "vscode-tmgrammar-test": "0.0.10"
+    "js-yaml": "^4.1.0",
+    "vsce": "^1.100.1",
+    "vscode-tmgrammar-test": "^0.0.11"
   },
   "engines": {
     "vscode": "^1.44.0"
