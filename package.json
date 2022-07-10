@@ -1,53 +1,53 @@
 {
-  "name": "rust-syntax",
-  "displayName": "Rust Syntax",
-  "version": "0.6.1",
-  "description": "Improved Rust syntax highlighting",
-  "publisher": "dustypomerleau",
-  "homepage": "https://github.com/dustypomerleau/rust-syntax",
-  "author": {
-    "name": "dustypomerleau"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dustypomerleau/rust-syntax"
-  },
-  "bugs": {
-    "url": "https://github.com/dustypomerleau/rust-syntax/issues"
-  },
-  "license": "Please see LICENSE.txt",
-  "galleryBanner": {
-    "color": "#292d3e",
-    "theme": "dark"
-  },
-  "icon": "images/icon.png",
-  "categories": [
-    "Programming Languages"
-  ],
-  "keywords": [
-    "rust",
-    "language",
-    "syntax",
-    "grammar",
-    "highlighting"
-  ],
-  "contributes": {
-    "grammars": [
-      {
-        "language": "rust",
-        "scopeName": "source.rust",
-        "path": "./syntaxes/rust.tmLanguage.json"
-      }
-    ]
-  },
-  "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-yaml": "^2.0.4",
-    "js-yaml": "^4.1.0",
-    "vsce": "^1.100.1",
-    "vscode-tmgrammar-test": "^0.0.11"
-  },
-  "engines": {
-    "vscode": "^1.44.0"
-  }
+    "name": "rust-syntax",
+    "displayName": "Rust Syntax",
+    "version": "0.6.1",
+    "description": "Improved Rust syntax highlighting",
+    "publisher": "dustypomerleau",
+    "homepage": "https://github.com/dustypomerleau/rust-syntax",
+    "author": {
+        "name": "dustypomerleau"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dustypomerleau/rust-syntax"
+    },
+    "bugs": {
+        "url": "https://github.com/dustypomerleau/rust-syntax/issues"
+    },
+    "license": "Please see LICENSE.txt",
+    "galleryBanner": {
+        "color": "#292d3e",
+        "theme": "dark"
+    },
+    "icon": "images/icon.png",
+    "categories": [
+        "Programming Languages"
+    ],
+    "keywords": [
+        "rust",
+        "language",
+        "syntax",
+        "grammar",
+        "highlighting"
+    ],
+    "contributes": {
+        "grammars": [
+            {
+                "language": "rust",
+                "scopeName": "source.rust",
+                "path": "./syntaxes/rust.tmLanguage.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-yaml": "^2.0.4",
+        "js-yaml": "^4.1.0",
+        "vsce": "^2.9.2",
+        "vscode-tmgrammar-test": "^0.1.1"
+    },
+    "engines": {
+        "vscode": "^1.44.0"
+    }
 }
