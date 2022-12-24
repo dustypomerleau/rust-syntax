@@ -118,54 +118,6 @@
             }
         },
         {
-            "comment": "attributes",
-            "name": "meta.attribute.rust",
-            "begin": "(#)(\\!?)(\\[)",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.definition.attribute.rust"
-                },
-                "2": {
-                    "name": "keyword.operator.attribute.inner.rust"
-                },
-                "3": {
-                    "name": "punctuation.brackets.attribute.rust"
-                }
-            },
-            "end": "\\]",
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.brackets.attribute.rust"
-                }
-            },
-            "patterns": [
-                {
-                    "include": "#block-comments"
-                },
-                {
-                    "include": "#comments"
-                },
-                {
-                    "include": "#keywords"
-                },
-                {
-                    "include": "#lifetimes"
-                },
-                {
-                    "include": "#punctuation"
-                },
-                {
-                    "include": "#strings"
-                },
-                {
-                    "include": "#gtypes"
-                },
-                {
-                    "include": "#types"
-                }
-            ]
-        },
-        {
             "comment": "modules",
             "match": "(mod)\\s+((?:r#(?!crate|[Ss]elf|super))?[a-z][A-Za-z0-9_]*)",
             "captures": {
@@ -254,6 +206,9 @@
         },
         {
             "include": "#comments"
+        },
+        {
+            "include": "#attributes"
         },
         {
             "include": "#lvariables"
@@ -438,6 +393,51 @@
                 }
             }
         },
+        "attributes": {
+            "comment": "attributes",
+            "name": "meta.attribute.rust",
+            "begin": "(#)(\\!?)(\\[)",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.attribute.rust"
+                },
+                "3": {
+                    "name": "punctuation.brackets.attribute.rust"
+                }
+            },
+            "end": "\\]",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.brackets.attribute.rust"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#block-comments"
+                },
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#keywords"
+                },
+                {
+                    "include": "#lifetimes"
+                },
+                {
+                    "include": "#punctuation"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#gtypes"
+                },
+                {
+                    "include": "#types"
+                }
+            ]
+        },
         "functions": {
             "patterns": [
                 {
@@ -547,6 +547,9 @@
                             "include": "#comments"
                         },
                         {
+                            "include": "#attributes"
+                        },
+                        {
                             "include": "#keywords"
                         },
                         {
@@ -605,6 +608,9 @@
                         },
                         {
                             "include": "#comments"
+                        },
+                        {
+                            "include": "#attributes"
                         },
                         {
                             "include": "#keywords"
