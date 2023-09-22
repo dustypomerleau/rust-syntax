@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: run Textmate scope tests
-        run: npx vscode-tmgrammar-test -s source.rust -g syntaxes/rust.tmLanguage.json -t "test/**/*.rs"
+        run: npx vscode-tmgrammar-test@0.0.11 -s source.rust -g syntaxes/rust.tmLanguage.json -t "test/**/*.rs"
   build:
     runs-on: ubuntu-latest
     steps:
