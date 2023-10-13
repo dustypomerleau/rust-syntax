@@ -549,7 +549,7 @@ repository:
             name: entity.name.type.numeric.rust
       -
         comment: parameterized types
-        begin: \b([A-Z][A-Za-z0-9]*)(<)
+        begin: \b(_?[A-Z][A-Za-z0-9_]*)(<)
         beginCaptures:
           1:
             name: entity.name.type.rust
@@ -574,7 +574,7 @@ repository:
         match: \b(bool|char|str)\b
       -
         comment: trait declarations
-        match: \b(trait)\s+([A-Z][A-Za-z0-9]*)\b
+        match: \b(trait)\s+(_?[A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
             name: keyword.declaration.trait.rust storage.type.rust
@@ -583,7 +583,7 @@ repository:
       # todo: add a specific case for struct fields so they can have different scope than variables - make sure not to catch namespaces
       -
         comment: struct declarations
-        match: \b(struct)\s+([A-Z][A-Za-z0-9]*)\b
+        match: \b(struct)\s+(_?[A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
             name: keyword.declaration.struct.rust storage.type.rust
@@ -591,7 +591,7 @@ repository:
             name: entity.name.type.struct.rust
       -
         comment: enum declarations
-        match: \b(enum)\s+([A-Z][A-Za-z0-9_]*)\b
+        match: \b(enum)\s+(_?[A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
             name: keyword.declaration.enum.rust storage.type.rust
@@ -599,7 +599,7 @@ repository:
             name: entity.name.type.enum.rust
       -
         comment: type declarations
-        match: \b(type)\s+([A-Z][A-Za-z0-9_]*)\b
+        match: \b(type)\s+(_?[A-Z][A-Za-z0-9_]*)\b
         captures:
           1:
             name: keyword.declaration.type.rust storage.type.rust
@@ -608,7 +608,7 @@ repository:
       -
         comment: types
         name: entity.name.type.rust
-        match: '\b[A-Z][A-Za-z0-9]*\b(?!!)'
+        match: '\b_?[A-Z][A-Za-z0-9_]*\b(?!!)'
   gtypes:
     patterns:
       -
