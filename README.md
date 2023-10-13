@@ -1,10 +1,22 @@
 # Rust Syntax
 
-This extension provides a TextMate grammar for Rust. In most cases, you won't need to install the extension, as this repository is upstreamed by VS Code (issues and PRs should be submitted here).
+This extension provides a TextMate grammar for Rust. This grammar is
+used for VS Code's built-in Rust syntax highlighting
+([source](https://github.com/microsoft/vscode/blob/main/extensions/rust/syntaxes/rust.tmLanguage.json)).
 
-If you are doing a significant amount of Rust programming, the semantic highlighting provided by [Rust Analyzer][] will be superior to a textmate grammar. For example, semantic highlighting can easily distinguish enums, structs, and traits.
+Issues and PRs should be submitted here, and [VS Code syncs this repo regularly](https://github.com/microsoft/vscode/pull/194758#issuecomment-1748526176).
 
-Rust Syntax is compatible with Rust Analyzer, but the scopes provided by this extension will not be visible while semantic highlighting is enabled. If for some reason you would like to disable semantic highlighting, you can do this in your `settings.json`:
+The semantic highlighting provided by [Rust
+Analyzer](https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer)
+is more precise than this grammar. For example, semantic highlighting can easily
+distinguish enums, structs, and traits.
+
+For best results, install Rust Analyzer to benefit from both.
+
+Rust Syntax is compatible with Rust Analyzer, but the scopes provided
+by this extension will not be visible while semantic highlighting is
+enabled. If for some reason you would like to disable semantic
+highlighting, you can do this in your `settings.json`:
 
 ```json
 "[rust]": {
@@ -38,6 +50,7 @@ The VS Code command `Developer: Inspect Editor Tokens and Scopes` will show you 
 ## Contributing
 
 The grammar is maintained as YAML, using tasks to generate JSON on save (please don't edit the JSON grammar directly).
-You can regenerate the JSON manually from the command palette using `Tasks: Run Build Task`.
+You can regenerate the JSON manually from the command palette using
+`Tasks: Run Build Task`, or running `gulp yaml` in a terminal.
 
 [Rust Analyzer]: https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer
