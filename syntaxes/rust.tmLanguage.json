@@ -253,7 +253,14 @@
                 {
                     "comment": "documentation comments",
                     "name": "comment.line.documentation.rust",
-                    "match": "^\\s*///.*"
+                    "begin": "^\\s*//(/|!)",
+                    "while": "^\\s*//(/|!)",
+                    "contentName": "meta.embedded.block.markdown",
+                    "patterns": [
+                        {
+                            "include": "text.html.markdown"
+                        }
+                    ]
                 },
                 {
                     "comment": "line comments",
@@ -272,11 +279,15 @@
                 {
                     "comment": "block documentation comments",
                     "name": "comment.block.documentation.rust",
-                    "begin": "/\\*\\*",
-                    "end": "\\*/",
+					"begin": "/\\*(\\*|!)",
+					"end": "\\s*\\*/",
+                    "contentName": "meta.embedded.block.markdown",
                     "patterns": [
                         {
                             "include": "#block-comments"
+                        },
+                        {
+                            "include": "text.html.markdown"
                         }
                     ]
                 },
