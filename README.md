@@ -50,7 +50,15 @@ The VS Code command `Developer: Inspect Editor Tokens and Scopes` will show you 
 ## Contributing
 
 The grammar is maintained as YAML, using tasks to generate JSON on save (please don't edit the JSON grammar directly).
-You can regenerate the JSON manually from the command palette using
-`Tasks: Run Build Task`, or running `gulp yaml` in a terminal.
 
-[Rust Analyzer]: https://marketplace.visualstudio.com/items?itemName=matklad.rust-analyzer
+```sh
+npm install
+
+# Watch for changes of YAML files and regenerate JSON
+npm start
+
+# Run tests
+npm test
+```
+
+If you are using VS Code, you can use the `Tasks: Run Build Task` command from the command palette to run the gulp task. And you can use the `Tasks: Run Test Task` command to run the tests.

@@ -24,8 +24,9 @@
     },
     {
       "label": "Test TM scopes",
-      "type": "shell",
-      "command": "npx vscode-tmgrammar-test -c -s source.rust -g syntaxes/rust.tmLanguage.json -t \"test/**/*.rs\"",
+      "type": "npm",
+      "script": "test",
+      "detail": "npm run test-TM-scope",
       "group": {
         "kind": "test",
         "isDefault": true
