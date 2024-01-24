@@ -8,6 +8,11 @@
     "author": {
         "name": "dustypomerleau"
     },
+    "scripts": {
+        "start": "npx gulp watch-yaml",
+        "test": "npm run test-TM-scope",
+        "test-TM-scope": "npx vscode-tmgrammar-test \"./test/**/test*.rs\" --compact --grammar ./syntaxes/rust.tmLanguage.json"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/dustypomerleau/rust-syntax"
