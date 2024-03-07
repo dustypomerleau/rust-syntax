@@ -707,7 +707,7 @@
                 {
                     "comment": "other keywords",
                     "name": "keyword.other.rust",
-                    "match": "\\b(as|async|become|box|dyn|move|final|impl|in|override|priv|pub|ref|typeof|union|unsafe|unsized|use|virtual|where)\\b"
+                    "match": "\\b(as|async|become|box|dyn|move|final|gen|impl|in|override|priv|pub|ref|typeof|union|unsafe|unsized|use|virtual|where)\\b"
                 },
                 {
                     "comment": "fn",
