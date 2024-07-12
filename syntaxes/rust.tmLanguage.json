@@ -818,7 +818,7 @@
                 {
                     "comment": "dashrocket, skinny arrow",
                     "name": "keyword.operator.arrow.skinny.rust",
-                    "match": "->"
+                    "match": "->|<-"
                 },
                 {
                     "comment": "hashrocket, fat arrow",
