@@ -282,10 +282,12 @@ repository:
             name: punctuation.brackets.round.rust
           5:
             name: punctuation.brackets.angle.rust
-        end: \{|;
+        end: (\{)|(;)
         endCaptures:
-          0:
+          1:
             name: punctuation.brackets.curly.rust
+          2:
+            name: punctuation.semi.rust
         patterns:
           - include: '#block-comments'
           - include: '#comments'
