@@ -46,3 +46,44 @@ let x6 = 1.123E-12;
 //            ^ keyword.operator.exponent.rust
 //             ^ keyword.operator.exponent.sign.rust
 //              ^^ constant.numeric.decimal.exponent.mantissa.rust
+
+// macro metavarables
+macro_rules! metavariable_test {
+    ($var:tt $Type:ty $var : tt $Type :ty) => {};
+//   ^^^^^^^          ^^^^^^^^^             meta.macro.metavariable.rust
+//           ^^^^^^^^           ^^^^^^^^^   meta.macro.metavariable.type.rust
+//   ^       ^        ^         ^           keyword.operator.macro.dollar.rust
+//    ^^^              ^^^                  variable.other.metavariable.name.rust
+//            ^^^^               ^^^^       entity.name.type.metavariable.rust
+//       ^        ^        ^          ^     keyword.operator.key-value.rust
+//        ^^       ^^        ^^        ^^   variable.other.metavariable.specifier.rust
+    ($var:pat_param $Var:pat_param) => {};
+//   ^^^^^^^^^^^^^^                         meta.macro.metavariable.rust
+//                  ^^^^^^^^^^^^^^          meta.macro.metavariable.type.rust
+//   ^              ^                       keyword.operator.macro.dollar.rust
+//    ^^^                                   variable.other.metavariable.name.rust
+//                   ^^^                    entity.name.type.metavariable.rust
+//       ^              ^                   keyword.operator.key-value.rust
+//        ^^^^^^^^^      ^^^^^^^^^          variable.other.metavariable.specifier.rust
+    ($var: expr_2021 $Var: expr_2021) => {};
+//   ^^^^^^^^^^^^^^^                        meta.macro.metavariable.rust
+//                   ^^^^^^^^^^^^^^^        meta.macro.metavariable.type.rust
+//   ^               ^                      keyword.operator.macro.dollar.rust
+//    ^^^                                   variable.other.metavariable.name.rust
+//                    ^^^                   entity.name.type.metavariable.rust
+//       ^               ^                  keyword.operator.key-value.rust
+//         ^^^^^^^^^       ^^^^^^^^^        variable.other.metavariable.specifier.rust
+    () => { $var $Type $crate };
+//          ^^^^                            meta.macro.metavariable.rust
+//               ^^^^^ ^^^^^^               meta.macro.metavariable.type.rust
+//              ^     ^      ^              - meta.macro.metavariable.rust meta.macro.metavariable.type.rust
+//          ^    ^     ^                    keyword.operator.macro.dollar.rust
+//           ^^^                            variable.other.metavariable.name.rust
+//                ^^^^                      entity.name.type.metavariable.rust
+//                      ^^^^^               keyword.other.crate.rust
+    () => { $var: not_a_specifier };
+//          ^^^^                            meta.macro.metavariable.rust
+//          ^                               keyword.operator.macro.dollar.rust
+//           ^^^                            variable.other.metavariable.name.rust
+//              ^^^^^^^^^^^^^^^^^           - meta.macro.metavariable.rust
+}
