@@ -237,6 +237,46 @@ repository:
         name: constant.character.escape.unicode.punctuation.rust
       5:
         name: constant.character.escape.unicode.punctuation.rust
+  attribute-inner:
+    patterns:
+      - begin: '\('
+        beginCaptures:
+          0:
+            name: punctuation.brackets.round.rust
+        end: '\)'
+        endCaptures:
+          0:
+            name: punctuation.brackets.round.rust
+        patterns:
+          - include: '#attribute-inner'
+      - begin: '\['
+        beginCaptures:
+          0:
+            name: punctuation.brackets.square.rust
+        end: '\]'
+        endCaptures:
+          0:
+            name: punctuation.brackets.square.rust
+        patterns:
+          - include: '#attribute-inner'
+      - begin: '\{'
+        beginCaptures:
+          0:
+            name: punctuation.brackets.curly.rust
+        end: '\}'
+        endCaptures:
+          0:
+            name: punctuation.brackets.curly.rust
+        patterns:
+          - include: '#attribute-inner'
+      - include: '#block-comments'
+      - include: '#comments'
+      - include: '#keywords'
+      - include: '#lifetimes'
+      - include: '#punctuation'
+      - include: '#strings'
+      - include: '#gtypes'
+      - include: '#types'
   attributes:
     comment: attributes
     name: meta.attribute.rust
@@ -251,14 +291,7 @@ repository:
       0:
         name: punctuation.brackets.attribute.rust
     patterns:
-      - include: '#block-comments'
-      - include: '#comments'
-      - include: '#keywords'
-      - include: '#lifetimes'
-      - include: '#punctuation'
-      - include: '#strings'
-      - include: '#gtypes'
-      - include: '#types'
+      - include: '#attribute-inner'
   functions:
     patterns:
       -
