@@ -10,6 +10,8 @@
     },
     "scripts": {
         "start": "npx gulp watch-yaml",
+        "build": "npx gulp yaml",
+        "pretest": "npm run build",
         "test": "npm run test-TM-scope",
         "test-TM-scope": "npx vscode-tmgrammar-test \"./test/**/test*.rs\" --compact --grammar ./syntaxes/rust.tmLanguage.json"
     },
