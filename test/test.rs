@@ -87,3 +87,55 @@ macro_rules! metavariable_test {
 //           ^^^                            variable.other.metavariable.name.rust
 //              ^^^^^^^^^^^^^^^^^           - meta.macro.metavariable.rust
 }
+
+// static
+static FOO: i32;
+// <------          storage.type.rust
+//     ^^^          constant.other.caps.rust
+safe static FOO: i32;
+// <----            keyword.other.safety.rust
+//   ^^^^^^         storage.type.rust
+//          ^^^     constant.other.caps.rust
+unsafe static FOO: i32;
+// <------          keyword.other.safety.rust
+//     ^^^^^^       storage.type.rust
+//            ^^^   constant.other.caps.rust
+
+// unions
+union Foo {
+// <-----   keyword.declaration.union.rust
+//    ^^^   entity.name.type.union.rust
+}
+
+// borrows
+let x = &y;
+//      ^       keyword.operator.borrow.and.rust
+//       ^      variable.other.rust
+
+// borrows
+let x = &mut y;
+//      ^^^^        keyword.operator.borrow.and.rust
+//       ^^^        storage.modifier.mut.rust
+//           ^      variable.other.rust
+
+let x = &raw const y;
+//      ^^^^^^^^^^      keyword.operator.borrow.and.rust
+//       ^^^            storage.modifier.raw.rust
+//           ^^^^^      storage.modifier.const.rust
+//                 ^    variable.other.rust
+
+let x = &raw mut y;
+//      ^^^^^^^^        keyword.operator.borrow.and.rust
+//       ^^^            storage.modifier.raw.rust
+//           ^^^        storage.modifier.mut.rust
+//               ^      variable.other.rust
+
+// weak keywords used as variables
+let raw = raw;
+//  ^^^   ^^^       variable.other.rust - storage.modifier.raw.rust
+
+let safe = safe;
+//  ^^^^   ^^^^     variable.other.rust - keyword.other.safety.rust
+
+let union = union;
+//  ^^^^^   ^^^^^   variable.other.rust - keyword.declaration.union.rust
