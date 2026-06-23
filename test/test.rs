@@ -86,4 +86,15 @@ macro_rules! metavariable_test {
 //          ^                               keyword.operator.macro.dollar.rust
 //           ^^^                            variable.other.metavariable.name.rust
 //              ^^^^^^^^^^^^^^^^^           - meta.macro.metavariable.rust
+
+    pub fn testPubModifier__01() {
+//  ^^^ storage.modifier.visibility.rust
+        let publish = 1;
+//          ^^^^^^^ - storage.modifier.visibility.rust
+        let some_str = "pub";
+//                      ^^^ - storage.modifier.visibility.rust
+    };
+
+    pub(crate) fn testPubModifier__02() {}
+//  ^^^ storage.modifier.visibility.rust
 }

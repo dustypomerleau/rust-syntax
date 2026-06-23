@@ -262,11 +262,17 @@ repository:
   functions:
     patterns:
       -
-        comment: pub as a function
+        comment: visibility modifier
+        match: \b(pub)\b
+        captures:
+          1:
+            name: storage.modifier.visibility.rust
+      -
+        comment: pub visibility modifier with restrictions
         match: \b(pub)(\()
         captures:
           1:
-            name: keyword.other.rust
+            name: storage.modifier.visibility.rust
           2:
             name: punctuation.brackets.round.rust
       -
@@ -401,7 +407,7 @@ repository:
       -
         comment: other keywords
         name: keyword.other.rust
-        match: \b(as|async|become|box|dyn|move|final|gen|impl|in|override|priv|pub|ref|typeof|union|unsafe|unsized|use|virtual|where)\b
+        match: \b(as|async|become|box|dyn|move|final|gen|impl|in|override|priv|ref|typeof|union|unsafe|unsized|use|virtual|where)\b
       -
         comment: fn
         name: keyword.other.fn.rust
