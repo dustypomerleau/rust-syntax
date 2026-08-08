@@ -312,12 +312,15 @@
                 },
                 {
                     "comment": "constant declarations",
-                    "match": "\\b(const)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+                    "match": "\\b(?:(safe|unsafe)\\s+)?(const|static)\\s+([A-Z][A-Za-z0-9_]*)\\b",
                     "captures": {
                         "1": {
-                            "name": "storage.type.rust"
+                            "name": "keyword.other.safety.rust"
                         },
                         "2": {
+                            "name": "storage.type.rust"
+                        },
+                        "3": {
                             "name": "constant.other.caps.rust"
                         }
                     }
@@ -465,18 +468,21 @@
                 {
                     "comment": "function definition",
                     "name": "meta.function.definition.rust",
-                    "begin": "\\b(fn)\\s+((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)((\\()|(<))",
+                    "begin": "\\b(?:(safe|unsafe)\\s+)?(fn)\\s+((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)((\\()|(<))",
                     "beginCaptures": {
                         "1": {
-                            "name": "keyword.other.fn.rust"
+                            "name": "keyword.other.safety.rust"
                         },
                         "2": {
+                            "name": "keyword.other.fn.rust"
+                        },
+                        "3": {
                             "name": "entity.name.function.rust"
                         },
-                        "4": {
+                        "5": {
                             "name": "punctuation.brackets.round.rust"
                         },
-                        "5": {
+                        "6": {
                             "name": "punctuation.brackets.angle.rust"
                         }
                     },
@@ -710,7 +716,7 @@
                 {
                     "comment": "other keywords",
                     "name": "keyword.other.rust",
-                    "match": "\\b(as|async|become|box|dyn|move|final|gen|impl|in|override|priv|pub|ref|typeof|union|unsafe|unsized|use|virtual|where)\\b"
+                    "match": "\\b(as|async|become|box|dyn|move|final|gen|impl|in|override|priv|pub|ref|typeof|unsafe|unsized|use|virtual|where)\\b"
                 },
                 {
                     "comment": "fn",
@@ -733,9 +739,20 @@
                     "match": "(\\^|\\||\\|\\||&&|<<|>>|!)(?!=)"
                 },
                 {
-                    "comment": "logical AND, borrow references",
+                    "comment": "bitwise AND, borrow references",
                     "name": "keyword.operator.borrow.and.rust",
-                    "match": "&(?![&=])"
+                    "match": "&(?![&=])(?:\\s*(raw)\\b)?(?:\\s*(?:(const)|(mut))\\b)?",
+                    "captures": {
+                        "1": {
+                            "name": "storage.modifier.raw.rust"
+                        },
+                        "2": {
+                            "name": "storage.modifier.const.rust"
+                        },
+                        "3": {
+                            "name": "storage.modifier.mut.rust"
+                        }
+                    }
                 },
                 {
                     "comment": "assignment operators",
@@ -1022,6 +1039,18 @@
                         },
                         "2": {
                             "name": "entity.name.type.declaration.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "union declarations",
+                    "match": "\\b(union)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.declaration.union.rust storage.type.rust"
+                        },
+                        "2": {
+                            "name": "entity.name.type.union.rust"
                         }
                     }
                 },
