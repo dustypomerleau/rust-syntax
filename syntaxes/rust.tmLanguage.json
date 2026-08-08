@@ -403,25 +403,65 @@
                 }
             }
         },
-        "attributes": {
-            "comment": "attributes",
-            "name": "meta.attribute.rust",
-            "begin": "(#)(\\!?)(\\[)",
-            "beginCaptures": {
-                "1": {
-                    "name": "punctuation.definition.attribute.rust"
-                },
-                "3": {
-                    "name": "punctuation.brackets.attribute.rust"
-                }
-            },
-            "end": "\\]",
-            "endCaptures": {
-                "0": {
-                    "name": "punctuation.brackets.attribute.rust"
-                }
-            },
+        "attribute-inner": {
             "patterns": [
+                {
+                    "begin": "\\(",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.round.rust"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.round.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#attribute-inner"
+                        }
+                    ]
+                },
+                {
+                    "begin": "\\[",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.square.rust"
+                        }
+                    },
+                    "end": "\\]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.square.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#attribute-inner"
+                        }
+                    ]
+                },
+                {
+                    "begin": "\\{",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.curly.rust"
+                        }
+                    },
+                    "end": "\\}",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.brackets.curly.rust"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#attribute-inner"
+                        }
+                    ]
+                },
                 {
                     "include": "#block-comments"
                 },
@@ -445,6 +485,30 @@
                 },
                 {
                     "include": "#types"
+                }
+            ]
+        },
+        "attributes": {
+            "comment": "attributes",
+            "name": "meta.attribute.rust",
+            "begin": "(#)(\\!?)(\\[)",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.definition.attribute.rust"
+                },
+                "3": {
+                    "name": "punctuation.brackets.attribute.rust"
+                }
+            },
+            "end": "\\]",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.brackets.attribute.rust"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#attribute-inner"
                 }
             ]
         },
