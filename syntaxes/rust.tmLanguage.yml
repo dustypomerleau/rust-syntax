@@ -615,6 +615,7 @@ repository:
           - include: '#keywords'
           - include: '#lvariables'
           - include: '#lifetimes'
+          - include: '#namespaces'
           - include: '#punctuation'
           - include: '#types'
           - include: '#variables'
