@@ -5,22 +5,21 @@ on:
   pull_request:
     branches: [main, dev]
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: run Textmate scope tests
-        # use the same version of vscode-tmgrammar-test as in package.lock.json
-        run: npx vscode-tmgrammar-test@0.1.1 "./test/**/*.rs" --compact --grammar ./syntaxes/rust.tmLanguage.json
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
       - name: install dependencies
         run: npm ci
+      - name: run TextMate scope tests
+        run: npm test
       - name: check generated grammar is up to date
         run: |
-          npx gulp yaml
+          npx --no-install gulp yaml
           git diff --exit-code -- syntaxes/rust.tmLanguage.json
       - name: package extension
-        run: npx vsce package
+        run: npx --no-install vsce package
