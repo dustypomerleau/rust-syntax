@@ -14,38 +14,66 @@ extern crate std;
 // decimal floats test
 let x1 = 1.123e12;
 //       ^^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ constant.numeric.decimal.exponent.mantissa.rust
 //        ^ punctuation.separator.dot.decimal.rust
 //            ^ keyword.operator.exponent.rust
-//             ^^ constant.numeric.decimal.exponent.mantissa.rust
 let x2 = 1.123e+12;
 //       ^^^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ constant.numeric.decimal.exponent.mantissa.rust
 //        ^ punctuation.separator.dot.decimal.rust
 //            ^ keyword.operator.exponent.rust
 //             ^ keyword.operator.exponent.sign.rust
-//              ^^ constant.numeric.decimal.exponent.mantissa.rust
 let x3 = 1.123e-12;
 //       ^^^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ constant.numeric.decimal.exponent.mantissa.rust
 //        ^ punctuation.separator.dot.decimal.rust
 //            ^ keyword.operator.exponent.rust
 //             ^ keyword.operator.exponent.sign.rust
-//              ^^ constant.numeric.decimal.exponent.mantissa.rust
 let x4 = 1.123E12;
 //       ^^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ constant.numeric.decimal.exponent.mantissa.rust
 //        ^ punctuation.separator.dot.decimal.rust
 //            ^ keyword.operator.exponent.rust
-//             ^^ constant.numeric.decimal.exponent.mantissa.rust
 let x5 = 1.123E+12;
 //       ^^^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ constant.numeric.decimal.exponent.mantissa.rust
 //        ^ punctuation.separator.dot.decimal.rust
 //            ^ keyword.operator.exponent.rust
 //             ^ keyword.operator.exponent.sign.rust
-//              ^^ constant.numeric.decimal.exponent.mantissa.rust
 let x6 = 1.123E-12;
 //       ^^^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ constant.numeric.decimal.exponent.mantissa.rust
 //        ^ punctuation.separator.dot.decimal.rust
 //            ^ keyword.operator.exponent.rust
 //             ^ keyword.operator.exponent.sign.rust
-//              ^^ constant.numeric.decimal.exponent.mantissa.rust
+
+// decimal literals without exponents
+let x7 = 42usize;
+//       ^^^^^^^ constant.numeric.decimal.rust
+//       ^^^^^^^ - constant.numeric.decimal.exponent.mantissa.rust
+//       ^^^^^^^ - keyword.operator.exponent.rust
+//         ^^^^^ storage.type.numeric.rust
+let x8 = 1.25;
+//       ^^^^ constant.numeric.decimal.rust
+//       ^^^^ - constant.numeric.decimal.exponent.mantissa.rust
+//        ^ punctuation.separator.dot.decimal.rust
+let x9 = 42f32;
+//       ^^^^^ constant.numeric.decimal.rust
+//       ^^^^^ - constant.numeric.decimal.exponent.mantissa.rust
+//         ^^^ storage.type.numeric.rust
+
+// decimal literals with exponents
+let x10 = 42e2;
+//        ^^^^ constant.numeric.decimal.rust
+//        ^^ constant.numeric.decimal.exponent.mantissa.rust
+//          ^ keyword.operator.exponent.rust
+let x11 = 1.25e-4f64;
+//        ^^^^^^^^^^ constant.numeric.decimal.rust
+//        ^^^^ constant.numeric.decimal.exponent.mantissa.rust
+//         ^ punctuation.separator.dot.decimal.rust
+//            ^ keyword.operator.exponent.rust
+//             ^ keyword.operator.exponent.sign.rust
+//               ^^^ storage.type.numeric.rust
 
 // macro metavarables
 macro_rules! metavariable_test {
