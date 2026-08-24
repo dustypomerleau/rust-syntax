@@ -6,13 +6,13 @@
 //        ^ punctuation.brackets.round.rust
 //         ^^^^ variable.other.rust
 //             ^ keyword.operator.key-value.rust
-//               ^^^ entity.name.type.numeric.rust
+//               ^^^ storage.type.numeric.rust
 //                  ^ punctuation.comma.rust
 //                    ^^^^^ variable.other.rust
 //                         ^ keyword.operator.key-value.rust
-//                           ^^^ entity.name.type.numeric.rust
+//                           ^^^ storage.type.numeric.rust
 //                                ^^ keyword.operator.arrow.skinny.rust
-//                                   ^^^ entity.name.type.numeric.rust
+//                                   ^^^ storage.type.numeric.rust
 //                                       ^ punctuation.brackets.curly.rust
         left + right
 //      ^^^^ variable.other.rust
