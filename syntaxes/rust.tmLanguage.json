@@ -323,23 +323,46 @@
                     }
                 },
                 {
-                    "comment": "decimal integers and floats",
+                    "comment": "decimal floats with exponents",
                     "name": "constant.numeric.decimal.rust",
-                    "match": "\\b\\d[\\d_]*(\\.?)[\\d_]*(?:(E|e)([+-]?)([\\d_]+))?(f16|f32|f64|f128|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+                    "match": "\\b(\\d[\\d_]*(?:(\\.)[\\d_]*)?)(E|e)([+-]?)([\\d_]+)(f16|f32|f64|f128)?\\b",
+                    "captures": {
+                        "1": {
+                            "name": "constant.numeric.decimal.exponent.mantissa.rust"
+                        },
+                        "2": {
+                            "name": "punctuation.separator.dot.decimal.rust"
+                        },
+                        "3": {
+                            "name": "keyword.operator.exponent.rust"
+                        },
+                        "4": {
+                            "name": "keyword.operator.exponent.sign.rust"
+                        },
+                        "6": {
+                            "name": "storage.type.numeric.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "decimal floats without exponents",
+                    "name": "constant.numeric.decimal.rust",
+                    "match": "\\b(?=[\\d_]*(?:\\.[\\d_]+|f(?:16|32|64|128)\\b))\\d[\\d_]*(\\.?)[\\d_]*(f16|f32|f64|f128)?\\b",
                     "captures": {
                         "1": {
                             "name": "punctuation.separator.dot.decimal.rust"
                         },
                         "2": {
-                            "name": "keyword.operator.exponent.rust"
-                        },
-                        "3": {
-                            "name": "keyword.operator.exponent.sign.rust"
-                        },
-                        "4": {
-                            "name": "constant.numeric.decimal.exponent.mantissa.rust"
-                        },
-                        "5": {
+                            "name": "storage.type.numeric.rust"
+                        }
+                    }
+                },
+                {
+                    "comment": "decimal integers",
+                    "name": "constant.numeric.decimal.rust",
+                    "match": "\\b\\d[\\d_]*(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
+                    "captures": {
+                        "1": {
                             "name": "storage.type.numeric.rust"
                         }
                     }
