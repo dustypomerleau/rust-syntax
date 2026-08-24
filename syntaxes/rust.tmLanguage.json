@@ -340,7 +340,7 @@
                             "name": "constant.numeric.decimal.exponent.mantissa.rust"
                         },
                         "5": {
-                            "name": "entity.name.type.numeric.rust"
+                            "name": "storage.type.numeric.rust"
                         }
                     }
                 },
@@ -350,7 +350,7 @@
                     "match": "\\b0x[\\da-fA-F_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
                     "captures": {
                         "1": {
-                            "name": "entity.name.type.numeric.rust"
+                            "name": "storage.type.numeric.rust"
                         }
                     }
                 },
@@ -360,7 +360,7 @@
                     "match": "\\b0o[0-7_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
                     "captures": {
                         "1": {
-                            "name": "entity.name.type.numeric.rust"
+                            "name": "storage.type.numeric.rust"
                         }
                     }
                 },
@@ -370,7 +370,7 @@
                     "match": "\\b0b[01_]+(i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)?\\b",
                     "captures": {
                         "1": {
-                            "name": "entity.name.type.numeric.rust"
+                            "name": "storage.type.numeric.rust"
                         }
                     }
                 },
@@ -960,7 +960,7 @@
                     "match": "(?<![A-Za-z])(f32|f64|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
                     "captures": {
                         "1": {
-                            "name": "entity.name.type.numeric.rust"
+                            "name": "storage.type.numeric.rust"
                         }
                     }
                 },
@@ -1010,7 +1010,7 @@
                 },
                 {
                     "comment": "primitive types",
-                    "name": "entity.name.type.primitive.rust",
+                    "name": "storage.type.primitive.rust",
                     "match": "\\b(bool|char|str)\\b"
                 },
                 {
