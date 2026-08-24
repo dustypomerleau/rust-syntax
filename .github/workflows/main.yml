@@ -16,5 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: install dependencies
+        run: npm ci
+      - name: check generated grammar is up to date
+        run: |
+          npx gulp yaml
+          git diff --exit-code -- syntaxes/rust.tmLanguage.json
       - name: package extension
         run: npx vsce package
