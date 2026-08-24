@@ -237,6 +237,21 @@ repository:
         name: constant.character.escape.unicode.punctuation.rust
       5:
         name: constant.character.escape.unicode.punctuation.rust
+  c-string-escapes:
+    comment: C string escapes
+    name: constant.character.escape.rust
+    match: (\\)(?:(?:(x[\da-fA-F]{2})|(u(\{)(?:[\da-fA-F]_*){1,6}(\}))|.))
+    captures:
+      1:
+        name: constant.character.escape.backslash.rust
+      2:
+        name: constant.character.escape.bit.rust
+      3:
+        name: constant.character.escape.unicode.rust
+      4:
+        name: constant.character.escape.unicode.punctuation.rust
+      5:
+        name: constant.character.escape.unicode.punctuation.rust
   attributes:
     comment: attributes
     name: meta.attribute.rust
@@ -662,6 +677,38 @@ repository:
         match: '(?<!=)[<>]'
   strings:
     patterns:
+      -
+        comment: C strings
+        name: string.quoted.double.c.rust
+        begin: '(c)(")'
+        beginCaptures:
+          1:
+            name: string.quoted.c.rust
+          2:
+            name: punctuation.definition.string.rust
+        end: '"'
+        endCaptures:
+          0:
+            name: punctuation.definition.string.rust
+        patterns:
+          - include: '#c-string-escapes'
+      -
+        comment: raw C strings
+        name: string.quoted.double.c.raw.rust
+        begin: '(cr)(#*)(")'
+        beginCaptures:
+          1:
+            name: string.quoted.c.raw.rust
+          2:
+            name: punctuation.definition.string.raw.rust
+          3:
+            name: punctuation.definition.string.rust
+        end: '(")(\2)'
+        endCaptures:
+          1:
+            name: punctuation.definition.string.rust
+          2:
+            name: punctuation.definition.string.raw.rust
       -
         comment: double-quoted strings and byte strings
         name: string.quoted.double.rust
