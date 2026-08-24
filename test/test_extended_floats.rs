@@ -2,7 +2,7 @@
 
     let half = 1.5f16;
 //             ^^^^^^ constant.numeric.decimal.rust
-//                ^^^ entity.name.type.numeric.rust
+//                ^^^ storage.type.numeric.rust
     let quad: f128 = 1f128;
-//            ^^^^ entity.name.type.numeric.rust
+//            ^^^^ storage.type.numeric.rust
 //                   ^^^^^ constant.numeric.decimal.rust
