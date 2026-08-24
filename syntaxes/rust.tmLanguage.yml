@@ -423,7 +423,11 @@ repository:
       -
         comment: logical operators
         name: keyword.operator.logical.rust
-        match: (\^|\||\|\||&&|<<|>>|!)(?!=)
+        match: (\|\||&&|!)(?!=)
+      -
+        comment: bitwise operators
+        name: keyword.operator.bitwise.rust
+        match: (<<|>>|\^|\|(?!\|))(?!=)
       -
         comment: logical AND, borrow references
         name: keyword.operator.borrow.and.rust
