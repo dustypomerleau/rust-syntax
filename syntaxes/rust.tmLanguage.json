@@ -916,7 +916,7 @@
             "patterns": [
                 {
                     "comment": "named lifetime parameters",
-                    "match": "(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
+                    "match": "(['])([^\\W\\d]\\w*)(?!['])\\b",
                     "captures": {
                         "1": {
                             "name": "punctuation.definition.lifetime.rust"
@@ -928,7 +928,7 @@
                 },
                 {
                     "comment": "borrowing references to named lifetimes",
-                    "match": "(\\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
+                    "match": "(\\&)(['])([^\\W\\d]\\w*)(?!['])\\b",
                     "captures": {
                         "1": {
                             "name": "keyword.operator.borrow.rust"
