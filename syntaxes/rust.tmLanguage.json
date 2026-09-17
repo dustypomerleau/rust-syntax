@@ -50,7 +50,7 @@
         {
             "comment": "macro type metavariables",
             "name": "meta.macro.metavariable.type.rust",
-            "match": "(\\$)((crate)|([A-Z]\\w*))(\\s*(:)\\s*(block|expr(?:_2021)?|ident|item|lifetime|literal|meta|pat(?:_param)?|path|stmt|tt|ty|vis)\\b)?",
+            "match": "(\\$)((crate)|([\\p{Lu}\\p{Lt}]\\w*))(\\s*(:)\\s*(block|expr(?:_2021)?|ident|item|lifetime|literal|meta|pat(?:_param)?|path|stmt|tt|ty|vis)\\b)?",
             "captures": {
                 "1": {
                     "name": "keyword.operator.macro.dollar.rust"
@@ -77,7 +77,7 @@
         {
             "comment": "macro metavariables",
             "name": "meta.macro.metavariable.rust",
-            "match": "(\\$)([a-z]\\w*)(\\s*(:)\\s*(block|expr(?:_2021)?|ident|item|lifetime|literal|meta|pat(?:_param)?|path|stmt|tt|ty|vis)\\b)?",
+            "match": "(\\$)([\\p{Ll}\\p{Lo}]\\w*)(\\s*(:)\\s*(block|expr(?:_2021)?|ident|item|lifetime|literal|meta|pat(?:_param)?|path|stmt|tt|ty|vis)\\b)?",
             "captures": {
                 "1": {
                     "name": "keyword.operator.macro.dollar.rust"
@@ -101,7 +101,7 @@
         {
             "comment": "macro rules",
             "name": "meta.macro.rules.rust",
-            "match": "\\b(macro_rules!)\\s+(([a-z0-9_]+)|([A-Z][a-z0-9_]*))\\s+(\\{)",
+            "match": "\\b(macro_rules!)\\s+(([^\\W\\p{Lu}\\p{Lt}]+)|([\\p{Lu}\\p{Lt}][^\\W\\p{Lu}\\p{Lt}]*))\\s+(\\{)",
             "captures": {
                 "1": {
                     "name": "entity.name.function.macro.rules.rust"
@@ -119,7 +119,7 @@
         },
         {
             "comment": "modules",
-            "match": "(mod)\\s+((?:r#(?!crate|[Ss]elf|super))?[a-z][A-Za-z0-9_]*)",
+            "match": "(mod)\\s+((?:r#(?!crate|[Ss]elf|super))?[\\p{Ll}\\p{Lo}]\\w*)",
             "captures": {
                 "1": {
                     "name": "storage.type.rust"
@@ -308,11 +308,11 @@
                 {
                     "comment": "ALL CAPS constants",
                     "name": "constant.other.caps.rust",
-                    "match": "\\b[A-Z]{2}[A-Z0-9_]*\\b"
+                    "match": "\\b[\\p{Lu}\\p{Lt}]{2}[\\p{Lu}\\p{Lt}\\p{Nd}_]*\\b"
                 },
                 {
                     "comment": "constant declarations",
-                    "match": "\\b(const)\\s+([A-Z][A-Za-z0-9_]*)\\b",
+                    "match": "\\b(const)\\s+([\\p{Lu}\\p{Lt}]\\w*)\\b",
                     "captures": {
                         "1": {
                             "name": "storage.type.rust"
@@ -407,7 +407,7 @@
         "escapes": {
             "comment": "escapes: ASCII, byte, Unicode, quote, regex",
             "name": "constant.character.escape.rust",
-            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)[\\da-fA-F]{4,6}(\\}))|.))",
+            "match": "(\\\\)(?:(?:(x[0-7][\\da-fA-F])|(u(\\{)(?:[\\da-fA-F]_*){1,6}(\\}))|.))",
             "captures": {
                 "1": {
                     "name": "constant.character.escape.backslash.rust"
@@ -519,7 +519,7 @@
                 {
                     "comment": "function definition",
                     "name": "meta.function.definition.rust",
-                    "begin": "\\b(fn)\\s+((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)((\\()|(<))",
+                    "begin": "\\b(fn)\\s+((?:r#(?!crate|[Ss]elf|super))?\\w+)((\\()|(<))",
                     "beginCaptures": {
                         "1": {
                             "name": "keyword.other.fn.rust"
@@ -591,7 +591,7 @@
                 {
                     "comment": "function/method calls, chaining",
                     "name": "meta.function.call.rust",
-                    "begin": "((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(\\()",
+                    "begin": "((?:r#(?!crate|[Ss]elf|super))?\\w+)(\\()",
                     "beginCaptures": {
                         "1": {
                             "name": "entity.name.function.rust"
@@ -657,7 +657,7 @@
                 {
                     "comment": "function/method calls with turbofish",
                     "name": "meta.function.call.rust",
-                    "begin": "((?:r#(?!crate|[Ss]elf|super))?[A-Za-z0-9_]+)(?=::<.*>\\()",
+                    "begin": "((?:r#(?!crate|[Ss]elf|super))?\\w+)(?=::<.*>\\()",
                     "beginCaptures": {
                         "1": {
                             "name": "entity.name.function.rust"
@@ -916,7 +916,7 @@
             "patterns": [
                 {
                     "comment": "named lifetime parameters",
-                    "match": "(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
+                    "match": "(['])([^\\W\\d]\\w*)(?!['])\\b",
                     "captures": {
                         "1": {
                             "name": "punctuation.definition.lifetime.rust"
@@ -928,7 +928,7 @@
                 },
                 {
                     "comment": "borrowing references to named lifetimes",
-                    "match": "(\\&)(['])([a-zA-Z_][0-9a-zA-Z_]*)(?!['])\\b",
+                    "match": "(\\&)(['])([^\\W\\d]\\w*)(?!['])\\b",
                     "captures": {
                         "1": {
                             "name": "keyword.operator.borrow.rust"
@@ -948,7 +948,7 @@
                 {
                     "comment": "macros",
                     "name": "meta.macro.rust",
-                    "match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
+                    "match": "(([\\p{Ll}\\p{Lo}_]\\w*!)|([\\p{Lu}\\p{Lt}_]\\w*!))",
                     "captures": {
                         "2": {
                             "name": "entity.name.function.macro.rust"
@@ -964,7 +964,7 @@
             "patterns": [
                 {
                     "comment": "namespace (non-type, non-function path segment)",
-                    "match": "(?<![A-Za-z0-9_])([A-Za-z0-9_]+)((?<!super|self)::)",
+                    "match": "(?<!\\w)(\\w+)((?<!super|self)::)",
                     "captures": {
                         "1": {
                             "name": "entity.name.namespace.rust"
@@ -980,7 +980,7 @@
             "patterns": [
                 {
                     "comment": "numeric types",
-                    "match": "(?<![A-Za-z])(f16|f32|f64|f128|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
+                    "match": "(?<!\\w)(f16|f32|f64|f128|i128|i16|i32|i64|i8|isize|u128|u16|u32|u64|u8|usize)\\b",
                     "captures": {
                         "1": {
                             "name": "storage.type.numeric.rust"
@@ -989,7 +989,7 @@
                 },
                 {
                     "comment": "parameterized types",
-                    "begin": "\\b(_?[A-Z][A-Za-z0-9_]*)(<)",
+                    "begin": "\\b(_?[\\p{Lu}\\p{Lt}]\\w*)(<)",
                     "beginCaptures": {
                         "1": {
                             "name": "entity.name.type.rust"
@@ -1041,7 +1041,7 @@
                 },
                 {
                     "comment": "trait declarations",
-                    "match": "\\b(trait)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+                    "match": "\\b(trait)\\s+(_?[\\p{Lu}\\p{Lt}\\p{Lo}]\\w*)\\b",
                     "captures": {
                         "1": {
                             "name": "keyword.declaration.trait.rust storage.type.rust"
@@ -1053,7 +1053,7 @@
                 },
                 {
                     "comment": "struct declarations",
-                    "match": "\\b(struct)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+                    "match": "\\b(struct)\\s+(_?[\\p{Lu}\\p{Lt}\\p{Lo}]\\w*)\\b",
                     "captures": {
                         "1": {
                             "name": "keyword.declaration.struct.rust storage.type.rust"
@@ -1065,7 +1065,7 @@
                 },
                 {
                     "comment": "enum declarations",
-                    "match": "\\b(enum)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+                    "match": "\\b(enum)\\s+(_?[\\p{Lu}\\p{Lt}\\p{Lo}]\\w*)\\b",
                     "captures": {
                         "1": {
                             "name": "keyword.declaration.enum.rust storage.type.rust"
@@ -1077,7 +1077,7 @@
                 },
                 {
                     "comment": "type declarations",
-                    "match": "\\b(type)\\s+(_?[A-Z][A-Za-z0-9_]*)\\b",
+                    "match": "\\b(type)\\s+(_?[\\p{Lu}\\p{Lt}\\p{Lo}]\\w*)\\b",
                     "captures": {
                         "1": {
                             "name": "keyword.declaration.type.rust storage.type.rust"
@@ -1090,7 +1090,7 @@
                 {
                     "comment": "types",
                     "name": "entity.name.type.rust",
-                    "match": "\\b_?[A-Z][A-Za-z0-9_]*\\b(?!!)"
+                    "match": "\\b_?[\\p{Lu}\\p{Lt}]\\w*\\b(?!!)"
                 }
             ]
         },
@@ -1290,7 +1290,7 @@
                 {
                     "comment": "variables",
                     "name": "variable.other.rust",
-                    "match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[a-z0-9_]+\\b"
+                    "match": "\\b(?<!(?<!\\.)\\.)(?:r#(?!(crate|[Ss]elf|super)))?[^\\W\\p{Lu}\\p{Lt}]+\\b"
                 }
             ]
         }
